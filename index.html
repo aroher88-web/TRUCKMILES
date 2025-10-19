@@ -23,17 +23,17 @@
             animation: spin 1s linear infinite;
         }
         /* Custom scrollbar for modal content */
-        #modal-content::-webkit-scrollbar, .filter-modal-content::-webkit-scrollbar {
+        #modal-content::-webkit-scrollbar, .filter-modal-content::-webkit-scrollbar, #edit-modal-content::-webkit-scrollbar {
             width: 8px;
         }
-        #modal-content::-webkit-scrollbar-track, .filter-modal-content::-webkit-scrollbar-track {
+        #modal-content::-webkit-scrollbar-track, .filter-modal-content::-webkit-scrollbar-track, #edit-modal-content::-webkit-scrollbar-track {
             background: #2d3748; /* gray-800 */
         }
-        #modal-content::-webkit-scrollbar-thumb, .filter-modal-content::-webkit-scrollbar-thumb {
+        #modal-content::-webkit-scrollbar-thumb, .filter-modal-content::-webkit-scrollbar-thumb, #edit-modal-content::-webkit-scrollbar-thumb {
             background: #4a5568; /* gray-600 */
             border-radius: 4px;
         }
-        #modal-content::-webkit-scrollbar-thumb:hover, .filter-modal-content::-webkit-scrollbar-thumb:hover {
+        #modal-content::-webkit-scrollbar-thumb:hover, .filter-modal-content::-webkit-scrollbar-thumb:hover, #edit-modal-content::-webkit-scrollbar-thumb:hover {
             background: #718096; /* gray-500 */
         }
     </style>
@@ -188,7 +188,7 @@
     <div id="filter-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg filter-modal-content">
             <div class="p-4 border-b border-gray-600 flex justify-between items-center">
-                <h3 id="filter-modal-title" class="text-lg font-semibold">Filter CSV Report</h3>
+                <h3 id="filter-modal-title" class="text-lg font-semibold text-blue-400">Filter CSV Report</h3>
                 <button class="filter-close-btn text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6">
@@ -211,6 +211,37 @@
                 <button class="cancel-filter-btn bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
                 <button id="generate-filtered-csv-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Generate CSV</button>
             </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Editing a Trip -->
+    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
+            <div class="p-4 border-b border-gray-600 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
+                <button id="edit-close-btn" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+            <form id="edit-trip-form">
+                <div class="p-6 space-y-4">
+                    <input type="hidden" id="edit-trip-id">
+                    <div>
+                        <label for="edit-date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
+                        <input type="date" id="edit-date" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                    </div>
+                    <div>
+                        <label for="edit-departure" class="block text-sm font-medium text-gray-300 mb-1">Departure</label>
+                        <input type="text" id="edit-departure" placeholder="City, State" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                    </div>
+                    <div>
+                        <label for="edit-odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
+                        <input type="number" id="edit-odometer" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                    </div>
+                </div>
+                <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
+                    <button type="button" id="cancel-edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                    <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -261,6 +292,7 @@
             const exportCsvBtn = document.getElementById('export-csv-btn');
             const sharePdfBtn = document.getElementById('share-pdf-btn');
             const selectAllCheckbox = document.getElementById('select-all-checkbox');
+            // Modals
             const modal = document.getElementById('gemini-modal');
             const modalTitle = document.getElementById('modal-title');
             const modalText = document.getElementById('modal-text');
@@ -271,6 +303,10 @@
             const filterModal = document.getElementById('filter-modal');
             const filterModalTitle = document.getElementById('filter-modal-title');
             const generateFilteredCsvBtn = document.getElementById('generate-filtered-csv-btn');
+            const editModal = document.getElementById('edit-modal');
+            const editTripForm = document.getElementById('edit-trip-form');
+            const editCloseBtn = document.getElementById('edit-close-btn');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
             
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
@@ -382,7 +418,8 @@
                             <td class="px-6 py-4">${record.truckNumber}</td>
                             <td class="px-6 py-4">${record.trailerNumber}</td>
                             <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles).toLocaleString()}</td>
-                            <td class="px-6 py-4 text-center">
+                            <td class="px-6 py-4 text-center whitespace-nowrap">
+                                <button data-id="${record.id}" class="edit-btn text-yellow-500 hover:text-yellow-400 font-medium mr-4">Edit</button>
                                 <button data-id="${record.id}" class="delete-btn text-red-500 hover:text-red-400 font-medium">Delete</button>
                             </td>
                         `;
@@ -446,7 +483,7 @@
                 };
 
                 records.push(newRecord);
-                records.sort((a, b) => new Date(b.date) - new Date(a.date));
+                records.sort((a, b) => b.id - a.id); // Sort by creation timestamp
                 
                 if (shouldUpdateOdometer) {
                     vehicleInfo.initialOdometer = endingOdometer;
@@ -599,6 +636,66 @@
                 closeFilterModal();
             });
 
+            // --- Edit Modal Logic ---
+            const openEditModal = (trip) => {
+                document.getElementById('edit-trip-id').value = trip.id;
+                document.getElementById('edit-date').value = trip.date;
+                document.getElementById('edit-departure').value = trip.departure;
+                document.getElementById('edit-odometer').value = trip.odometer;
+                editModal.classList.remove('hidden');
+                editModal.classList.add('flex');
+            };
+
+            const closeEditModal = () => {
+                editModal.classList.add('hidden');
+                editModal.classList.remove('flex');
+                editTripForm.reset();
+            };
+
+            editCloseBtn.addEventListener('click', closeEditModal);
+            cancelEditBtn.addEventListener('click', closeEditModal);
+
+            editTripForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const tripId = Number(document.getElementById('edit-trip-id').value);
+                const tripIndex = records.findIndex(r => r.id === tripId);
+                
+                if (tripIndex === -1) {
+                    showNotification('Could not find trip to update.');
+                    return;
+                }
+
+                const updatedTrip = {
+                    ...records[tripIndex],
+                    date: document.getElementById('edit-date').value,
+                    departure: document.getElementById('edit-departure').value,
+                    odometer: Number(document.getElementById('edit-odometer').value)
+                };
+                
+                // Recalculate miles for the edited trip
+                const endingOdometer = updatedTrip.odometer;
+                const initialOdometer = updatedTrip.initialOdometer;
+
+                if (endingOdometer > 0) {
+                     if (endingOdometer < initialOdometer) {
+                        showNotification('Ending odometer cannot be less than the initial odometer for this trip.');
+                        return;
+                    }
+                    updatedTrip.miles = endingOdometer - initialOdometer;
+                } else {
+                    updatedTrip.miles = 0;
+                }
+                
+                records[tripIndex] = updatedTrip;
+                records.sort((a, b) => b.id - a.id); // Sort by creation timestamp
+
+                renderTable();
+                saveToLocalStorage();
+                closeEditModal();
+                showNotification('Trip updated successfully.', false);
+            });
+
+
             generateReportBtn.addEventListener('click', async () => { 
                 const checkedBoxes = document.querySelectorAll('.trip-checkbox:checked');
                 const selectedIds = Array.from(checkedBoxes).map(cb => Number(cb.dataset.id));
@@ -642,6 +739,12 @@
                     const idToDelete = Number(e.target.dataset.id);
                     records = records.filter(record => record.id !== idToDelete);
                     renderTable();
+                } else if (e.target.classList.contains('edit-btn')) {
+                    const idToEdit = Number(e.target.dataset.id);
+                    const tripToEdit = records.find(r => r.id === idToEdit);
+                    if (tripToEdit) {
+                        openEditModal(tripToEdit);
+                    }
                 }
             });
 
