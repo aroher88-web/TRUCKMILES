@@ -23,17 +23,17 @@
             animation: spin 1s linear infinite;
         }
         /* Custom scrollbar for modal content */
-        .filter-modal-content::-webkit-scrollbar, #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar {
+        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar {
             width: 8px;
         }
-        .filter-modal-content::-webkit-scrollbar-track, #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track {
+        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track {
             background: #2d3748; /* gray-800 */
         }
-        .filter-modal-content::-webkit-scrollbar-thumb, #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb {
+        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb {
             background: #4a5568; /* gray-600 */
             border-radius: 4px;
         }
-        .filter-modal-content::-webkit-scrollbar-thumb:hover, #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover {
+       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover {
             background: #718096; /* gray-500 */
         }
     </style>
@@ -50,7 +50,8 @@
             <p class="text-gray-400 mt-1">Log your trips and keep accurate track of your miles.</p>
         </header>
 
-        <!-- Driver & Vehicle Info Section --><div class="bg-gray-700 p-6 rounded-xl mb-8">
+        <!-- Driver & Vehicle Info Section -->
+        <div class="bg-gray-700 p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
                 <button id="edit-info-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Edit Info</button>
@@ -119,24 +120,25 @@
         </div>
 
         <div>
-            <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
-                <div class="flex flex-wrap items-center gap-4">
-                     <button type="button" id="archive-reset-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd" /></svg>
-                        Archive & Reset
-                    </button>
-                    <button type="button" id="export-csv-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
-                        Export to CSV
-                    </button>
-                     <button type="button" id="share-pdf-btn" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z" /></svg>
-                        Share PDF
-                    </button>
-                    <div class="bg-gray-700 rounded-lg p-3 flex items-center">
-                        <span class="font-medium text-gray-300">Total Miles:</span>
-                        <span id="total-miles" class="font-bold text-2xl text-cyan-400 ml-3">0</span>
-                    </div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                 <button type="button" id="archive-reset-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
+                    Archive &amp; Reset
+                </button>
+                 <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
+                    Share PDF
+                </button>
+                <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                    <span class="font-medium text-gray-300 text-sm">Total Miles</span>
+                    <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
+                </div>
+                <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                    <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
+                    <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
             </div>
             
@@ -162,35 +164,6 @@
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal for CSV Filter --><div id="filter-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg filter-modal-content">
-            <div class="p-4 border-b border-gray-600 flex justify-between items-center">
-                <h3 id="filter-modal-title" class="text-lg font-semibold text-blue-400">Filter CSV Report</h3>
-                <button class="filter-close-btn text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
-            </div>
-            <div class="p-6">
-                <div class="space-y-4">
-                    <div>
-                        <label for="filter-city" class="block text-sm font-medium text-gray-300 mb-1">City (Departure)</label>
-                        <input type="text" id="filter-city" placeholder="Leave blank for all cities" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="filter-start-date" class="block text-sm font-medium text-gray-300 mb-1">Start Date</label>
-                        <input type="date" id="filter-start-date" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="filter-end-date" class="block text-sm font-medium text-gray-300 mb-1">End Date</label>
-                        <input type="date" id="filter-end-date" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-                </div>
-            </div>
-            <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
-                <button class="cancel-filter-btn bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="generate-filtered-csv-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">Generate CSV</button>
             </div>
         </div>
     </div>
@@ -311,13 +284,9 @@
             const displayTruckNumber = document.getElementById('display-truckNumber');
             const displayTrailerNumber = document.getElementById('display-trailerNumber');
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
-            const exportCsvBtn = document.getElementById('export-csv-btn');
             const sharePdfBtn = document.getElementById('share-pdf-btn');
             const archiveResetBtn = document.getElementById('archive-reset-btn');
             // Modals
-            const filterModal = document.getElementById('filter-modal');
-            const filterModalTitle = document.getElementById('filter-modal-title');
-            const generateFilteredCsvBtn = document.getElementById('generate-filtered-csv-btn');
             const editModal = document.getElementById('edit-modal');
             const editTripForm = document.getElementById('edit-trip-form');
             const editCloseBtn = document.getElementById('edit-close-btn');
@@ -377,17 +346,13 @@
                 
                 if (records.length === 0) {
                     tableBody.appendChild(emptyRow.cloneNode(true));
-                    exportCsvBtn.disabled = true;
                     sharePdfBtn.disabled = true;
                     archiveResetBtn.disabled = true;
-                    exportCsvBtn.classList.add('opacity-50', 'cursor-not-allowed');
                     sharePdfBtn.classList.add('opacity-50', 'cursor-not-allowed');
                     archiveResetBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
-                    exportCsvBtn.disabled = false;
                     sharePdfBtn.disabled = false;
                     archiveResetBtn.disabled = false;
-                    exportCsvBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     sharePdfBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     archiveResetBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                      records.forEach(record => {
@@ -418,6 +383,10 @@
             const updateTotalMiles = () => {
                 const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
+
+                const totalAmountEl = document.getElementById('total-amount');
+                const amount = total * 0.70;
+                totalAmountEl.textContent = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             };
             const saveToLocalStorage = () => {
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
@@ -473,33 +442,6 @@
                 loadVehicleInfo(); 
             });
             
-            const exportToCsv = (recordsToExport) => {
-                if (!recordsToExport || recordsToExport.length === 0) {
-                    showNotification('No data matches the filter criteria.');
-                    return;
-                }
-                const headers = ["Date", "Driver", "Departure", "Initial Odometer", "Ending Odometer", "Company", "Truck #", "Trailer #", "Miles"];
-                const csvContent = [
-                    headers.join(','),
-                    ...recordsToExport.map(record => [
-                        record.date, `"${record.driverName}"`, `"${record.departure}"`,
-                        record.initialOdometer, record.odometer, `"${record.company}"`,
-                        record.truckNumber, record.trailerNumber, record.miles
-                    ].join(','))
-                ].join('\n');
-
-                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-                const link = document.createElement("a");
-                const url = URL.createObjectURL(blob);
-                link.setAttribute("href", url);
-                link.setAttribute("download", "filtered_mileage_report.csv");
-                link.style.visibility = 'hidden';
-                document.body.appendChild(link);
-                link.click();
-                document.body.removeChild(link);
-                showNotification("CSV report generated.", false);
-            };
-
             const generateAndHandlePdf = async (recordsToExport, forSharing = true) => {
                  if (!recordsToExport || recordsToExport.length === 0) {
                     showNotification('No data to generate a report.');
@@ -581,13 +523,6 @@
                     }
                 }
             };
-            
-            const openFilterModal = () => {
-                filterModal.classList.remove('hidden');
-                filterModal.classList.add('flex');
-            };
-
-            exportCsvBtn.addEventListener('click', openFilterModal);
 
             sharePdfBtn.addEventListener('click', () => {
                 if (records.length === 0) {
@@ -595,36 +530,6 @@
                     return;
                 }
                 generateAndHandlePdf(records, true);
-            });
-
-            const closeFilterModal = () => {
-                filterModal.classList.add('hidden');
-                filterModal.classList.remove('flex');
-                document.getElementById('filter-city').value = '';
-                document.getElementById('filter-start-date').value = '';
-                document.getElementById('filter-end-date').value = '';
-            };
-
-            document.querySelectorAll('.filter-close-btn, .cancel-filter-btn').forEach(btn => {
-                btn.addEventListener('click', closeFilterModal);
-            });
-            
-            generateFilteredCsvBtn.addEventListener('click', () => {
-                const city = document.getElementById('filter-city').value.trim().toLowerCase();
-                const startDate = document.getElementById('filter-start-date').value;
-                const endDate = document.getElementById('filter-end-date').value;
-
-                const filteredRecords = records.filter(record => {
-                    const departureCity = record.departure || '';
-                    const matchesCity = !city || departureCity.toLowerCase().includes(city);
-                    const recordDate = new Date(record.date + 'T00:00:00'); 
-                    const matchesStartDate = !startDate || recordDate >= new Date(startDate + 'T00:00:00');
-                    const matchesEndDate = !endDate || recordDate <= new Date(endDate + 'T00:00:00');
-                    return matchesCity && matchesStartDate && matchesEndDate;
-                });
-                
-                exportToCsv(filteredRecords);
-                closeFilterModal();
             });
 
             // --- Edit Modal Logic ---
