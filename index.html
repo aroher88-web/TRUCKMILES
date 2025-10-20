@@ -542,7 +542,7 @@
             });
 
             // Geolocation Logic
-            getLocationBtn.addEventListener('click', () => {
+            const fetchAndSetLocation = () => {
                 if (typeof google === 'undefined' || typeof google.maps === 'undefined') {
                     showNotification('Google Maps API not loaded. Check your API key.');
                     return;
@@ -568,6 +568,14 @@
                         () => { showNotification("Geolocation service failed or permission was denied."); }
                     );
                 } else { showNotification("Your browser doesn't support geolocation."); }
+            };
+
+            getLocationBtn.addEventListener('click', fetchAndSetLocation);
+
+            departureInput.addEventListener('focus', () => {
+                if (departureInput.value.trim() === '') {
+                    fetchAndSetLocation();
+                }
             });
             
             const exportToCsv = (recordsToExport) => {
