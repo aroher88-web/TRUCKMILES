@@ -23,17 +23,17 @@
             animation: spin 1s linear infinite;
         }
         /* Custom scrollbar for modal content */
-        #modal-content::-webkit-scrollbar, .filter-modal-content::-webkit-scrollbar, #edit-modal-content::-webkit-scrollbar {
+        .filter-modal-content::-webkit-scrollbar, #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar {
             width: 8px;
         }
-        #modal-content::-webkit-scrollbar-track, .filter-modal-content::-webkit-scrollbar-track, #edit-modal-content::-webkit-scrollbar-track {
+        .filter-modal-content::-webkit-scrollbar-track, #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track {
             background: #2d3748; /* gray-800 */
         }
-        #modal-content::-webkit-scrollbar-thumb, .filter-modal-content::-webkit-scrollbar-thumb, #edit-modal-content::-webkit-scrollbar-thumb {
+        .filter-modal-content::-webkit-scrollbar-thumb, #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb {
             background: #4a5568; /* gray-600 */
             border-radius: 4px;
         }
-        #modal-content::-webkit-scrollbar-thumb:hover, .filter-modal-content::-webkit-scrollbar-thumb:hover, #edit-modal-content::-webkit-scrollbar-thumb:hover {
+        .filter-modal-content::-webkit-scrollbar-thumb:hover, #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover {
             background: #718096; /* gray-500 */
         }
     </style>
@@ -96,16 +96,16 @@
         <div class="bg-gray-700 p-6 rounded-xl mb-8">
             <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-4">
-                    <div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                    <div class="md:col-span-1">
                         <label for="date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
                         <input type="date" id="date" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
-                    <div>
+                    <div class="md:col-span-2">
                         <label for="departure" class="block text-sm font-medium text-gray-300 mb-1">Departure</label>
                         <input type="text" id="departure" placeholder="City, State" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
-                    <div>
+                    <div class="md:col-span-1">
                         <label for="odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
                         <input type="number" id="odometer" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
@@ -122,8 +122,9 @@
             <div class="flex flex-col md:flex-row justify-between items-center mb-4 gap-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
                 <div class="flex flex-wrap items-center gap-4">
-                    <button type="button" id="generate-report-btn" class="bg-teal-600 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2" disabled>
-                        ✨ Generate AI Report
+                     <button type="button" id="archive-reset-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 flex items-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd" /></svg>
+                        Archive & Reset
                     </button>
                     <button type="button" id="export-csv-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
                         Export to CSV
@@ -143,7 +144,6 @@
                 <table class="w-full text-sm text-left text-gray-300">
                     <thead class="text-xs text-cyan-300 uppercase bg-gray-700">
                         <tr>
-                            <th scope="col" class="px-4 py-3"><input type="checkbox" id="select-all-checkbox" class="rounded border-gray-500 bg-gray-800 text-cyan-600 focus:ring-cyan-500"></th>
                             <th scope="col" class="px-6 py-3">Date</th>
                             <th scope="col" class="px-6 py-3">Driver</th>
                             <th scope="col" class="px-6 py-3">Departure</th>
@@ -158,29 +158,10 @@
                     </thead>
                     <tbody id="mileage-table-body">
                         <tr id="empty-row" class="bg-gray-800 border-b border-gray-700">
-                           <td colspan="11" class="text-center py-8 text-gray-500">No records yet.</td>
+                           <td colspan="10" class="text-center py-8 text-gray-500">No records yet.</td>
                         </tr>
                     </tbody>
                 </table>
-            </div>
-        </div>
-    </div>
-
-    <!-- Modal for Gemini Output --><div id="gemini-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col">
-            <div class="p-4 border-b border-gray-600 flex justify-between items-center">
-                <h3 id="modal-title" class="text-lg font-semibold text-cyan-400">✨ AI Powered Insights</h3>
-                <button id="modal-close-btn" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
-            </div>
-            <div id="modal-content" class="p-6 overflow-y-auto">
-                <div id="modal-loader" class="text-center py-8">
-                    <svg class="animate-spin h-8 w-8 text-cyan-400 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>
-                    <p class="mt-4 text-gray-300">Generating response...</p>
-                </div>
-                <div id="modal-text" class="prose prose-invert max-w-none text-gray-300"></div>
-            </div>
-            <div id="modal-footer" class="p-4 border-t border-gray-600 text-right hidden">
-                <button id="copy-report-btn" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg">Copy to Clipboard</button>
             </div>
         </div>
     </div>
@@ -241,6 +222,21 @@
                     <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button>
                 </div>
             </form>
+        </div>
+    </div>
+    
+    <!-- Confirmation Modal --><div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
+            <div class="p-4 border-b border-gray-600">
+                <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
+            </div>
+            <div class="p-6">
+                <p>Are you sure you want to archive all trips? This will download a PDF report, clear all records, and update the initial odometer. This action cannot be undone.</p>
+            </div>
+            <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
+                <button id="confirm-no-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Archive & Reset</button>
+            </div>
         </div>
     </div>
 
@@ -315,18 +311,10 @@
             const displayTruckNumber = document.getElementById('display-truckNumber');
             const displayTrailerNumber = document.getElementById('display-trailerNumber');
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
-            const generateReportBtn = document.getElementById('generate-report-btn');
             const exportCsvBtn = document.getElementById('export-csv-btn');
             const sharePdfBtn = document.getElementById('share-pdf-btn');
-            const selectAllCheckbox = document.getElementById('select-all-checkbox');
+            const archiveResetBtn = document.getElementById('archive-reset-btn');
             // Modals
-            const modal = document.getElementById('gemini-modal');
-            const modalTitle = document.getElementById('modal-title');
-            const modalText = document.getElementById('modal-text');
-            const modalLoader = document.getElementById('modal-loader');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-            const modalFooter = document.getElementById('modal-footer');
-            const copyReportBtn = document.getElementById('copy-report-btn');
             const filterModal = document.getElementById('filter-modal');
             const filterModalTitle = document.getElementById('filter-modal-title');
             const generateFilteredCsvBtn = document.getElementById('generate-filtered-csv-btn');
@@ -334,6 +322,9 @@
             const editTripForm = document.getElementById('edit-trip-form');
             const editCloseBtn = document.getElementById('edit-close-btn');
             const cancelEditBtn = document.getElementById('cancel-edit-btn');
+            const confirmModal = document.getElementById('confirm-modal');
+            const confirmYesBtn = document.getElementById('confirm-yes-btn');
+            const confirmNoBtn = document.getElementById('confirm-no-btn');
             
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
@@ -380,42 +371,6 @@
                 localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
                 loadVehicleInfo();
             });
-
-
-            const callGeminiApi = async (prompt) => {
-                const apiKey = ""; // Leave as-is for Canvas environment
-                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
-                
-                const payload = { contents: [{ parts: [{ text: prompt }] }] };
-
-                try {
-                    const response = await fetch(apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
-                    if (!response.ok) {
-                        const errorBody = await response.json();
-                        throw new Error(`API Error: ${response.status} ${response.statusText} - ${errorBody.error.message}`);
-                    }
-                    const result = await response.json();
-                    return result.candidates?.[0]?.content?.parts?.[0]?.text || "No response text found.";
-                } catch (error) {
-                    console.error("Gemini API call failed:", error);
-                    return `Error: Could not retrieve data from the AI. ${error.message}`;
-                }
-            };
-
-            const showModal = (title, isLoading = true, showFooter = false) => {
-                modalTitle.textContent = title;
-                modalLoader.style.display = isLoading ? 'block' : 'none';
-                modalText.style.display = isLoading ? 'none' : 'block';
-                modalText.innerHTML = '';
-                modalFooter.style.display = showFooter ? 'flex' : 'none';
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            };
-
-            const hideModal = () => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            };
             
             const renderTable = () => {
                 tableBody.innerHTML = '';
@@ -424,18 +379,21 @@
                     tableBody.appendChild(emptyRow.cloneNode(true));
                     exportCsvBtn.disabled = true;
                     sharePdfBtn.disabled = true;
+                    archiveResetBtn.disabled = true;
                     exportCsvBtn.classList.add('opacity-50', 'cursor-not-allowed');
                     sharePdfBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                    archiveResetBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
                     exportCsvBtn.disabled = false;
                     sharePdfBtn.disabled = false;
+                    archiveResetBtn.disabled = false;
                     exportCsvBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     sharePdfBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    archiveResetBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                      records.forEach(record => {
                         const row = document.createElement('tr');
                         row.className = 'bg-gray-800 border-b border-gray-700 hover:bg-gray-600/50';
                         row.innerHTML = `
-                            <td class="px-4 py-4"><input type="checkbox" class="trip-checkbox rounded border-gray-500 bg-gray-800 text-cyan-600 focus:ring-cyan-500" data-id="${record.id}"></td>
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
                             <td class="px-6 py-4">${record.driverName}</td>
                             <td class="px-6 py-4">${record.departure}</td>
@@ -455,8 +413,6 @@
                 }
                 updateTotalMiles();
                 saveToLocalStorage();
-                updateReportButtonState();
-                selectAllCheckbox.checked = false;
             };
 
             const updateTotalMiles = () => {
@@ -465,11 +421,6 @@
             };
             const saveToLocalStorage = () => {
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
-            };
-
-            const updateReportButtonState = () => {
-                const checkedBoxes = document.querySelectorAll('.trip-checkbox:checked');
-                generateReportBtn.disabled = checkedBoxes.length === 0;
             };
 
             form.addEventListener('submit', (e) => {
@@ -548,8 +499,8 @@
                 document.body.removeChild(link);
                 showNotification("CSV report generated.", false);
             };
-            
-            const generateAndSharePdf = async (recordsToExport) => {
+
+            const generateAndHandlePdf = async (recordsToExport, forSharing = true) => {
                  if (!recordsToExport || recordsToExport.length === 0) {
                     showNotification('No data to generate a report.');
                     return;
@@ -583,11 +534,11 @@
                     let startY = 15;
                     if(logoBase64) {
                         const imgWidth = 50;
-                        const imgHeight = 25; // Adjusted height for a more balanced look
+                        const imgHeight = 25;
                         const pageWidth = doc.internal.pageSize.getWidth();
                         const x = (pageWidth - imgWidth) / 2;
                         doc.addImage(logoBase64, 'PNG', x, 15, imgWidth, imgHeight);
-                        startY = 45; // Increased startY to account for larger logo and spacing
+                        startY = 45;
                     }
 
                     doc.setFontSize(22);
@@ -612,33 +563,26 @@
                     doc.setFont('helvetica', 'bold');
                     doc.text(`Total Miles: ${totalMilesForDriver.toLocaleString()}`, 14, finalY + 15);
                     
-                    const pdfBlob = doc.output('blob');
-                    const pdfFile = new File([pdfBlob], `mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
-                    const shareData = {
-                        files: [pdfFile],
-                        title: `Mileage Report for ${driverInfo.driverName}`,
-                        text: `Mileage report for ${driverInfo.driverName}.`,
-                    };
+                    if(forSharing) {
+                        const pdfBlob = doc.output('blob');
+                        const pdfFile = new File([pdfBlob], `mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
+                        const shareData = { files: [pdfFile], title: `Mileage Report for ${driverInfo.driverName}` };
 
-                    if (navigator.canShare && navigator.canShare(shareData)) {
-                        try {
-                            await navigator.share(shareData);
-                        } catch (err) {
-                            if (err.name !== 'AbortError') {
-                               console.error('Share failed:', err.message);
-                               showNotification(`Could not share report for ${driverInfo.driverName}.`);
+                        if (navigator.canShare && navigator.canShare(shareData)) {
+                            try { await navigator.share(shareData); } catch (err) {
+                                if (err.name !== 'AbortError') { showNotification(`Could not share report for ${driverInfo.driverName}.`);}
                             }
+                        } else {
+                            showNotification(`Browser doesn't support sharing. Downloading report for ${driverInfo.driverName}.`, false);
+                            doc.save(`mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`);
                         }
                     } else {
-                        showNotification(`Browser doesn't support sharing. Downloading report for ${driverInfo.driverName}.`, false);
-                        doc.save(`mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`);
+                         doc.save(`ARCHIVED_mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`);
                     }
                 }
             };
             
             const openFilterModal = () => {
-                filterModalTitle.textContent = `Filter CSV Report`;
-                generateFilteredCsvBtn.textContent = `Generate CSV`;
                 filterModal.classList.remove('hidden');
                 filterModal.classList.add('flex');
             };
@@ -650,7 +594,7 @@
                     showNotification('No trip data to share.');
                     return;
                 }
-                generateAndSharePdf(records);
+                generateAndHandlePdf(records, true);
             });
 
             const closeFilterModal = () => {
@@ -719,7 +663,6 @@
                     odometer: Number(document.getElementById('edit-odometer').value)
                 };
                 
-                // Recalculate miles for the edited trip
                 const endingOdometer = updatedTrip.odometer;
                 const initialOdometer = updatedTrip.initialOdometer;
 
@@ -734,53 +677,51 @@
                 }
                 
                 records[tripIndex] = updatedTrip;
-                records.sort((a, b) => a.id - b.id); // Sort by creation timestamp ASC
+                records.sort((a, b) => a.id - b.id);
 
                 renderTable();
                 saveToLocalStorage();
                 closeEditModal();
                 showNotification('Trip updated successfully.', false);
             });
+            
+            // --- Archive & Reset Logic ---
+            const openConfirmModal = () => {
+                confirmModal.classList.remove('hidden');
+                confirmModal.classList.add('flex');
+            };
+            const closeConfirmModal = () => {
+                confirmModal.classList.add('hidden');
+                confirmModal.classList.remove('flex');
+            };
 
-
-            generateReportBtn.addEventListener('click', async () => { 
-                const checkedBoxes = document.querySelectorAll('.trip-checkbox:checked');
-                const selectedIds = Array.from(checkedBoxes).map(cb => Number(cb.dataset.id));
-                const selectedRecords = records.filter(r => selectedIds.includes(r.id));
-                if (selectedRecords.length === 0) return;
-                showModal('✨ Trip Report', true, true);
-                const prompt = `Act as a professional logistics coordinator. Create a formal trip report based on the following data. Start with a title "Trip Report". Then, provide a brief summary including the total number of trips and total miles covered. Finally, list each trip clearly using markdown. The data is provided in JSON format. \n\nTRIP DATA:\n${JSON.stringify(selectedRecords, null, 2)}`;
-                const report = await callGeminiApi(prompt);
-                modalLoader.style.display = 'none';
-                modalText.style.display = 'block';
-                let htmlReport = report
-                    .replace(/### (.*)/g, '<h3 class="text-lg font-semibold mt-4 mb-2">$1</h3>')
-                    .replace(/## (.*)/g, '<h2 class="text-xl font-bold mt-6 mb-3">$1</h2>')
-                    .replace(/# (.*)/g, '<h1 class="text-2xl font-bold mb-4">$1</h1>')
-                    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                    .replace(/\* (.*)/g, '<li class="ml-4 list-disc">$1</li>')
-                    .replace(/\n/g, '<br>');
-                modalText.innerHTML = htmlReport;
-             });
-            copyReportBtn.addEventListener('click', () => { 
-                const textToCopy = modalText.innerText;
-                const tempTextarea = document.createElement('textarea');
-                tempTextarea.value = textToCopy;
-                document.body.appendChild(tempTextarea);
-                tempTextarea.select();
-                try {
-                    document.execCommand('copy');
-                    copyReportBtn.textContent = 'Copied!';
-                    setTimeout(() => { copyReportBtn.textContent = 'Copy to Clipboard'; }, 2000);
-                } catch (err) {
-                    console.error('Failed to copy text: ', err);
-                    copyReportBtn.textContent = 'Copy Failed';
+            archiveResetBtn.addEventListener('click', openConfirmModal);
+            confirmNoBtn.addEventListener('click', closeConfirmModal);
+            
+            confirmYesBtn.addEventListener('click', async () => {
+                if (records.length === 0) {
+                    showNotification('No trips to archive.');
+                    closeConfirmModal();
+                    return;
                 }
-                document.body.removeChild(tempTextarea);
+                
+                await generateAndHandlePdf(records, false);
+
+                const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
+                if (lastValidRecord) {
+                    vehicleInfo.initialOdometer = lastValidRecord.odometer;
+                    localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
+                }
+
+                records = [];
+                localStorage.setItem('mileageRecords', JSON.stringify(records));
+
+                renderTable();
+                loadVehicleInfo();
+                closeConfirmModal();
+                showNotification('Trips have been archived and reset.', false);
             });
             
-            modalCloseBtn.addEventListener('click', hideModal);
-
             tableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete-btn')) {
                     const idToDelete = Number(e.target.dataset.id);
@@ -793,15 +734,6 @@
                         openEditModal(tripToEdit);
                     }
                 }
-            });
-
-            tableBody.addEventListener('change', (e) => {
-                if (e.target.classList.contains('trip-checkbox')) { updateReportButtonState(); }
-            });
-
-            selectAllCheckbox.addEventListener('change', (e) => {
-                document.querySelectorAll('.trip-checkbox').forEach(c => c.checked = e.target.checked);
-                updateReportButtonState();
             });
             
             // --- Initial Load ---
