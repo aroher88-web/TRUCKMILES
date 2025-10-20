@@ -533,6 +533,16 @@
                     doc.setFont('helvetica', 'bold');
                     doc.text(`Total Miles: ${totalMilesForDriver.toLocaleString()}`, 14, finalY + 15);
                     
+                    // Add footer text
+                    const today = new Date().toLocaleDateString();
+                    const pageWidth = doc.internal.pageSize.getWidth();
+                    doc.setFontSize(8);
+                    doc.setFont('helvetica', 'normal');
+                    doc.setTextColor(150);
+                    doc.text("Developed for AROHER88", pageWidth - 14, doc.internal.pageSize.getHeight() - 15, { align: 'right' });
+                    doc.text(`Date: ${today}`, pageWidth - 14, doc.internal.pageSize.getHeight() - 10, { align: 'right' });
+
+
                     if(forSharing) {
                         const pdfBlob = doc.output('blob');
                         const pdfFile = new File([pdfBlob], `mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
