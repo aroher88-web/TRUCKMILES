@@ -571,12 +571,6 @@
             };
 
             getLocationBtn.addEventListener('click', fetchAndSetLocation);
-
-            departureInput.addEventListener('focus', () => {
-                if (departureInput.value.trim() === '') {
-                    fetchAndSetLocation();
-                }
-            });
             
             const exportToCsv = (recordsToExport) => {
                 if (!recordsToExport || recordsToExport.length === 0) {
