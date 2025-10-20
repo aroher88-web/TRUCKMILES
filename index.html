@@ -29,16 +29,12 @@
         .welcome-animation {
             animation: pulse 2s ease-in-out infinite;
         }
-        /* Simple animation for the loader and wheels */
+        /* Simple animation for the loader */
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
         .animate-spin {
             animation: spin 1s linear infinite;
-        }
-        #welcome-screen svg .wheel {
-            animation: spin 1s linear infinite;
-            transform-origin: center;
         }
 
         /* Custom scrollbar for modal content */
@@ -67,18 +63,21 @@
             <!-- Cab -->
             <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
             <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
-            <!-- Wheels -->
-            <g class="wheel">
+            <!-- Wheels with native SVG animation -->
+            <g>
                 <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="50" cy="70" r="5" fill="#4A5568"/>
+                <animateTransform attributeName="transform" type="rotate" from="0 50 70" to="360 50 70" dur="1s" repeatCount="indefinite"/>
             </g>
-            <g class="wheel">
+            <g>
                 <circle cx="230" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="230" cy="70" r="5" fill="#4A5568"/>
+                <animateTransform attributeName="transform" type="rotate" from="0 230 70" to="360 230 70" dur="1s" repeatCount="indefinite"/>
             </g>
-             <g class="wheel">
+             <g>
                 <circle cx="260" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="260" cy="70" r="5" fill="#4A5568"/>
+                <animateTransform attributeName="transform" type="rotate" from="0 260 70" to="360 260 70" dur="1s" repeatCount="indefinite"/>
             </g>
         </svg>
         <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
