@@ -15,6 +15,20 @@
         body {
             font-family: 'Inter', sans-serif;
         }
+        /* Welcome screen animation */
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.05);
+                opacity: 0.9;
+            }
+        }
+        .welcome-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
         /* Simple animation for the loader */
         @keyframes spin {
             to { transform: rotate(360deg); }
@@ -38,9 +52,14 @@
         }
     </style>
 </head>
-<body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
+<body class="bg-gray-900 text-white">
 
-    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
+    <!-- Welcome Screen -->
+    <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex items-center justify-center z-50 transition-opacity duration-500">
+        <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
+    </div>
+
+    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4">
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 128 60" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
@@ -266,6 +285,15 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             
+            // --- Welcome Screen Logic ---
+            const welcomeScreen = document.getElementById('welcome-screen');
+            setTimeout(() => {
+                welcomeScreen.classList.add('opacity-0');
+                setTimeout(() => {
+                    welcomeScreen.style.display = 'none';
+                }, 500); // match transition duration
+            }, 3000);
+
             const form = document.getElementById('mileage-form');
             const tableBody = document.getElementById('mileage-table-body');
             const totalMilesEl = document.getElementById('total-miles');
