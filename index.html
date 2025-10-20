@@ -42,9 +42,10 @@
 
     <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8">
         
-        <header class="mb-6">
-            <h1 class="text-3xl font-bold text-center text-cyan-400">Truck Mileage Tracker</h1>
-            <p class="text-center text-gray-400 mt-2">Log your trips and keep accurate track of your miles.</p>
+        <header class="mb-6 text-center">
+            <img src="image_8185ec.png" alt="Company Logo" class="h-20 w-auto mx-auto mb-4">
+            <h1 class="text-3xl font-bold text-cyan-400">Truck Mileage Tracker</h1>
+            <p class="text-gray-400 mt-2">Log your trips and keep accurate track of your miles.</p>
         </header>
 
         <!-- Driver & Vehicle Info Section -->
@@ -268,6 +269,29 @@
             }, 4000);
         };
         
+        // --- Image to Base64 converter for PDF ---
+        const getImageBase64 = (url) => {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.crossOrigin = 'Anonymous';
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    canvas.width = img.width;
+                    canvas.height = img.height;
+                    const ctx = canvas.getContext('2d');
+                    ctx.drawImage(img, 0, 0);
+                    const dataURL = canvas.toDataURL('image/png');
+                    resolve(dataURL);
+                };
+                img.onerror = (error) => {
+                    console.error("Error loading image for PDF:", error);
+                    reject(error);
+                };
+                img.src = url;
+            });
+        };
+
+
         document.addEventListener('DOMContentLoaded', () => {
             
             const form = document.getElementById('mileage-form');
@@ -483,7 +507,7 @@
                 };
 
                 records.push(newRecord);
-                records.sort((a, b) => b.id - a.id); // Sort by creation timestamp
+                records.sort((a, b) => a.id - b.id); // Sort by creation timestamp ASC
                 
                 if (shouldUpdateOdometer) {
                     vehicleInfo.initialOdometer = endingOdometer;
@@ -528,6 +552,14 @@
                     return;
                 }
 
+                let logoBase64;
+                try {
+                    logoBase64 = await getImageBase64('image_8185ec.png');
+                } catch (error) {
+                    showNotification('Could not load company logo for the PDF report.');
+                    // Continue without the logo
+                }
+
                 const uniqueDrivers = [...new Set(recordsToExport.map(r => r.driverName))];
                 
                 showNotification(`Generating ${uniqueDrivers.length} PDF report(s)...`, false);
@@ -545,21 +577,34 @@
                     const doc = new jsPDF();
                     
                     const totalMilesForDriver = driverRecords.reduce((sum, record) => sum + Number(record.miles), 0);
+                    
+                    let startY = 15;
+                    if(logoBase64) {
+                        const imgWidth = 50;
+                        const imgHeight = 20;
+                        const pageWidth = doc.internal.pageSize.getWidth();
+                        const x = (pageWidth - imgWidth) / 2;
+                        doc.addImage(logoBase64, 'PNG', x, 15, imgWidth, imgHeight);
+                        startY = 40;
+                    }
 
                     doc.setFontSize(22);
                     doc.setFont('helvetica', 'bold');
-                    doc.text(driverInfo.company, doc.internal.pageSize.getWidth() / 2, 22, { align: 'center' });
+                    doc.text(driverInfo.company, doc.internal.pageSize.getWidth() / 2, startY, { align: 'center' });
+                    startY += 8;
+                    
                     doc.setFontSize(11);
                     doc.setFont('helvetica', 'normal');
                     doc.setTextColor(50);
                     const headerText = `Driver: ${driverInfo.driverName} | Truck #: ${driverInfo.truckNumber} | Trailer #: ${driverInfo.trailerNumber}`;
-                    doc.text(headerText, doc.internal.pageSize.getWidth() / 2, 30, { align: 'center' });
+                    doc.text(headerText, doc.internal.pageSize.getWidth() / 2, startY, { align: 'center' });
+                    startY += 15;
 
                     const tableColumn = ["Date", "City", "Odometer", "Miles"];
                     const tableRows = driverRecords.map(r => [r.date, r.departure, Number(r.odometer).toLocaleString(), Number(r.miles).toLocaleString()]);
                     
-                    doc.autoTable(tableColumn, tableRows, { startY: 45 });
-                    const finalY = doc.lastAutoTable.finalY || 45;
+                    doc.autoTable(tableColumn, tableRows, { startY: startY });
+                    const finalY = doc.lastAutoTable.finalY || startY;
 
                     doc.setFontSize(12);
                     doc.setFont('helvetica', 'bold');
@@ -687,7 +732,7 @@
                 }
                 
                 records[tripIndex] = updatedTrip;
-                records.sort((a, b) => b.id - a.id); // Sort by creation timestamp
+                records.sort((a, b) => a.id - b.id); // Sort by creation timestamp ASC
 
                 renderTable();
                 saveToLocalStorage();
