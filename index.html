@@ -55,11 +55,15 @@
 </head>
 <body class="bg-gray-900 text-white">
 
+    <!-- Welcome Screen -->
     <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
         <svg id="welcome-truck-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="w-64 h-auto mb-8">
+            <!-- Trailer -->
             <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
+            <!-- Cab -->
             <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
             <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
+            <!-- Wheels with native SVG animation -->
             <g>
                 <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="50" cy="70" r="5" fill="#4A5568"/>
@@ -83,6 +87,7 @@
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
+                <!-- Static version of the truck for the header and PDF -->
                 <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
                 <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
                 <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
@@ -103,6 +108,7 @@
             <p class="text-gray-400 mt-1">Log your trips and keep accurate track of your miles.</p>
         </header>
 
+        <!-- Driver & Vehicle Info Section -->
         <div class="bg-gray-700 p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
@@ -220,7 +226,7 @@
         </div>
     </div>
     
-    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- Modal for Editing a Trip --><div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
             <div class="p-4 border-b border-gray-600 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
@@ -250,7 +256,7 @@
         </div>
     </div>
     
-    <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- Confirmation Modal --><div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
             <div class="p-4 border-b border-gray-600">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
@@ -266,7 +272,7 @@
     </div>
 
 
-    <div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
+    <!-- Notification Element --><div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
     </div>
 
@@ -291,14 +297,21 @@
             return new Promise((resolve, reject) => {
                 if (!svgElement) return reject("SVG element not provided");
 
-                const svgString = new XMLSerializer().serializeToString(svgElement);
+                // Clone the SVG node to avoid modifying the original
+                const clone = svgElement.cloneNode(true);
+                
+                // Remove animations if present (like in the welcome truck)
+                const animations = clone.querySelectorAll('animateTransform');
+                animations.forEach(anim => anim.remove());
+
+                const svgString = new XMLSerializer().serializeToString(clone);
                 const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
                 const url = URL.createObjectURL(svgBlob);
                 
                 const img = new Image();
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
-                    const viewBox = svgElement.getAttribute('viewBox').split(' ').map(Number);
+                    const viewBox = clone.getAttribute('viewBox').split(' ').map(Number);
                     const width = viewBox[2];
                     const height = viewBox[3];
                     canvas.width = width;
@@ -511,7 +524,8 @@
 
                 let logoBase64;
                 try {
-                    logoBase64 = await getSvgAsImageBase64(document.getElementById('company-logo-svg'));
+                    // Use the same SVG as the welcome screen
+                    logoBase64 = await getSvgAsImageBase64(document.getElementById('welcome-truck-svg')); 
                 } catch (error) {
                     showNotification('Could not load company logo for the PDF report.');
                 }
@@ -524,9 +538,9 @@
                     const driverRecords = recordsToExport.filter(r => r.driverName === driver);
                      const driverInfo = {
                         driverName: driver,
-                        company: driverRecords[0]?.company || vehicleInfo?.company,
-                        truckNumber: driverRecords[0]?.truckNumber || vehicleInfo?.truckNumber,
-                        trailerNumber: driverRecords[0]?.trailerNumber || vehicleInfo?.trailerNumber,
+                        company: driverRecords[0]?.company || vehicleInfo?.company || 'N/A',
+                        truckNumber: driverRecords[0]?.truckNumber || vehicleInfo?.truckNumber || 'N/A',
+                        trailerNumber: driverRecords[0]?.trailerNumber || vehicleInfo?.trailerNumber || 'N/A',
                     };
 
                     const { jsPDF } = window.jspdf;
@@ -536,12 +550,12 @@
                     
                     let startY = 15;
                     if(logoBase64) {
-                        const imgWidth = 50;
-                        const imgHeight = 16.67; // Maintain aspect ratio of 300x100
+                        const imgWidth = 60; // Slightly larger for better visibility
+                        const imgHeight = 20; // Maintain aspect ratio of 300x100
                         const pageWidth = doc.internal.pageSize.getWidth();
                         const x = (pageWidth - imgWidth) / 2;
                         doc.addImage(logoBase64, 'PNG', x, 15, imgWidth, imgHeight);
-                        startY = 45;
+                        startY = 45; // Adjust startY accordingly
                     }
 
                     doc.setFontSize(22);
@@ -549,12 +563,31 @@
                     doc.text(driverInfo.company, doc.internal.pageSize.getWidth() / 2, startY, { align: 'center' });
                     startY += 8;
                     
-                    doc.setFontSize(11);
-                    doc.setFont('helvetica', 'normal');
+                    // --- Header Text Formatting ---
+                    const headerParts = [
+                        { text: `Driver: `, style: 'normal' },
+                        { text: driverInfo.driverName, style: 'bold', size: 13 }, // Increased size + bold
+                        { text: ` | Truck #: ${driverInfo.truckNumber} | Trailer #: ${driverInfo.trailerNumber}`, style: 'normal' }
+                    ];
+
+                    let currentX = doc.internal.pageSize.getWidth() / 2; // Start at center for alignment
+                    const totalWidth = headerParts.reduce((sum, part) => {
+                        doc.setFont('helvetica', part.style || 'normal');
+                        doc.setFontSize(part.size || 11);
+                        return sum + doc.getTextWidth(part.text);
+                    }, 0);
+                    currentX -= totalWidth / 2; // Adjust starting X for centering the whole line
+
                     doc.setTextColor(50);
-                    const headerText = `Driver: ${driverInfo.driverName} | Truck #: ${driverInfo.truckNumber} | Trailer #: ${driverInfo.trailerNumber}`;
-                    doc.text(headerText, doc.internal.pageSize.getWidth() / 2, startY, { align: 'center' });
+                    headerParts.forEach(part => {
+                        doc.setFont('helvetica', part.style || 'normal');
+                        doc.setFontSize(part.size || 11);
+                        doc.text(part.text, currentX, startY);
+                        currentX += doc.getTextWidth(part.text);
+                    });
                     startY += 15;
+                    // --- End Header Text Formatting ---
+
 
                     const tableColumn = ["Date", "City", "Odometer", "Miles"];
                     const tableRows = driverRecords.map(r => [r.date, r.departure, Number(r.odometer).toLocaleString(), Number(r.miles).toLocaleString()]);
@@ -566,10 +599,10 @@
                     doc.setFont('helvetica', 'bold');
                     doc.text(`Total Miles: ${totalMilesForDriver.toLocaleString()}`, 14, finalY + 15);
                     
-                    // Add footer text
+                    // Add footer text with increased size
                     const today = new Date().toLocaleDateString();
                     const pageWidth = doc.internal.pageSize.getWidth();
-                    doc.setFontSize(8);
+                    doc.setFontSize(10); // Increased font size to 10
                     doc.setFont('helvetica', 'normal');
                     doc.setTextColor(150);
                     doc.text("Developed for AROHER88", pageWidth - 14, doc.internal.pageSize.getHeight() - 15, { align: 'right' });
@@ -720,3 +753,4 @@
 
 </body>
 </html>
+
