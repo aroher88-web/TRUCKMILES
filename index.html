@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale-1.0">
     <title>Truck Mileage Tracker</title>
     
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -38,17 +38,17 @@
         }
 
         /* Custom scrollbar for modal content */
-        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar {
+        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar, #history-modal-content::-webkit-scrollbar {
             width: 8px;
         }
-        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track {
+        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track {
             background: #2d3748; /* gray-800 */
         }
-        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb {
+        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb {
             background: #4a5568; /* gray-600 */
             border-radius: 4px;
         }
-       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover {
+       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover {
             background: #718096; /* gray-500 */
         }
        /* Tailwind's 'hidden' class uses display: none !important, we might need JS if transition is desired later */
@@ -84,8 +84,8 @@
         <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
     </div>
 
-    <!-- Contenedor principal de la aplicación -->
-    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4 mx-auto">
+    <!-- Main Content Container -->
+    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4">
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
@@ -108,19 +108,18 @@
             </svg>
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
             <p class="text-gray-400 mt-1">Log your trips and keep accurate track of your miles.</p>
-            <!-- Botón para mostrar/editar la info del conductor -->
+            <!-- Button to show/edit info -->
             <button id="show-info-section-btn" class="hidden mt-4 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
                 View/Edit Driver Info
             </button>
         </header>
 
-        <!-- Driver & Vehicle Info Section -->
+        <!-- Driver & Vehicle Info Section (Collapsible) -->
         <div id="driver-vehicle-section" class="bg-gray-700 p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
-                <!-- El botón de edición fue movido al header principal -->
             </div>
-            <!-- Info Display Area (se mantiene oculta por JS al inicio si hay datos) -->
+            <!-- Info Display Area (No longer used, form shown directly for editing) -->
             <div id="vehicle-info-display" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-300">
                     <p><strong>Driver:</strong> <span id="display-driverName"></span></p>
@@ -152,7 +151,7 @@
                 </div>
                 <div class="mb-4">
                      <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
-                     <input type="text" id="initialOdometerInfo" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., 150000" required class="w-full md:w-1/4 bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full md:w-1/4 bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                 </div>
                 <div class="flex justify-end gap-4">
                      <button type="button" id="cancel-info-edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Cancel</button>
@@ -161,7 +160,7 @@
             </form>
         </div>
 
-        <!-- Sección Add New Trip -->
+        <!-- Add New Trip Section -->
         <div class="bg-gray-700 p-6 rounded-xl mb-8">
             <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
@@ -176,7 +175,7 @@
                     </div>
                     <div class="md:col-span-1">
                         <label for="odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
-                        <input type="text" id="odometer" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="odometer" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                 </div>
                 <div class="flex justify-end">
@@ -186,20 +185,10 @@
                 </div>
             </form>
         </div>
-        <!-- Fin de la sección Add New Trip -->
 
-        <div> <!-- This is the main wrapper for the history section -->
-            <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold">Trip History</h2>
-                <!-- New Toggle Button -->
-                <button id="toggle-history-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold p-2 rounded-lg transition-all duration-300">
-                    <svg id="toggle-history-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
-                    </svg>
-                </button>
-            </div>
-            
-            <!-- SECCIÓN DE CONTROL MOVIDA AQUÍ FUERA DEL DIV PLEGABLE -->
+        <!-- Trip History Section -->
+        <div>
+            <!-- Control Buttons & Totals (Always Visible) -->
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
                  <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
@@ -219,52 +208,74 @@
                 </button>
             </div>
 
-            <!-- New Collapsible Content Wrapper (SOLO LA TABLA) -->
-            <div id="trip-history-content" class="transition-all duration-300 overflow-hidden hidden">
-                <!-- La sección de botones y totales fue removida de aquí -->
-                
+            <!-- Collapsible Table Section Header -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+                <h2 class="text-xl font-semibold">Trip History</h2>
+                <button id="toggle-history-table-btn" class="text-gray-400 hover:text-white p-2 rounded-full" title="Toggle History">
+                    <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Collapsible Table Wrapper (Starts hidden) -->
+            <div id="history-table-container" class="hidden">
                 <div class="overflow-x-auto rounded-lg border border-gray-700">
                     <table class="w-full text-sm text-left text-gray-300">
                         <thead class="text-xs text-cyan-300 uppercase bg-gray-700">
-                            <th scope="col" class="px-6 py-3">Date</th>
-                            <th scope="col" class="px-6 py-3">Driver</th>
-                            <th scope="col" class="px-6 py-3">Departure</th>
-                            <th scope="col" class="px-6 py-3">Initial Odometer</th>
-                            <th scope="col" class="px-6 py-3">Ending Odometer</th>
-                            <th scope="col" class="px-6 py-3">Company</th>
-                            <th scope="col" class="px-6 py-3">Truck #</th>
-                            <th scope="col" class="px-6 py-3">Trailer #</th>
-                            <th scope="col" class="px-6 py-3">Miles</th>
-                            <th scope="col" class="px-6 py-3 text-center">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="mileage-table-body">
-                        <tr id="empty-row" class="bg-gray-800 border-b border-gray-700">
-                           <td colspan="10" class="text-center py-8 text-gray-500">No records yet.</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        </div>
-
-        <!-- NUEVA SECCIÓN: Resumen del último archivo -->
-        <div id="archive-summary-section" class="hidden mt-8 bg-gray-700 p-4 rounded-xl w-full md:w-2/5">
-            <h2 class="text-lg font-semibold mb-3">Last Archive Summary</h2>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div class="bg-gray-800 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
-                    <span class="font-medium text-gray-300 text-sm">Archived Total Miles</span>
-                    <span id="archived-total-miles" class="font-bold text-xl text-cyan-400">0</span>
-                </div>
-                <div class="bg-gray-800 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
-                    <span class="font-medium text-gray-300 text-sm">Archived Total Amount</span>
-                    <span id="archived-total-amount" class="font-bold text-xl text-green-400">$0.00</span>
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Date</th>
+                                <th scope="col" class="px-6 py-3">Driver</th>
+                                <th scope="col" class="px-6 py-3">Departure</th>
+                                <th scope="col" class="px-6 py-3">Initial Odometer</th>
+                                <th scope="col" class="px-6 py-3">Ending Odometer</th>
+                                <th scope="col" class="px-6 py-3">Company</th>
+                                <th scope="col" class="px-6 py-3">Truck #</th>
+                                <th scope="col" class="px-6 py-3">Trailer #</th>
+                                <th scope="col" class="px-6 py-3">Miles</th>
+                                <th scope="col" class="px-6 py-3 text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="mileage-table-body">
+                            <tr id="empty-row" class="bg-gray-800 border-b border-gray-700">
+                               <td colspan="10" class="text-center py-8 text-gray-500">No records yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
-        </div>
-        <!-- Fin de la NUEVA SECCIÓN -->
 
-    </div> <!-- Cierre del div max-w-7xl -->
+            <!-- Last Archive Summary (Restored) -->
+            <div id="last-archive-summary" class="hidden mt-8 md:w-2/5">
+                <h3 class="text-lg font-semibold mb-3 text-gray-300">Last Archive Summary</h3>
+                <div class="bg-gray-700 rounded-lg p-4 flex flex-col gap-2">
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-gray-400 text-sm">Period</span>
+                        <span id="last-archive-period" class="font-bold text-sm text-white"></span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-gray-400 text-sm">Total Miles</span>
+                        <span id="last-archive-miles" class="font-bold text-lg text-cyan-400">0</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="font-medium text-gray-400 text-sm">Total Amount</span>
+                        <span id="last-archive-amount" class="font-bold text-lg text-green-400">$0.00</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- New "View Archive History" Button -->
+        <div class="fixed bottom-6 right-6 z-40">
+            <button id="view-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="View Archive History">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+            </button>
+        </div>
+
+    </div> <!-- End Main Content Container -->
     
     <!-- Modal for Editing a Trip -->
     <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
@@ -286,7 +297,7 @@
                     </div>
                     <div>
                         <label for="edit-odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
-                        <input type="text" id="edit-odometer" inputmode="numeric" pattern="[0-9]*" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="edit-odometer" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
                     </div>
                 </div>
                 <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
@@ -304,11 +315,46 @@
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
             </div>
             <div class="p-6">
-                <p>Are you sure you want to archive all trips? This will download a PDF report, clear all records, and update the initial odometer. This action cannot be undone.</p>
+                <p>Are you sure you want to archive all trips? This will download a PDF report, add a summary to the archive history, clear all records, and update the initial odometer. This action cannot be undone.</p>
             </div>
             <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
                 <button id="confirm-no-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
                 <button id="confirm-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Archive & Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Archive History Modal -->
+    <div id="history-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width -->
+            <div class="p-4 border-b border-gray-600 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-blue-400">Archive History</h3>
+                <button id="history-close-btn" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+            <div class="p-6 flex-grow overflow-y-auto" id="history-modal-content">
+                <div class="overflow-x-auto rounded-lg border border-gray-600">
+                    <table class="w-full text-sm text-left text-gray-300">
+                        <thead class="text-xs text-blue-300 uppercase bg-gray-800">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">Archive Date</th>
+                                <th scope="col" class="px-6 py-3">Period</th>
+                                <th scope="col" class="px-6 py-3">Total Miles</th>
+                                <th scope="col" class="px-6 py-3">Total Amount</th>
+                                <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
+                            </tr>
+                        </thead>
+                        <tbody id="archive-history-table-body">
+                            <!-- History rows will be injected here -->
+                            <tr id="empty-history-row" class="bg-gray-800 border-b border-gray-700">
+                               <td colspan="5" class="text-center py-8 text-gray-500">No archive history yet.</td> <!-- Updated colspan -->
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
+                <button type="button" id="clear-history-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear History</button>
+                <button type="button" id="close-history-modal-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Close</button>
             </div>
         </div>
     </div>
@@ -377,18 +423,19 @@
                 }, 500);
             }, 3000);
 
+            // --- Element Selectors ---
             const form = document.getElementById('mileage-form');
             const tableBody = document.getElementById('mileage-table-body');
             const totalMilesEl = document.getElementById('total-miles');
+            const totalAmountEl = document.getElementById('total-amount');
             const emptyRow = document.getElementById('empty-row');
             const departureInput = document.getElementById('departure');
+            
+            // Driver Info Section
             const vehicleInfoForm = document.getElementById('vehicle-info-form');
             const vehicleInfoDisplay = document.getElementById('vehicle-info-display');
-            
-            // --- Nuevas variables para controlar la sección completa ---
             const driverVehicleSection = document.getElementById('driver-vehicle-section');
             const showInfoSectionBtn = document.getElementById('show-info-section-btn');
-
             const cancelInfoEditBtn = document.getElementById('cancel-info-edit-btn'); 
             const driverNameInfoInput = document.getElementById('driverNameInfo');
             const companyInfoInput = document.getElementById('companyInfo');
@@ -400,58 +447,68 @@
             const displayTruckNumber = document.getElementById('display-truckNumber');
             const displayTrailerNumber = document.getElementById('display-trailerNumber');
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
+
+            // Control Buttons
             const sharePdfBtn = document.getElementById('share-pdf-btn');
             const archiveResetBtn = document.getElementById('archive-reset-btn');
+
+            // History Table Section
+            const toggleHistoryTableBtn = document.getElementById('toggle-history-table-btn');
+            const historyToggleIcon = document.getElementById('history-toggle-icon');
+            const historyTableContainer = document.getElementById('history-table-container');
+
+            // Last Archive Summary
+            const lastArchiveSummary = document.getElementById('last-archive-summary');
+            const lastArchivePeriod = document.getElementById('last-archive-period');
+            const lastArchiveMiles = document.getElementById('last-archive-miles');
+            const lastArchiveAmount = document.getElementById('last-archive-amount');
+
+            // Edit Modal
             const editModal = document.getElementById('edit-modal');
             const editTripForm = document.getElementById('edit-trip-form');
             const editCloseBtn = document.getElementById('edit-close-btn');
             const cancelEditBtn = document.getElementById('cancel-edit-btn');
+
+            // Confirm Modal
             const confirmModal = document.getElementById('confirm-modal');
             const confirmYesBtn = document.getElementById('confirm-yes-btn');
             const confirmNoBtn = document.getElementById('confirm-no-btn');
-            
-            // --- NUEVOS ELEMENTOS ---
-            const toggleHistoryBtn = document.getElementById('toggle-history-btn');
-            const toggleHistoryIcon = document.getElementById('toggle-history-icon');
-            const tripHistoryContent = document.getElementById('trip-history-content');
-            let isHistoryVisible = false; // Oculto por defecto
-            
-            // NUEVOS ELEMENTOS
-            const archiveSummarySection = document.getElementById('archive-summary-section');
-            const archivedTotalMilesEl = document.getElementById('archived-total-miles');
-            const archivedTotalAmountEl = document.getElementById('archived-total-amount');
 
+            // Archive History Modal
+            const historyModal = document.getElementById('history-modal');
+            const viewHistoryBtn = document.getElementById('view-history-btn');
+            const historyCloseBtn = document.getElementById('history-close-btn');
+            const closeHistoryModalBtn = document.getElementById('close-history-modal-btn');
+            const clearHistoryBtn = document.getElementById('clear-history-btn');
+            const archiveHistoryTableBody = document.getElementById('archive-history-table-body');
+            const emptyHistoryRow = document.getElementById('empty-history-row');
+
+            // --- State Variables ---
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
+            let archiveHistory = JSON.parse(localStorage.getItem('archiveHistory')) || [];
+            let isHistoryVisible = false; // Table starts hidden
 
-            // --- Lógica de `loadVehicleInfo` actualizada ---
+            // --- Driver Info Logic ---
             const loadVehicleInfo = () => {
                 vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
                 if (vehicleInfo) {
-                    // Hay info guardada, así que ocultamos la sección y mostramos el botón de editar
                     driverVehicleSection.classList.add('hidden');
                     showInfoSectionBtn.classList.remove('hidden');
-
-                    // Llenamos los campos de visualización y el formulario (para cuando se edite)
                     displayDriverName.textContent = vehicleInfo.driverName;
                     displayCompany.textContent = vehicleInfo.company;
                     displayTruckNumber.textContent = vehicleInfo.truckNumber;
                     displayTrailerNumber.textContent = vehicleInfo.trailerNumber;
                     displayInitialOdometer.textContent = Number(vehicleInfo.initialOdometer).toLocaleString();
-
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
-                    
-                    // Preparamos el interior de la sección para la próxima vez que se abra
-                    vehicleInfoDisplay.classList.add('hidden'); // Ocultamos el display
-                    vehicleInfoForm.classList.remove('hidden'); // Mostramos el form para editar
+                    vehicleInfoDisplay.classList.add('hidden');
+                    vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.remove('hidden');
-
                 } else {
-                    // No hay info, mostramos la sección con el formulario para que se llene
                     driverVehicleSection.classList.remove('hidden');
                     showInfoSectionBtn.classList.add('hidden');
                     vehicleInfoDisplay.classList.add('hidden');
@@ -460,35 +517,18 @@
                 }
             };
             
-            // --- NUEVO Listener para plegar el historial ---
-            toggleHistoryBtn.addEventListener('click', () => {
-                isHistoryVisible = !isHistoryVisible; // Toggle the state
-                if (isHistoryVisible) {
-                    // Content is now VISIBLE
-                    tripHistoryContent.classList.remove('hidden');
-                    toggleHistoryIcon.classList.remove('rotate-180'); // Point up
-                } else {
-                    // Content is now HIDDEN
-                    tripHistoryContent.classList.add('hidden');
-                    toggleHistoryIcon.classList.add('rotate-180'); // Point down
-                }
+            showInfoSectionBtn.addEventListener('click', () => {
+                driverVehicleSection.classList.remove('hidden');
+                showInfoSectionBtn.classList.add('hidden');
             });
 
-            // --- Listener del botón "Cancelar" ahora oculta toda la sección ---
              cancelInfoEditBtn.addEventListener('click', () => {
-                if (vehicleInfo) { // Solo si ya hay info guardada
+                if (vehicleInfo) {
                     driverVehicleSection.classList.add('hidden');
                     showInfoSectionBtn.classList.remove('hidden');
-                }
+                } 
             });
 
-            // --- AÑADIDO: Listener para el botón "Ver/Editar" que faltaba ---
-            showInfoSectionBtn.addEventListener('click', () => {
-                driverVehicleSection.classList.remove('hidden'); // Muestra la sección
-                showInfoSectionBtn.classList.add('hidden'); // Oculta este mismo botón
-            });
-
-            // --- El listener del formulario ahora oculta toda la sección al guardar ---
             vehicleInfoForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const newInfo = {
@@ -500,16 +540,13 @@
                 };
                 localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
                 vehicleInfo = newInfo;
-                
-                // Ocultamos la sección y mostramos el botón de editar
                 driverVehicleSection.classList.add('hidden');
                 showInfoSectionBtn.classList.remove('hidden');
-                
-                // Recargamos la info para que se actualice internamente
                 loadVehicleInfo(); 
-                showNotification('Info saved successfully.', false);
+                showNotification('Driver Info saved successfully.', false);
             });
             
+            // --- Trip Table Logic ---
             const renderTable = () => {
                 tableBody.innerHTML = '';
                 if (records.length === 0) {
@@ -551,10 +588,10 @@
             const updateTotalMiles = () => {
                 const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
-                const totalAmountEl = document.getElementById('total-amount');
                 const amount = total * 0.70;
                 totalAmountEl.textContent = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             };
+
             const saveToLocalStorage = () => {
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
             };
@@ -601,6 +638,19 @@
                 loadVehicleInfo();
             });
             
+            // --- History Table Toggle Logic ---
+            toggleHistoryTableBtn.addEventListener('click', () => {
+                isHistoryVisible = !isHistoryVisible;
+                if (isHistoryVisible) {
+                    historyTableContainer.classList.remove('hidden');
+                    historyToggleIcon.classList.remove('rotate-180');
+                } else {
+                    historyTableContainer.classList.add('hidden');
+                    historyToggleIcon.classList.add('rotate-180');
+                }
+            });
+
+            // --- PDF Generation Logic ---
             const generateAndHandlePdf = async (recordsToExport, forSharing = true) => {
                  if (!recordsToExport || recordsToExport.length === 0) {
                     showNotification('No data to generate a report.');
@@ -610,7 +660,7 @@
                 try {
                     logoBase64 = await getSvgAsImageBase64(document.getElementById('welcome-truck-svg')); 
                 } catch (error) {
-                    showNotification('Could not load logo for the PDF report.');
+                    showNotification('Could not load company logo for the PDF report.');
                 }
                 const uniqueDrivers = [...new Set(recordsToExport.map(r => r.driverName))];
                 showNotification(`Generating ${uniqueDrivers.length} PDF report(s)...`, false);
@@ -703,6 +753,7 @@
                 generateAndHandlePdf(records, true);
             });
 
+            // --- Edit Modal Logic ---
             const openEditModal = (trip) => {
                 document.getElementById('edit-trip-id').value = trip.id;
                 document.getElementById('edit-date').value = trip.date;
@@ -754,6 +805,20 @@
                 showNotification('Trip updated successfully.', false);
             });
             
+            // --- Last Archive Summary Logic ---
+            const loadLastArchiveSummary = () => {
+                const summary = JSON.parse(localStorage.getItem('lastArchiveSummary')) || null;
+                if (summary) {
+                    lastArchivePeriod.textContent = summary.period;
+                    lastArchiveMiles.textContent = summary.totalMiles.toLocaleString();
+                    lastArchiveAmount.textContent = summary.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                    lastArchiveSummary.classList.remove('hidden');
+                } else {
+                    lastArchiveSummary.classList.add('hidden');
+                }
+            };
+
+            // --- Archive & Reset Logic ---
             const openConfirmModal = () => {
                 confirmModal.classList.remove('hidden');
                 confirmModal.classList.add('flex');
@@ -772,29 +837,34 @@
                     closeConfirmModal();
                     return;
                 }
-
-                // --- INICIO DE NUEVA LÓGICA ---
-                // Calcular totales ANTES de archivar
-                const totalMilesToArchive = records.reduce((sum, record) => sum + Number(record.miles), 0);
-                const totalAmountToArchive = totalMilesToArchive * 0.70;
-
-                // Guardar totales en localStorage
-                const archivedTotals = {
-                    miles: totalMilesToArchive,
-                    amount: totalAmountToArchive
-                };
-                localStorage.setItem('archivedTotals', JSON.stringify(archivedTotals));
-
-                // Actualizar las nuevas casillas
-                archivedTotalMilesEl.textContent = totalMilesToArchive.toLocaleString();
-                archivedTotalAmountEl.textContent = totalAmountToArchive.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
                 
-                // Mostrar la sección de resumen
-                archiveSummarySection.classList.remove('hidden');
-                // --- FIN DE NUEVA LÓGICA ---
-
                 await generateAndHandlePdf(records, false);
+
+                // --- Archive History Logic ---
+                const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
+                const totalAmount = totalMiles * 0.70;
+                const firstDate = records[0]?.date;
+                const lastDate = records[records.length - 1]?.date;
+                const period = firstDate === lastDate ? firstDate : `${firstDate} to ${lastDate}`;
                 
+                const newArchiveEntry = {
+                    id: Date.now(),
+                    archiveDate: new Date().toLocaleDateString(),
+                    period: period,
+                    totalMiles: totalMiles,
+                    totalAmount: totalAmount,
+                    detailedRecords: [...records] // Save a copy of the detailed records
+                };
+
+                // Save to full archive history
+                archiveHistory.unshift(newArchiveEntry);
+localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
+
+                // Save to last archive summary
+                localStorage.setItem('lastArchiveSummary', JSON.stringify(newArchiveEntry));
+                loadLastArchiveSummary(); // Update the UI
+                // --- End Archive History Logic ---
+
                 const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
                 if (lastValidRecord) {
                     vehicleInfo.initialOdometer = lastValidRecord.odometer;
@@ -808,6 +878,7 @@
                 showNotification('Trips have been archived and reset.', false);
             });
             
+            // --- Table Event Listeners (Edit/Delete) ---
             tableBody.addEventListener('click', (e) => {
                 if (e.target.classList.contains('delete-btn')) {
                     const idToDelete = Number(e.target.dataset.id);
@@ -822,32 +893,79 @@
                 }
             });
             
-            // --- Carga Inicial ---
-
-            // --- INICIO DE NUEVA LÓGICA ---
-            // Cargar resumen de archivo anterior si existe
-            const loadArchivedTotals = () => {
-                const storedTotals = localStorage.getItem('archivedTotals');
-                if (storedTotals) {
-                    const totals = JSON.parse(storedTotals);
-                    archivedTotalMilesEl.textContent = Number(totals.miles).toLocaleString();
-                    archivedTotalAmountEl.textContent = Number(totals.amount).toLocaleString('en-US', { style: 'currency', 'currency': 'USD' });
-                    archiveSummarySection.classList.remove('hidden');
+            // --- Archive History Modal Logic ---
+            const renderArchiveHistoryTable = () => {
+                archiveHistoryTableBody.innerHTML = '';
+                if (archiveHistory.length === 0) {
+                    archiveHistoryTableBody.appendChild(emptyHistoryRow.cloneNode(true));
+                    clearHistoryBtn.disabled = true;
+                    clearHistoryBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    clearHistoryBtn.disabled = false;
+                    clearHistoryBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    archiveHistory.forEach(entry => {
+                        const row = document.createElement('tr');
+                        row.className = 'bg-gray-800 border-b border-gray-700';
+                        row.innerHTML = `
+                            <td class="px-6 py-4 font-medium whitespace-nowrap">${entry.archiveDate}</td>
+                            <td class="px-6 py-4">${entry.period}</td>
+                            <td class="px-6 py-4">${entry.totalMiles.toLocaleString()}</td>
+                            <td class="px-6 py-4 font-medium text-green-400">${entry.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
+                            <td class="px-6 py-4 text-center">
+                                <button data-id="${entry.id}" class="generate-history-pdf-btn text-purple-400 hover:text-purple-300 font-medium text-sm py-1 px-2 rounded-lg bg-gray-700 hover:bg-gray-600">
+                                    Generate PDF
+                                </button>
+                            </td>
+                        `;
+                        archiveHistoryTableBody.appendChild(row);
+                    });
                 }
             };
-            loadArchivedTotals();
-            // --- FIN DE NUEVA LÓGICA ---
 
+            const openHistoryModal = () => {
+                renderArchiveHistoryTable();
+                historyModal.classList.remove('hidden');
+                historyModal.classList.add('flex');
+            };
+
+            const closeHistoryModal = () => {
+                historyModal.classList.add('hidden');
+                historyModal.classList.remove('flex');
+            };
+
+            viewHistoryBtn.addEventListener('click', openHistoryModal);
+            historyCloseBtn.addEventListener('click', closeHistoryModal);
+            closeHistoryModalBtn.addEventListener('click', closeHistoryModal);
+
+            clearHistoryBtn.addEventListener('click', () => {
+                // You can add a custom confirmation modal here later if you want
+                archiveHistory = [];
+                localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
+                renderArchiveHistoryTable();
+                showNotification('Archive history has been cleared.', false);
+            });
+
+            // New listener for generating PDFs from history
+            archiveHistoryTableBody.addEventListener('click', async (e) => {
+                if (e.target.classList.contains('generate-history-pdf-btn')) {
+                    const id = Number(e.target.dataset.id);
+                    const entry = archiveHistory.find(item => item.id === id);
+                    if (entry && entry.detailedRecords) {
+                        showNotification('Generating PDF for archived period...', false);
+                        await generateAndHandlePdf(entry.detailedRecords, true);
+                    } else {
+                        showNotification('Could not find detailed records for this archive entry.');
+                    }
+                }
+            });
+            
+            // --- Initial Load ---
             loadVehicleInfo();
             renderTable();
+            loadLastArchiveSummary(); // Load the summary on startup
         });
     </script>
 
 </body>
 </html>
-
-
-
-
-
 
