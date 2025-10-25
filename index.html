@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale-1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Truck Mileage Tracker</title>
     
     <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
@@ -14,6 +14,8 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
+            /* Fondo degradado para el efecto glassmorphism */
+            background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
         }
         /* Welcome screen animation */
         @keyframes pulse {
@@ -42,19 +44,46 @@
             width: 8px;
         }
         #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track {
-            background: #2d3748; /* gray-800 */
+            background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparente */
         }
         #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb {
-            background: #4a5568; /* gray-600 */
+            background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparente */
             border-radius: 4px;
         }
        #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover {
-            background: #718096; /* gray-500 */
+            background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparente */
         }
-       /* Tailwind's 'hidden' class uses display: none !important, we might need JS if transition is desired later */
+       
+       /* Clase para el efecto Glassmorphism */
+       .glass-effect {
+            background-color: rgba(255, 255, 255, 0.05); /* Ligeramente blanco */
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+       }
+
+       /* Estilo para los inputs con efecto glass */
+       .glass-input {
+            background-color: rgba(17, 24, 39, 0.5); /* gray-900 semi-transparente */
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+       }
+       .glass-input::placeholder {
+            color: rgba(209, 213, 219, 0.6); /* gray-300 semi-transparente */
+       }
+       .glass-input:focus {
+            background-color: rgba(17, 24, 39, 0.7);
+            border-color: rgba(59, 130, 246, 0.7); /* cyan-500 semi-transparente */
+            --tw-ring-color: rgba(59, 130, 246, 0.5);
+       }
+
+       /* Para el color del texto del date picker */
+        input[type="date"]::-webkit-calendar-picker-indicator {
+            filter: invert(1);
+        }
     </style>
 </head>
-<body class="bg-gray-900 text-white">
+<body class="bg-gray-900 text-white min-h-screen p-4 flex items-center justify-center">
 
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
@@ -85,7 +114,7 @@
     </div>
 
     <!-- Main Content Container -->
-    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4">
+    <div class="w-full max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 m-4">
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
@@ -107,15 +136,15 @@
                 </g>
             </svg>
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
-            <p class="text-gray-400 mt-1">Log your trips and keep accurate track of your miles.</p>
+            <p class="text-gray-300 mt-1">Log your trips and keep accurate track of your miles.</p>
             <!-- Button to show/edit info -->
-            <button id="show-info-section-btn" class="hidden mt-4 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
+            <button id="show-info-section-btn" class="hidden mt-4 glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
                 View/Edit Driver Info
             </button>
         </header>
 
         <!-- Driver & Vehicle Info Section (Collapsible) -->
-        <div id="driver-vehicle-section" class="bg-gray-700 p-6 rounded-xl mb-8">
+        <div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
             </div>
@@ -134,48 +163,49 @@
                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                     <div>
                         <label for="driverNameInfo" class="block text-sm font-medium text-gray-300 mb-1">Driver Name</label>
-                        <input type="text" id="driverNameInfo" placeholder="Your Name" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" id="driverNameInfo" placeholder="Your Name" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                     <div>
                         <label for="companyInfo" class="block text-sm font-medium text-gray-300 mb-1">Company</label>
-                        <input type="text" id="companyInfo" placeholder="Your Company Name" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" id="companyInfo" placeholder="Your Company Name" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                     <div>
                         <label for="truckNumberInfo" class="block text-sm font-medium text-gray-300 mb-1">Truck #</label>
-                        <input type="text" id="truckNumberInfo" placeholder="e.g., T-123" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" id="truckNumberInfo" placeholder="e.g., T-123" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                      <div>
                         <label for="trailerNumberInfo" class="block text-sm font-medium text-gray-300 mb-1">Trailer #</label>
-                        <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                 </div>
                 <div class="mb-4">
                      <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
-                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full md:w-1/4 bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full md:w-1/4 glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                 </div>
                 <div class="flex justify-end gap-4">
-                     <button type="button" id="cancel-info-edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Cancel</button>
+                     <button type="button" id="cancel-info-edit-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Cancel</button>
                     <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Save Info</button>
                 </div>
             </form>
         </div>
 
         <!-- Add New Trip Section -->
-        <div class="bg-gray-700 p-6 rounded-xl mb-8">
+        <div class="glass-effect p-6 rounded-xl mb-8">
             <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                    <div class="md:col-span-1">
+                <!-- Grid changed to 8 columns for finer control -->
+                <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
+                    <div class="md:col-span-2">
                         <label for="date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
-                        <input type="date" id="date" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="date" id="date" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
-                    <div class="md:col-span-1">
+                    <div class="md:col-span-3">
                         <label for="departure" class="block text-sm font-medium text-gray-300 mb-1">Departure</label>
-                        <input type="text" id="departure" placeholder="City, State" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" id="departure" placeholder="City, State" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
-                    <div class="md:col-span-1">
+                    <div class="md:col-span-3">
                         <label for="odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
-                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="odometer" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="odometer" placeholder="e.g., 150200" class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                 </div>
                 <div class="flex justify-end">
@@ -194,11 +224,11 @@
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
                     Share PDF
                 </button>
-                <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
                     <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                     <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
                 </div>
-                <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
@@ -211,7 +241,7 @@
             <!-- Collapsible Table Section Header -->
             <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
-                <button id="toggle-history-table-btn" class="text-gray-400 hover:text-white p-2 rounded-full" title="Toggle History">
+                <button id="toggle-history-table-btn" class="text-gray-300 hover:text-white p-2 rounded-full" title="Toggle History">
                     <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                     </svg>
@@ -220,9 +250,9 @@
             
             <!-- Collapsible Table Wrapper (Starts hidden) -->
             <div id="history-table-container" class="hidden">
-                <div class="overflow-x-auto rounded-lg border border-gray-700">
-                    <table class="w-full text-sm text-left text-gray-300">
-                        <thead class="text-xs text-cyan-300 uppercase bg-gray-700">
+                <div class="overflow-x-auto rounded-lg glass-effect border-none">
+                    <table class="w-full text-sm text-left text-gray-200">
+                        <thead class="text-xs text-cyan-300 uppercase bg-white/5">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Date</th>
                                 <th scope="col" class="px-6 py-3">Driver</th>
@@ -237,9 +267,11 @@
                             </tr>
                         </thead>
                         <tbody id="mileage-table-body">
-                            <tr id="empty-row" class="bg-gray-800 border-b border-gray-700">
-                               <td colspan="10" class="text-center py-8 text-gray-500">No records yet.</td>
+                            <!-- Filas de ejemplo con efecto glass -->
+                            <tr id="empty-row" class="bg-white/5 border-b border-white/10">
+                               <td colspan="10" class="text-center py-8 text-gray-400">No records yet.</td>
                             </tr>
+                            <!-- Las filas se añadirán aquí, tendrán bg-white/5 y border-white/10 -->
                         </tbody>
                     </table>
                 </div>
@@ -248,17 +280,17 @@
             <!-- Last Archive Summary (Restored) -->
             <div id="last-archive-summary" class="hidden mt-8 md:w-2/5">
                 <h3 class="text-lg font-semibold mb-3 text-gray-300">Last Archive Summary</h3>
-                <div class="bg-gray-700 rounded-lg p-4 flex flex-col gap-2">
+                <div class="glass-effect rounded-lg p-4 flex flex-col gap-2">
                     <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-400 text-sm">Period</span>
+                        <span class="font-medium text-gray-300 text-sm">Period</span>
                         <span id="last-archive-period" class="font-bold text-sm text-white"></span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-400 text-sm">Total Miles</span>
+                        <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                         <span id="last-archive-miles" class="font-bold text-lg text-cyan-400">0</span>
                     </div>
                     <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-400 text-sm">Total Amount</span>
+                        <span class="font-medium text-gray-300 text-sm">Total Amount</span>
                         <span id="last-archive-amount" class="font-bold text-lg text-green-400">$0.00</span>
                     </div>
                 </div>
@@ -278,30 +310,30 @@
     </div> <!-- End Main Content Container -->
     
     <!-- Modal for Editing a Trip -->
-    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
-            <div class="p-4 border-b border-gray-600 flex justify-between items-center">
+    <div id="edit-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
-                <button id="edit-close-btn" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+                <button id="edit-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <form id="edit-trip-form">
                 <div class="p-6 space-y-4">
                     <input type="hidden" id="edit-trip-id">
                     <div>
                         <label for="edit-date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
-                        <input type="date" id="edit-date" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                        <input type="date" id="edit-date" required class="w-full glass-input rounded-lg p-2.5 focus:ring-yellow-500 focus:border-yellow-500">
                     </div>
                     <div>
                         <label for="edit-departure" class="block text-sm font-medium text-gray-300 mb-1">Departure</label>
-                        <input type="text" id="edit-departure" placeholder="City, State" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                        <input type="text" id="edit-departure" placeholder="City, State" required class="w-full glass-input rounded-lg p-2.5 focus:ring-yellow-500 focus:border-yellow-500">
                     </div>
                     <div>
                         <label for="edit-odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
-                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="edit-odometer" placeholder="e.g., 150200" class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-yellow-500 focus:border-yellow-500">
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="edit-odometer" placeholder="e.g., 150200" class="w-full glass-input rounded-lg p-2.5 focus:ring-yellow-500 focus:border-yellow-500">
                     </div>
                 </div>
-                <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
-                    <button type="button" id="cancel-edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <div class="p-4 border-t border-white/10 flex justify-end gap-4">
+                    <button type="button" id="cancel-edit-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
                     <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button>
                 </div>
             </form>
@@ -309,59 +341,59 @@
     </div>
     
     <!-- Confirmation Modal -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
-            <div class="p-4 border-b border-gray-600">
+    <div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
+            <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
             </div>
-            <div class="p-6">
+            <div class="p-6 text-gray-200">
                 <p>Are you sure you want to archive all trips? This will download a PDF report, add a summary to the archive history, clear all records, and update the initial odometer. This action cannot be undone.</p>
             </div>
-            <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
-                <button id="confirm-no-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
+                <button id="confirm-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
                 <button id="confirm-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Archive & Reset</button>
             </div>
         </div>
     </div>
 
     <!-- New Archive History Modal -->
-    <div id="history-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width -->
-            <div class="p-4 border-b border-gray-600 flex justify-between items-center">
+    <div id="history-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width -->
+            <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-blue-400">Archive History</h3>
-                <button id="history-close-btn" class="text-gray-400 hover:text-white text-3xl leading-none">&times;</button>
+                <button id="history-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 flex-grow overflow-y-auto" id="history-modal-content">
-                <div class="overflow-x-auto rounded-lg border border-gray-600">
-                    <table class="w-full text-sm text-left text-gray-300">
-                        <thead class="text-xs text-blue-300 uppercase bg-gray-800">
+                <div class="overflow-x-auto rounded-lg border border-white/10">
+                    <table class="w-full text-sm text-left text-gray-200">
+                        <thead class="text-xs text-blue-300 uppercase bg-white/5">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
-                                <th scope="col" class="px-6 py-3">Total Miles</th>
+                                <th scope="Two">Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
                                 <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
                             </tr>
                         </thead>
                         <tbody id="archive-history-table-body">
                             <!-- History rows will be injected here -->
-                            <tr id="empty-history-row" class="bg-gray-800 border-b border-gray-700">
-                               <td colspan="5" class="text-center py-8 text-gray-500">No archive history yet.</td> <!-- Updated colspan -->
+                            <tr id="empty-history-row" class="bg-white/5 border-b border-white/10">
+                               <td colspan="5" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan -->
                             </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="p-4 border-t border-gray-600 flex justify-end gap-4">
+            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
                 <button type="button" id="clear-history-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear History</button>
-                <button type="button" id="close-history-modal-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+                <button type="button" id="close-history-modal-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Close</button>
             </div>
         </div>
     </div>
 
 
     <!-- Notification Element -->
-    <div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
+    <div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
     </div>
 
@@ -375,7 +407,9 @@
 
             notificationMessage.textContent = message;
             notification.classList.remove('bg-red-600', 'bg-green-500');
-            notification.classList.add(isError ? 'bg-red-600' : 'bg-green-500');
+            // Remove glass-effect base, apply colored glass
+            notification.classList.add(isError ? 'bg-red-600/70' : 'bg-green-500/70');
+            notification.classList.add('backdrop-blur-md');
             notification.classList.remove('opacity-0');
             setTimeout(() => {
                 notification.classList.add('opacity-0');
@@ -562,7 +596,8 @@
                     archiveResetBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                      records.forEach(record => {
                         const row = document.createElement('tr');
-                        row.className = 'bg-gray-800 border-b border-gray-700 hover:bg-gray-600/50';
+                        // Glass effect for table rows
+                        row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
                         row.innerHTML = `
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
                             <td class="px-6 py-4">${record.driverName}</td>
@@ -857,8 +892,8 @@
                 };
 
                 // Save to full archive history
-                archiveHistory.unshift(newArchiveEntry);
-localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
+                archiveHistory.unshift(newArchiveEntry); // Add to the beginning
+                localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
 
                 // Save to last archive summary
                 localStorage.setItem('lastArchiveSummary', JSON.stringify(newArchiveEntry));
@@ -905,14 +940,14 @@ localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
                     clearHistoryBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     archiveHistory.forEach(entry => {
                         const row = document.createElement('tr');
-                        row.className = 'bg-gray-800 border-b border-gray-700';
+                        row.className = 'bg-white/5 border-b border-white/10';
                         row.innerHTML = `
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${entry.archiveDate}</td>
                             <td class="px-6 py-4">${entry.period}</td>
                             <td class="px-6 py-4">${entry.totalMiles.toLocaleString()}</td>
                             <td class="px-6 py-4 font-medium text-green-400">${entry.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                             <td class="px-6 py-4 text-center">
-                                <button data-id="${entry.id}" class="generate-history-pdf-btn text-purple-400 hover:text-purple-300 font-medium text-sm py-1 px-2 rounded-lg bg-gray-700 hover:bg-gray-600">
+                                <button data-id="${entry.id}" class="generate-history-pdf-btn text-purple-400 hover:text-purple-300 font-medium text-sm py-1 px-2 rounded-lg bg-white/10 hover:bg-white/20">
                                     Generate PDF
                                 </button>
                             </td>
@@ -941,6 +976,8 @@ localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
                 // You can add a custom confirmation modal here later if you want
                 archiveHistory = [];
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
+                localStorage.removeItem('lastArchiveSummary'); // Also clear the summary box
+                loadLastArchiveSummary(); // Update UI
                 renderArchiveHistoryTable();
                 showNotification('Archive history has been cleared.', false);
             });
