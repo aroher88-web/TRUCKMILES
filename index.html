@@ -51,6 +51,10 @@
        #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover {
             background: #718096; /* gray-500 */
         }
+        /* Ensure form is hidden initially if data exists */
+         #vehicle-info-form.initially-hidden {
+             display: none;
+         }
     </style>
 </head>
 <body class="bg-gray-900 text-white">
@@ -112,7 +116,11 @@
         <div class="bg-gray-700 p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
-                <button id="edit-info-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Edit Info</button>
+                <button id="toggle-info-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-3 rounded-lg transition-colors duration-300 hidden" title="Edit Info">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+                    </svg>
+                </button>
             </div>
             <div id="vehicle-info-display" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-300">
@@ -123,7 +131,7 @@
                     <p><strong>Initial Odometer:</strong> <span id="display-initialOdometer"></span></p>
                 </div>
             </div>
-            <form id="vehicle-info-form" class="">
+            <form id="vehicle-info-form" class="hidden initially-hidden"> 
                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                     <div>
                         <label for="driverNameInfo" class="block text-sm font-medium text-gray-300 mb-1">Driver Name</label>
@@ -146,7 +154,8 @@
                      <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
                      <input type="number" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full md:w-1/4 bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                 </div>
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-4">
+                     <button type="button" id="cancel-info-edit-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Cancel</button>
                     <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Save Info</button>
                 </div>
             </form>
@@ -347,7 +356,8 @@
             const departureInput = document.getElementById('departure');
             const vehicleInfoForm = document.getElementById('vehicle-info-form');
             const vehicleInfoDisplay = document.getElementById('vehicle-info-display');
-            const editInfoBtn = document.getElementById('edit-info-btn');
+            const toggleInfoBtn = document.getElementById('toggle-info-btn'); // Renamed from editInfoBtn
+            const cancelInfoEditBtn = document.getElementById('cancel-info-edit-btn'); // New cancel button
             const driverNameInfoInput = document.getElementById('driverNameInfo');
             const companyInfoInput = document.getElementById('companyInfo');
             const truckNumberInfoInput = document.getElementById('truckNumberInfo');
@@ -388,18 +398,40 @@
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
                     
                     vehicleInfoDisplay.classList.remove('hidden');
-                    vehicleInfoForm.classList.add('hidden');
-                    editInfoBtn.classList.remove('hidden');
+                    vehicleInfoForm.classList.add('hidden', 'initially-hidden'); // Keep hidden
+                    vehicleInfoForm.style.display = 'none'; // Ensure it's hidden with style
+                    toggleInfoBtn.classList.remove('hidden'); // Show toggle button
                 } else {
                     vehicleInfoDisplay.classList.add('hidden');
-                    vehicleInfoForm.classList.remove('hidden');
-                    editInfoBtn.classList.add('hidden');
+                    vehicleInfoForm.classList.remove('hidden', 'initially-hidden'); // Show form if no data
+                    vehicleInfoForm.style.display = ''; // Ensure it's shown
+                    toggleInfoBtn.classList.add('hidden'); // Hide toggle button
+                    cancelInfoEditBtn.classList.add('hidden'); // Hide cancel if it's the first time
                 }
             };
             
-            editInfoBtn.addEventListener('click', () => {
-                vehicleInfoDisplay.classList.add('hidden');
-                vehicleInfoForm.classList.remove('hidden');
+            toggleInfoBtn.addEventListener('click', () => {
+                 vehicleInfoDisplay.classList.toggle('hidden');
+                 vehicleInfoForm.classList.toggle('hidden');
+                 vehicleInfoForm.style.display = vehicleInfoForm.classList.contains('hidden') ? 'none' : '';
+                 cancelInfoEditBtn.classList.remove('hidden'); // Always show cancel when form is open
+            });
+
+             cancelInfoEditBtn.addEventListener('click', () => {
+                // If there is existing info, just hide the form and show display
+                if (vehicleInfo) {
+                    vehicleInfoForm.classList.add('hidden');
+                    vehicleInfoForm.style.display = 'none';
+                    vehicleInfoDisplay.classList.remove('hidden');
+                    // Reset form fields to original values
+                    driverNameInfoInput.value = vehicleInfo.driverName;
+                    companyInfoInput.value = vehicleInfo.company;
+                    truckNumberInfoInput.value = vehicleInfo.truckNumber;
+                    trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
+                    initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
+                } 
+                // If there's NO existing info (first time), clicking cancel does nothing for now
+                // Alternatively, you could clear the form, but let's keep it simple.
             });
 
             vehicleInfoForm.addEventListener('submit', (e) => {
@@ -412,7 +444,8 @@
                     initialOdometer: initialOdometerInfoInput.value,
                 };
                 localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
-                loadVehicleInfo();
+                vehicleInfo = newInfo; // Update global variable immediately
+                loadVehicleInfo(); // This will now correctly hide form and show display
             });
             
             const renderTable = () => {
@@ -513,7 +546,7 @@
                 
                 form.reset();
                 renderTable();
-                loadVehicleInfo(); 
+                loadVehicleInfo(); // Reload info after adding trip
             });
             
             const generateAndHandlePdf = async (recordsToExport, forSharing = true) => {
