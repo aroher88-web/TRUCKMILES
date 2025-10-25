@@ -482,6 +482,12 @@
                 }
             });
 
+            // --- AÑADIDO: Listener para el botón "Ver/Editar" que faltaba ---
+            showInfoSectionBtn.addEventListener('click', () => {
+                driverVehicleSection.classList.remove('hidden'); // Muestra la sección
+                showInfoSectionBtn.classList.add('hidden'); // Oculta este mismo botón
+            });
+
             // --- El listener del formulario ahora oculta toda la sección al guardar ---
             vehicleInfoForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -839,6 +845,7 @@
 
 </body>
 </html>
+
 
 
 
