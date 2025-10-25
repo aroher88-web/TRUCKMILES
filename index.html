@@ -84,7 +84,8 @@
         <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
     </div>
 
-    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4">
+    <!-- Contenedor principal de la aplicación -->
+    <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4 mx-auto">
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
@@ -107,19 +108,19 @@
             </svg>
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
             <p class="text-gray-400 mt-1">Log your trips and keep accurate track of your miles.</p>
+            <!-- Botón para mostrar/editar la info del conductor -->
+            <button id="show-info-section-btn" class="hidden mt-4 bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
+                View/Edit Driver Info
+            </button>
         </header>
 
         <!-- Driver & Vehicle Info Section -->
-        <div class="bg-gray-700 p-6 rounded-xl mb-8">
+        <div id="driver-vehicle-section" class="bg-gray-700 p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
-                <button id="toggle-info-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold py-2 px-3 rounded-lg transition-colors duration-300 hidden" title="Edit Info">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-                    </svg>
-                </button>
+                <!-- El botón de edición fue movido al header principal -->
             </div>
-            <!-- Info Display Area -->
+            <!-- Info Display Area (se mantiene oculta por JS al inicio si hay datos) -->
             <div id="vehicle-info-display" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-300">
                     <p><strong>Driver:</strong> <span id="display-driverName"></span></p>
@@ -160,15 +161,16 @@
             </form>
         </div>
 
+        <!-- Sección Add New Trip -->
         <div class="bg-gray-700 p-6 rounded-xl mb-8">
             <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
                     <div class="md:col-span-1">
                         <label for="date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
                         <input type="date" id="date" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
-                    <div class="md:col-span-2">
+                    <div class="md:col-span-1">
                         <label for="departure" class="block text-sm font-medium text-gray-300 mb-1">Departure</label>
                         <input type="text" id="departure" placeholder="City, State" required class="w-full bg-gray-800 border border-gray-600 rounded-lg p-2.5 text-white focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
@@ -184,6 +186,7 @@
                 </div>
             </form>
         </div>
+        <!-- Fin de la sección Add New Trip -->
 
         <div>
             <div class="flex flex-col md:flex-row justify-between items-center mb-4">
@@ -234,7 +237,8 @@
         </div>
     </div>
     
-    <!-- Modal for Editing a Trip --><div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- Modal for Editing a Trip -->
+    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
             <div class="p-4 border-b border-gray-600 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
@@ -264,7 +268,8 @@
         </div>
     </div>
     
-    <!-- Confirmation Modal --><div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- Confirmation Modal -->
+    <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
             <div class="p-4 border-b border-gray-600">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
@@ -280,7 +285,8 @@
     </div>
 
 
-    <!-- Notification Element --><div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
+    <!-- Notification Element -->
+    <div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
     </div>
 
@@ -304,18 +310,12 @@
         const getSvgAsImageBase64 = (svgElement) => {
             return new Promise((resolve, reject) => {
                 if (!svgElement) return reject("SVG element not provided");
-
-                // Clone the SVG node to avoid modifying the original
                 const clone = svgElement.cloneNode(true);
-                
-                // Remove animations if present (like in the welcome truck)
                 const animations = clone.querySelectorAll('animateTransform');
                 animations.forEach(anim => anim.remove());
-
                 const svgString = new XMLSerializer().serializeToString(clone);
                 const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
                 const url = URL.createObjectURL(svgBlob);
-                
                 const img = new Image();
                 img.onload = () => {
                     const canvas = document.createElement('canvas');
@@ -345,7 +345,7 @@
                 welcomeScreen.classList.add('opacity-0');
                 setTimeout(() => {
                     welcomeScreen.style.display = 'none';
-                }, 500); // match transition duration
+                }, 500);
             }, 3000);
 
             const form = document.getElementById('mileage-form');
@@ -355,7 +355,11 @@
             const departureInput = document.getElementById('departure');
             const vehicleInfoForm = document.getElementById('vehicle-info-form');
             const vehicleInfoDisplay = document.getElementById('vehicle-info-display');
-            const toggleInfoBtn = document.getElementById('toggle-info-btn'); 
+            
+            // --- Nuevas variables para controlar la sección completa ---
+            const driverVehicleSection = document.getElementById('driver-vehicle-section');
+            const showInfoSectionBtn = document.getElementById('show-info-section-btn');
+
             const cancelInfoEditBtn = document.getElementById('cancel-info-edit-btn'); 
             const driverNameInfoInput = document.getElementById('driverNameInfo');
             const companyInfoInput = document.getElementById('companyInfo');
@@ -369,7 +373,6 @@
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
             const sharePdfBtn = document.getElementById('share-pdf-btn');
             const archiveResetBtn = document.getElementById('archive-reset-btn');
-            // Modals
             const editModal = document.getElementById('edit-modal');
             const editTripForm = document.getElementById('edit-trip-form');
             const editCloseBtn = document.getElementById('edit-close-btn');
@@ -381,59 +384,57 @@
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
 
+            // --- Lógica de `loadVehicleInfo` actualizada ---
             const loadVehicleInfo = () => {
                 vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
                 if (vehicleInfo) {
-                    // Update display fields
+                    // Hay info guardada, así que ocultamos la sección y mostramos el botón de editar
+                    driverVehicleSection.classList.add('hidden');
+                    showInfoSectionBtn.classList.remove('hidden');
+
+                    // Llenamos los campos de visualización y el formulario (para cuando se edite)
                     displayDriverName.textContent = vehicleInfo.driverName;
                     displayCompany.textContent = vehicleInfo.company;
                     displayTruckNumber.textContent = vehicleInfo.truckNumber;
                     displayTrailerNumber.textContent = vehicleInfo.trailerNumber;
                     displayInitialOdometer.textContent = Number(vehicleInfo.initialOdometer).toLocaleString();
 
-                    // Update form fields (for editing later)
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
                     
-                    // Show display, hide form, show toggle button
-                    vehicleInfoDisplay.classList.remove('hidden');
-                    vehicleInfoForm.classList.add('hidden'); 
-                    toggleInfoBtn.classList.remove('hidden'); 
-                    cancelInfoEditBtn.classList.add('hidden'); // Hide cancel initially
+                    // Preparamos el interior de la sección para la próxima vez que se abra
+                    vehicleInfoDisplay.classList.add('hidden'); // Ocultamos el display
+                    vehicleInfoForm.classList.remove('hidden'); // Mostramos el form para editar
+                    cancelInfoEditBtn.classList.remove('hidden');
+
                 } else {
-                    // Hide display, show form, hide toggle button
+                    // No hay info, mostramos la sección con el formulario para que se llene
+                    driverVehicleSection.classList.remove('hidden');
+                    showInfoSectionBtn.classList.add('hidden');
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
-                    toggleInfoBtn.classList.add('hidden'); 
-                    cancelInfoEditBtn.classList.add('hidden'); // No data, hide cancel
+                    cancelInfoEditBtn.classList.add('hidden');
                 }
             };
             
-            toggleInfoBtn.addEventListener('click', () => {
-                 vehicleInfoDisplay.classList.add('hidden'); // Hide display
-                 vehicleInfoForm.classList.remove('hidden'); // Show form
-                 cancelInfoEditBtn.classList.remove('hidden'); // Show cancel button when form is open
+            // --- Nuevo listener para el botón "Ver/Editar" ---
+            showInfoSectionBtn.addEventListener('click', () => {
+                driverVehicleSection.classList.remove('hidden'); // Muestra la sección
+                showInfoSectionBtn.classList.add('hidden'); // Oculta este mismo botón
             });
 
+            // --- Listener del botón "Cancelar" ahora oculta toda la sección ---
              cancelInfoEditBtn.addEventListener('click', () => {
-                // If there is existing info, hide form, show display
-                if (vehicleInfo) {
-                    vehicleInfoForm.classList.add('hidden');
-                    vehicleInfoDisplay.classList.remove('hidden');
-                    cancelInfoEditBtn.classList.add('hidden'); // Hide cancel again
-                    // Reset form fields to original values in case user typed something
-                    driverNameInfoInput.value = vehicleInfo.driverName;
-                    companyInfoInput.value = vehicleInfo.company;
-                    truckNumberInfoInput.value = vehicleInfo.truckNumber;
-                    trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
-                    initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
-                } 
-                // No else needed: If no vehicleInfo, the cancel button should not be visible anyway
+                if (vehicleInfo) { // Solo si ya hay info guardada
+                    driverVehicleSection.classList.add('hidden');
+                    showInfoSectionBtn.classList.remove('hidden');
+                }
             });
 
+            // --- El listener del formulario ahora oculta toda la sección al guardar ---
             vehicleInfoForm.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const newInfo = {
@@ -444,13 +445,19 @@
                     initialOdometer: initialOdometerInfoInput.value,
                 };
                 localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
-                vehicleInfo = newInfo; // Update global variable
-                loadVehicleInfo(); // Reload UI state (will hide form, show display)
+                vehicleInfo = newInfo;
+                
+                // Ocultamos la sección y mostramos el botón de editar
+                driverVehicleSection.classList.add('hidden');
+                showInfoSectionBtn.classList.remove('hidden');
+                
+                // Recargamos la info para que se actualice internamente
+                loadVehicleInfo(); 
+                showNotification('Info saved successfully.', false);
             });
             
             const renderTable = () => {
                 tableBody.innerHTML = '';
-                
                 if (records.length === 0) {
                     tableBody.appendChild(emptyRow.cloneNode(true));
                     sharePdfBtn.disabled = true;
@@ -490,7 +497,6 @@
             const updateTotalMiles = () => {
                 const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
-
                 const totalAmountEl = document.getElementById('total-amount');
                 const amount = total * 0.70;
                 totalAmountEl.textContent = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
@@ -501,19 +507,15 @@
 
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-
                 if (!vehicleInfo || vehicleInfo.initialOdometer === undefined) {
                     showNotification('Please save driver & vehicle info, including an initial odometer, before adding a trip.');
                     return;
                 }
-
                 const initialOdometer = Number(vehicleInfo.initialOdometer);
                 const endingOdometerInput = document.getElementById('odometer').value;
                 const endingOdometer = endingOdometerInput ? Number(endingOdometerInput) : 0;
-
                 let tripMiles = 0;
                 let shouldUpdateOdometer = false;
-
                 if (endingOdometer > 0) {
                     if (endingOdometer < initialOdometer) {
                         showNotification('Ending odometer cannot be less than the initial odometer.');
@@ -522,7 +524,6 @@
                     tripMiles = endingOdometer - initialOdometer;
                     shouldUpdateOdometer = true;
                 }
-
                 const newRecord = {
                     id: Date.now(),
                     date: document.getElementById('date').value,
@@ -535,18 +536,15 @@
                     odometer: endingOdometer,
                     miles: tripMiles,
                 };
-
                 records.push(newRecord);
-                records.sort((a, b) => a.id - b.id); // Sort by creation timestamp ASC
-                
+                records.sort((a, b) => a.id - b.id);
                 if (shouldUpdateOdometer) {
                     vehicleInfo.initialOdometer = endingOdometer;
                     localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
                 }
-                
                 form.reset();
                 renderTable();
-                loadVehicleInfo(); // Reload info after adding trip
+                loadVehicleInfo();
             });
             
             const generateAndHandlePdf = async (recordsToExport, forSharing = true) => {
@@ -554,19 +552,14 @@
                     showNotification('No data to generate a report.');
                     return;
                 }
-
                 let logoBase64;
                 try {
-                    // Use the same SVG as the welcome screen
                     logoBase64 = await getSvgAsImageBase64(document.getElementById('welcome-truck-svg')); 
                 } catch (error) {
-                    showNotification('Could not load company logo for the PDF report.');
+                    showNotification('Could not load logo for the PDF report.');
                 }
-
                 const uniqueDrivers = [...new Set(recordsToExport.map(r => r.driverName))];
-                
                 showNotification(`Generating ${uniqueDrivers.length} PDF report(s)...`, false);
-
                 for (const driver of uniqueDrivers) {
                     const driverRecords = recordsToExport.filter(r => r.driverName === driver);
                      const driverInfo = {
@@ -575,42 +568,34 @@
                         truckNumber: driverRecords[0]?.truckNumber || vehicleInfo?.truckNumber || 'N/A',
                         trailerNumber: driverRecords[0]?.trailerNumber || vehicleInfo?.trailerNumber || 'N/A',
                     };
-
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
-                    
                     const totalMilesForDriver = driverRecords.reduce((sum, record) => sum + Number(record.miles), 0);
-                    
                     let startY = 15;
                     if(logoBase64) {
-                        const imgWidth = 60; // Slightly larger for better visibility
-                        const imgHeight = 20; // Maintain aspect ratio of 300x100
+                        const imgWidth = 60;
+                        const imgHeight = 20;
                         const pageWidth = doc.internal.pageSize.getWidth();
                         const x = (pageWidth - imgWidth) / 2;
                         doc.addImage(logoBase64, 'PNG', x, 15, imgWidth, imgHeight);
-                        startY = 45; // Adjust startY accordingly
+                        startY = 45;
                     }
-
                     doc.setFontSize(22);
                     doc.setFont('helvetica', 'bold');
                     doc.text(driverInfo.company, doc.internal.pageSize.getWidth() / 2, startY, { align: 'center' });
                     startY += 8;
-                    
-                    // --- Header Text Formatting ---
                     const headerParts = [
                         { text: `Driver: `, style: 'normal' },
-                        { text: driverInfo.driverName, style: 'bold', size: 13 }, // Increased size + bold
+                        { text: driverInfo.driverName, style: 'bold', size: 13 },
                         { text: ` | Truck #: ${driverInfo.truckNumber} | Trailer #: ${driverInfo.trailerNumber}`, style: 'normal' }
                     ];
-
-                    let currentX = doc.internal.pageSize.getWidth() / 2; // Start at center for alignment
+                    let currentX = doc.internal.pageSize.getWidth() / 2;
                     const totalWidth = headerParts.reduce((sum, part) => {
                         doc.setFont('helvetica', part.style || 'normal');
                         doc.setFontSize(part.size || 11);
                         return sum + doc.getTextWidth(part.text);
                     }, 0);
-                    currentX -= totalWidth / 2; // Adjust starting X for centering the whole line
-
+                    currentX -= totalWidth / 2;
                     doc.setTextColor(50);
                     headerParts.forEach(part => {
                         doc.setFont('helvetica', part.style || 'normal');
@@ -619,40 +604,29 @@
                         currentX += doc.getTextWidth(part.text);
                     });
                     startY += 15;
-                    // --- End Header Text Formatting ---
-
-
                     const tableColumn = ["Date", "City", "Odometer", "Miles"];
-                    // Format numbers, replacing 0 with empty string
                     const tableRows = driverRecords.map(r => [
                         r.date, 
                         r.departure, 
                         Number(r.odometer) === 0 ? '' : Number(r.odometer).toLocaleString(), 
                         Number(r.miles) === 0 ? '' : Number(r.miles).toLocaleString()
                     ]);
-                    
                     doc.autoTable(tableColumn, tableRows, { startY: startY });
                     const finalY = doc.lastAutoTable.finalY || startY;
-
                     doc.setFontSize(12);
                     doc.setFont('helvetica', 'bold');
                     doc.text(`Total Miles: ${totalMilesForDriver.toLocaleString()}`, 14, finalY + 15);
-                    
-                    // Add footer text with increased size
                     const today = new Date().toLocaleDateString();
                     const pageWidth = doc.internal.pageSize.getWidth();
-                    doc.setFontSize(10); // Increased font size to 10
+                    doc.setFontSize(10);
                     doc.setFont('helvetica', 'normal');
                     doc.setTextColor(150);
                     doc.text("Developed for AROHER88", pageWidth - 14, doc.internal.pageSize.getHeight() - 15, { align: 'right' });
                     doc.text(`Date: ${today}`, pageWidth - 14, doc.internal.pageSize.getHeight() - 10, { align: 'right' });
-
-
                     if(forSharing) {
                         const pdfBlob = doc.output('blob');
                         const pdfFile = new File([pdfBlob], `mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
                         const shareData = { files: [pdfFile], title: `Mileage Report for ${driverInfo.driverName}` };
-
                         if (navigator.canShare && navigator.canShare(shareData)) {
                             try { await navigator.share(shareData); } catch (err) {
                                 if (err.name !== 'AbortError') { showNotification(`Could not share report for ${driverInfo.driverName}.`);}
@@ -675,7 +649,6 @@
                 generateAndHandlePdf(records, true);
             });
 
-            // --- Edit Modal Logic ---
             const openEditModal = (trip) => {
                 document.getElementById('edit-trip-id').value = trip.id;
                 document.getElementById('edit-date').value = trip.date;
@@ -698,22 +671,18 @@
                 e.preventDefault();
                 const tripId = Number(document.getElementById('edit-trip-id').value);
                 const tripIndex = records.findIndex(r => r.id === tripId);
-                
                 if (tripIndex === -1) {
                     showNotification('Could not find trip to update.');
                     return;
                 }
-
                 const updatedTrip = {
                     ...records[tripIndex],
                     date: document.getElementById('edit-date').value,
                     departure: document.getElementById('edit-departure').value,
                     odometer: Number(document.getElementById('edit-odometer').value)
                 };
-                
                 const endingOdometer = updatedTrip.odometer;
                 const initialOdometer = updatedTrip.initialOdometer;
-
                 if (endingOdometer > 0) {
                      if (endingOdometer < initialOdometer) {
                         showNotification('Ending odometer cannot be less than the initial odometer for this trip.');
@@ -723,17 +692,14 @@
                 } else {
                     updatedTrip.miles = 0;
                 }
-                
                 records[tripIndex] = updatedTrip;
                 records.sort((a, b) => a.id - b.id);
-
                 renderTable();
                 saveToLocalStorage();
                 closeEditModal();
                 showNotification('Trip updated successfully.', false);
             });
             
-            // --- Archive & Reset Logic ---
             const openConfirmModal = () => {
                 confirmModal.classList.remove('hidden');
                 confirmModal.classList.add('flex');
@@ -752,18 +718,14 @@
                     closeConfirmModal();
                     return;
                 }
-                
                 await generateAndHandlePdf(records, false);
-
                 const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
                 if (lastValidRecord) {
                     vehicleInfo.initialOdometer = lastValidRecord.odometer;
                     localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
                 }
-
                 records = [];
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
-
                 renderTable();
                 loadVehicleInfo();
                 closeConfirmModal();
@@ -784,7 +746,7 @@
                 }
             });
             
-            // --- Initial Load ---
+            // --- Carga Inicial ---
             loadVehicleInfo();
             renderTable();
         });
