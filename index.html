@@ -470,11 +470,11 @@
                             <td class="px-6 py-4">${record.driverName}</td>
                             <td class="px-6 py-4">${record.departure}</td>
                             <td class="px-6 py-4">${Number(record.initialOdometer).toLocaleString()}</td>
-                            <td class="px-6 py-4">${Number(record.odometer).toLocaleString()}</td>
+                            <td class="px-6 py-4">${Number(record.odometer) === 0 ? '' : Number(record.odometer).toLocaleString()}</td>
                             <td class="px-6 py-4">${record.company}</td>
                             <td class="px-6 py-4">${record.truckNumber}</td>
                             <td class="px-6 py-4">${record.trailerNumber}</td>
-                            <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles).toLocaleString()}</td>
+                            <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString()}</td>
                             <td class="px-6 py-4 text-center whitespace-nowrap">
                                 <button data-id="${record.id}" class="edit-btn text-yellow-500 hover:text-yellow-400 font-medium mr-4">Edit</button>
                                 <button data-id="${record.id}" class="delete-btn text-red-500 hover:text-red-400 font-medium">Delete</button>
@@ -623,7 +623,13 @@
 
 
                     const tableColumn = ["Date", "City", "Odometer", "Miles"];
-                    const tableRows = driverRecords.map(r => [r.date, r.departure, Number(r.odometer).toLocaleString(), Number(r.miles).toLocaleString()]);
+                    // Format numbers, replacing 0 with empty string
+                    const tableRows = driverRecords.map(r => [
+                        r.date, 
+                        r.departure, 
+                        Number(r.odometer) === 0 ? '' : Number(r.odometer).toLocaleString(), 
+                        Number(r.miles) === 0 ? '' : Number(r.miles).toLocaleString()
+                    ]);
                     
                     doc.autoTable(tableColumn, tableRows, { startY: startY });
                     const finalY = doc.lastAutoTable.finalY || startY;
