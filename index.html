@@ -193,39 +193,39 @@
                 <h2 class="text-xl font-semibold">Trip History</h2>
                 <!-- New Toggle Button -->
                 <button id="toggle-history-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold p-2 rounded-lg transition-all duration-300">
-                    <svg id="toggle-history-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg id="toggle-history-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
                     </svg>
                 </button>
             </div>
             
-            <!-- New Collapsible Content Wrapper -->
-            <!-- INICIO DE LA CORRECCIÓN: El código HTML que faltaba se ha restaurado aquí -->
-            <div id="trip-history-content" class="transition-all duration-300 overflow-hidden">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                     <button type="button" id="archive-reset-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
-                        Archive &amp; Reset
-                    </button>
-                     <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
-                        Share PDF
-                    </button>
-                    <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
-                        <span class="font-medium text-gray-300 text-sm">Total Miles</span>
-                        <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
-                    </div>
-                <!-- FIN DE LA CORRECCIÓN: El div para Amount to Charge estaba mal anidado -->
+            <!-- SECCIÓN DE CONTROL MOVIDA AQUÍ FUERA DEL DIV PLEGABLE -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                 <button type="button" id="archive-reset-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
+                    Archive &amp; Reset
+                </button>
+                 <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
+                    Share PDF
+                </button>
+                <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                    <span class="font-medium text-gray-300 text-sm">Total Miles</span>
+                    <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
+                </div>
                 <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
             </div>
-            
-            <div class="overflow-x-auto rounded-lg border border-gray-700">
-                <table class="w-full text-sm text-left text-gray-300">
-                    <thead class="text-xs text-cyan-300 uppercase bg-gray-700">
-                        <tr>
+
+            <!-- New Collapsible Content Wrapper (SOLO LA TABLA) -->
+            <div id="trip-history-content" class="transition-all duration-300 overflow-hidden hidden">
+                <!-- La sección de botones y totales fue removida de aquí -->
+                
+                <div class="overflow-x-auto rounded-lg border border-gray-700">
+                    <table class="w-full text-sm text-left text-gray-300">
+                        <thead class="text-xs text-cyan-300 uppercase bg-gray-700">
                             <th scope="col" class="px-6 py-3">Date</th>
                             <th scope="col" class="px-6 py-3">Driver</th>
                             <th scope="col" class="px-6 py-3">Departure</th>
@@ -414,7 +414,7 @@
             const toggleHistoryBtn = document.getElementById('toggle-history-btn');
             const toggleHistoryIcon = document.getElementById('toggle-history-icon');
             const tripHistoryContent = document.getElementById('trip-history-content');
-            let isHistoryVisible = true; // Visible por defecto
+            let isHistoryVisible = false; // Oculto por defecto
             
             // NUEVOS ELEMENTOS
             const archiveSummarySection = document.getElementById('archive-summary-section');
@@ -839,5 +839,7 @@
 
 </body>
 </html>
+
+
 
 
