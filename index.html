@@ -188,23 +188,34 @@
         </div>
         <!-- Fin de la sección Add New Trip -->
 
-        <div>
-            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+        <div> <!-- This is the main wrapper for the history section -->
+            <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
+                <!-- New Toggle Button -->
+                <button id="toggle-history-btn" class="bg-gray-600 hover:bg-gray-500 text-white font-bold p-2 rounded-lg transition-all duration-300">
+                    <svg id="toggle-history-icon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                    </svg>
+                </button>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                 <button type="button" id="archive-reset-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
-                    Archive &amp; Reset
-                </button>
-                 <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
-                    Share PDF
-                </button>
-                <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
-                    <span class="font-medium text-gray-300 text-sm">Total Miles</span>
-                    <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
-                </div>
+            
+            <!-- New Collapsible Content Wrapper -->
+            <!-- INICIO DE LA CORRECCIÓN: El código HTML que faltaba se ha restaurado aquí -->
+            <div id="trip-history-content" class="transition-all duration-300 overflow-hidden">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                     <button type="button" id="archive-reset-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
+                        Archive &amp; Reset
+                    </button>
+                     <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
+                        Share PDF
+                    </button>
+                    <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                        <span class="font-medium text-gray-300 text-sm">Total Miles</span>
+                        <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
+                    </div>
+                <!-- FIN DE LA CORRECCIÓN: El div para Amount to Charge estaba mal anidado -->
                 <div class="bg-gray-700 rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
@@ -235,7 +246,25 @@
                 </table>
             </div>
         </div>
-    </div>
+        </div>
+
+        <!-- NUEVA SECCIÓN: Resumen del último archivo -->
+        <div id="archive-summary-section" class="hidden mt-8 bg-gray-700 p-6 rounded-xl">
+            <h2 class="text-xl font-semibold mb-4">Last Archive Summary</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div class="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center text-center h-full">
+                    <span class="font-medium text-gray-300 text-sm">Archived Total Miles</span>
+                    <span id="archived-total-miles" class="font-bold text-2xl text-cyan-400">0</span>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4 flex flex-col items-center justify-center text-center h-full">
+                    <span class="font-medium text-gray-300 text-sm">Archived Total Amount</span>
+                    <span id="archived-total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
+                </div>
+            </div>
+        </div>
+        <!-- Fin de la NUEVA SECCIÓN -->
+
+    </div> <!-- Cierre del div max-w-7xl -->
     
     <!-- Modal for Editing a Trip -->
     <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
@@ -381,6 +410,17 @@
             const confirmYesBtn = document.getElementById('confirm-yes-btn');
             const confirmNoBtn = document.getElementById('confirm-no-btn');
             
+            // --- NUEVOS ELEMENTOS ---
+            const toggleHistoryBtn = document.getElementById('toggle-history-btn');
+            const toggleHistoryIcon = document.getElementById('toggle-history-icon');
+            const tripHistoryContent = document.getElementById('trip-history-content');
+            let isHistoryVisible = true; // Visible por defecto
+            
+            // NUEVOS ELEMENTOS
+            const archiveSummarySection = document.getElementById('archive-summary-section');
+            const archivedTotalMilesEl = document.getElementById('archived-total-miles');
+            const archivedTotalAmountEl = document.getElementById('archived-total-amount');
+
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
 
@@ -420,10 +460,18 @@
                 }
             };
             
-            // --- Nuevo listener para el botón "Ver/Editar" ---
-            showInfoSectionBtn.addEventListener('click', () => {
-                driverVehicleSection.classList.remove('hidden'); // Muestra la sección
-                showInfoSectionBtn.classList.add('hidden'); // Oculta este mismo botón
+            // --- NUEVO Listener para plegar el historial ---
+            toggleHistoryBtn.addEventListener('click', () => {
+                isHistoryVisible = !isHistoryVisible; // Toggle the state
+                if (isHistoryVisible) {
+                    // Content is now VISIBLE
+                    tripHistoryContent.classList.remove('hidden');
+                    toggleHistoryIcon.classList.remove('rotate-180'); // Point up
+                } else {
+                    // Content is now HIDDEN
+                    tripHistoryContent.classList.add('hidden');
+                    toggleHistoryIcon.classList.add('rotate-180'); // Point down
+                }
             });
 
             // --- Listener del botón "Cancelar" ahora oculta toda la sección ---
@@ -718,7 +766,29 @@
                     closeConfirmModal();
                     return;
                 }
+
+                // --- INICIO DE NUEVA LÓGICA ---
+                // Calcular totales ANTES de archivar
+                const totalMilesToArchive = records.reduce((sum, record) => sum + Number(record.miles), 0);
+                const totalAmountToArchive = totalMilesToArchive * 0.70;
+
+                // Guardar totales en localStorage
+                const archivedTotals = {
+                    miles: totalMilesToArchive,
+                    amount: totalAmountToArchive
+                };
+                localStorage.setItem('archivedTotals', JSON.stringify(archivedTotals));
+
+                // Actualizar las nuevas casillas
+                archivedTotalMilesEl.textContent = totalMilesToArchive.toLocaleString();
+                archivedTotalAmountEl.textContent = totalAmountToArchive.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                
+                // Mostrar la sección de resumen
+                archiveSummarySection.classList.remove('hidden');
+                // --- FIN DE NUEVA LÓGICA ---
+
                 await generateAndHandlePdf(records, false);
+                
                 const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
                 if (lastValidRecord) {
                     vehicleInfo.initialOdometer = lastValidRecord.odometer;
@@ -747,6 +817,21 @@
             });
             
             // --- Carga Inicial ---
+
+            // --- INICIO DE NUEVA LÓGICA ---
+            // Cargar resumen de archivo anterior si existe
+            const loadArchivedTotals = () => {
+                const storedTotals = localStorage.getItem('archivedTotals');
+                if (storedTotals) {
+                    const totals = JSON.parse(storedTotals);
+                    archivedTotalMilesEl.textContent = Number(totals.miles).toLocaleString();
+                    archivedTotalAmountEl.textContent = Number(totals.amount).toLocaleString('en-US', { style: 'currency', 'currency': 'USD' });
+                    archiveSummarySection.classList.remove('hidden');
+                }
+            };
+            loadArchivedTotals();
+            // --- FIN DE NUEVA LÓGICA ---
+
             loadVehicleInfo();
             renderTable();
         });
@@ -754,6 +839,4 @@
 
 </body>
 </html>
-
-
 
