@@ -146,7 +146,7 @@
         </header>
 
         <!-- Driver & Vehicle Info Section (Collapsible) -->
-        <div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8">
+        <div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
             </div>
@@ -191,8 +191,19 @@
             </form>
         </div>
 
-        <!-- Add New Trip Section -->
-        <div class="glass-effect p-6 rounded-xl mb-8">
+        <!-- NEW "Add New Trip" Button -->
+        <div class="mb-8 text-center">
+             <button id="show-add-trip-btn" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-6 rounded-lg transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                </svg>
+                Add New Trip
+            </button>
+        </div>
+       
+
+        <!-- Add New Trip Section (Collapsible) -->
+        <div id="add-trip-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
             <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
                 <!-- Grid changed to 8 columns for finer control -->
@@ -210,7 +221,11 @@
                         <input type="text" inputmode="numeric" pattern="[0-9]*" id="odometer" placeholder="e.g., 150200" class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                 </div>
-                <div class="flex justify-end">
+                <div class="flex justify-end gap-4">
+                    <!-- NEW Cancel Button -->
+                    <button type="button" id="cancel-add-trip-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2.5 px-6 rounded-lg transition-colors duration-300">
+                        Cancel
+                    </button>
                     <button type="submit" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors duration-300">
                         Add Trip
                     </button>
@@ -500,6 +515,11 @@
             const displayTrailerNumber = document.getElementById('display-trailerNumber');
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
 
+            // NEW Add Trip Section
+            const addTripSection = document.getElementById('add-trip-section');
+            const showAddTripBtn = document.getElementById('show-add-trip-btn');
+            const cancelAddTripBtn = document.getElementById('cancel-add-trip-btn');
+
             // Control Buttons
             const sharePdfBtn = document.getElementById('share-pdf-btn');
             const archiveResetBtn = document.getElementById('archive-reset-btn');
@@ -535,7 +555,7 @@
             const archiveHistoryTableBody = document.getElementById('archive-history-table-body');
             const emptyHistoryRow = document.getElementById('empty-history-row');
 
-            // Confirm Clear Modal (NEW)
+            // Confirm Clear Modal
             const confirmClearModal = document.getElementById('confirm-clear-modal');
             const confirmClearYesBtn = document.getElementById('confirm-clear-yes-btn');
             const confirmClearNoBtn = document.getElementById('confirm-clear-no-btn');
@@ -655,6 +675,18 @@
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
             };
 
+            // --- Add Trip Section Logic (NEW) ---
+            showAddTripBtn.addEventListener('click', () => {
+                addTripSection.classList.remove('hidden');
+                showAddTripBtn.classList.add('hidden');
+            });
+
+            cancelAddTripBtn.addEventListener('click', () => {
+                addTripSection.classList.add('hidden');
+                showAddTripBtn.classList.remove('hidden');
+                form.reset(); // Clear form on cancel
+            });
+
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
                 if (!vehicleInfo || vehicleInfo.initialOdometer === undefined) {
@@ -694,7 +726,11 @@
                 }
                 form.reset();
                 renderTable();
-                loadVehicleInfo();
+                loadVehicleInfo(); // To update odometer in case it changed
+
+                // Hide form and show button after successful add
+                addTripSection.classList.add('hidden');
+                showAddTripBtn.classList.remove('hidden');
             });
             
             // --- History Table Toggle Logic ---
@@ -996,7 +1032,7 @@
             historyCloseBtn.addEventListener('click', closeHistoryModal);
             closeHistoryModalBtn.addEventListener('click', closeHistoryModal);
 
-            // --- New Clear History Confirmation Logic ---
+            // --- Clear History Confirmation Logic ---
             const openConfirmClearModal = () => {
                 confirmClearModal.classList.remove('hidden');
                 confirmClearModal.classList.add('flex');
@@ -1019,7 +1055,6 @@
                 closeConfirmClearModal();
                 showNotification('Archive history has been cleared.', false);
             });
-            // --- End New Logic ---
 
 
             // New listener for generating PDFs from history
