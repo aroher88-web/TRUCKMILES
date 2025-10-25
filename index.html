@@ -40,17 +40,17 @@
         }
 
         /* Custom scrollbar for modal content */
-        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar, #history-modal-content::-webkit-scrollbar {
+        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar, #history-modal-content::-webkit-scrollbar, #confirm-clear-modal-content::-webkit-scrollbar {
             width: 8px;
         }
-        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track {
+        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track, #confirm-clear-modal-content::-webkit-scrollbar-track {
             background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparente */
         }
-        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb {
+        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb, #confirm-clear-modal-content::-webkit-scrollbar-thumb {
             background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparente */
             border-radius: 4px;
         }
-       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover {
+       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover, #confirm-clear-modal-content::-webkit-scrollbar-thumb:hover {
             background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparente */
         }
        
@@ -340,7 +340,7 @@
         </div>
     </div>
     
-    <!-- Confirmation Modal -->
+    <!-- Confirmation Modal (Archive & Reset) -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
             <div class="p-4 border-b border-white/10">
@@ -370,7 +370,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
-                                <th scope="Two">Total Miles</th>
+                                <th scope="col" class->Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
                                 <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
                             </tr>
@@ -384,9 +384,25 @@
                     </table>
                 </div>
             </div>
-            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
-                <button type="button" id="clear-history-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear History</button>
+            <div class="p-4 border-t border-white/10 flex justify-between items-center">
+                <button type="button" id="clear-history-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear All History</button>
                 <button type="button" id="close-history-modal-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- New Confirmation Modal (Clear History) -->
+    <div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index -->
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-clear-modal-content">
+            <div class="p-4 border-b border-white/10">
+                <h3 class="text-lg font-semibold text-red-400">Clear Archive History?</h3>
+            </div>
+            <div class="p-6 text-gray-200">
+                <p>Are you sure you want to permanently delete all archive history? This action cannot be undone.</p>
+            </div>
+            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
+                <button id="confirm-clear-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-clear-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Clear</button>
             </div>
         </div>
     </div>
@@ -406,7 +422,7 @@
             if (!notification || !notificationMessage) return;
 
             notificationMessage.textContent = message;
-            notification.classList.remove('bg-red-600', 'bg-green-500');
+            notification.classList.remove('bg-red-600/70', 'bg-green-500/70');
             // Remove glass-effect base, apply colored glass
             notification.classList.add(isError ? 'bg-red-600/70' : 'bg-green-500/70');
             notification.classList.add('backdrop-blur-md');
@@ -503,7 +519,7 @@
             const editCloseBtn = document.getElementById('edit-close-btn');
             const cancelEditBtn = document.getElementById('cancel-edit-btn');
 
-            // Confirm Modal
+            // Confirm Modal (Archive)
             const confirmModal = document.getElementById('confirm-modal');
             const confirmYesBtn = document.getElementById('confirm-yes-btn');
             const confirmNoBtn = document.getElementById('confirm-no-btn');
@@ -516,6 +532,12 @@
             const clearHistoryBtn = document.getElementById('clear-history-btn');
             const archiveHistoryTableBody = document.getElementById('archive-history-table-body');
             const emptyHistoryRow = document.getElementById('empty-history-row');
+
+            // Confirm Clear Modal (NEW)
+            const confirmClearModal = document.getElementById('confirm-clear-modal');
+            const confirmClearYesBtn = document.getElementById('confirm-clear-yes-btn');
+            const confirmClearNoBtn = document.getElementById('confirm-clear-no-btn');
+
 
             // --- State Variables ---
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
@@ -972,15 +994,31 @@
             historyCloseBtn.addEventListener('click', closeHistoryModal);
             closeHistoryModalBtn.addEventListener('click', closeHistoryModal);
 
-            clearHistoryBtn.addEventListener('click', () => {
-                // You can add a custom confirmation modal here later if you want
+            // --- New Clear History Confirmation Logic ---
+            const openConfirmClearModal = () => {
+                confirmClearModal.classList.remove('hidden');
+                confirmClearModal.classList.add('flex');
+            };
+
+            const closeConfirmClearModal = () => {
+                confirmClearModal.classList.add('hidden');
+                confirmClearModal.classList.remove('flex');
+            };
+
+            clearHistoryBtn.addEventListener('click', openConfirmClearModal);
+            confirmClearNoBtn.addEventListener('click', closeConfirmClearModal);
+
+            confirmClearYesBtn.addEventListener('click', () => {
                 archiveHistory = [];
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
                 localStorage.removeItem('lastArchiveSummary'); // Also clear the summary box
                 loadLastArchiveSummary(); // Update UI
-                renderArchiveHistoryTable();
+                renderArchiveHistoryTable(); // Update table inside the modal
+                closeConfirmClearModal();
                 showNotification('Archive history has been cleared.', false);
             });
+            // --- End New Logic ---
+
 
             // New listener for generating PDFs from history
             archiveHistoryTableBody.addEventListener('click', async (e) => {
@@ -1005,4 +1043,5 @@
 
 </body>
 </html>
+
 
