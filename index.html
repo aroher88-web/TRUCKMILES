@@ -55,15 +55,11 @@
 </head>
 <body class="bg-gray-900 text-white">
 
-    <!-- Welcome Screen -->
     <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="w-64 h-auto mb-8">
-            <!-- Trailer -->
+        <svg id="welcome-truck-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="w-64 h-auto mb-8">
             <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
-            <!-- Cab -->
             <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
             <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
-            <!-- Wheels with native SVG animation -->
             <g>
                 <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="50" cy="70" r="5" fill="#4A5568"/>
@@ -86,14 +82,27 @@
     <div class="w-full max-w-7xl bg-gray-800 rounded-2xl shadow-lg p-6 md:p-8 m-4">
         
         <header class="mb-6 text-center">
-            <svg id="company-logo-svg" viewBox="0 0 128 60" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M110.165 26.9631C110.42 27.2434 110.821 27.3713 111.222 27.2891L122.563 24.8159C123.511 24.6141 124.038 23.5932 123.642 22.7018L119.923 14.3391C119.527 13.4477 118.428 13.0903 117.514 13.435L110.165 16.3312V5C110.165 3.34315 108.822 2 107.165 2H5C3.34315 2 2 3.34315 2 5V48C2 49.6569 3.34315 51 5 51H18.9419C20.4749 55.4364 24.5636 58.5 29.5 58.5C34.4364 58.5 38.5251 55.4364 40.0581 51H89.9419C91.4749 55.4364 95.5636 58.5 100.5 58.5C105.436 58.5 109.525 55.4364 111.058 51H125C126.657 51 128 49.6569 128 48V30.1502L110.165 26.9631ZM29.5 54.5C25.9101 54.5 23 51.5899 23 48C23 44.4101 25.9101 41.5 29.5 41.5C33.0899 41.5 36 44.4101 36 48C36 51.5899 33.0899 54.5 29.5 54.5ZM100.5 54.5C96.9101 54.5 94 51.5899 94 48C94 44.4101 96.9101 41.5 100.5 41.5C104.09 41.5 107 44.4101 107 48C107 51.5899 104.09 54.5 100.5 54.5Z" fill="#2D3748"/>
+            <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
+                <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
+                <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
+                <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
+                <g>
+                    <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
+                    <circle cx="50" cy="70" r="5" fill="#4A5568"/>
+                </g>
+                <g>
+                    <circle cx="230" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
+                    <circle cx="230" cy="70" r="5" fill="#4A5568"/>
+                </g>
+                 <g>
+                    <circle cx="260" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
+                    <circle cx="260" cy="70" r="5" fill="#4A5568"/>
+                </g>
             </svg>
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
             <p class="text-gray-400 mt-1">Log your trips and keep accurate track of your miles.</p>
         </header>
 
-        <!-- Driver & Vehicle Info Section -->
         <div class="bg-gray-700 p-6 rounded-xl mb-8">
              <div class="flex justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
@@ -211,7 +220,7 @@
         </div>
     </div>
     
-    <!-- Modal for Editing a Trip --><div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <div id="edit-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
             <div class="p-4 border-b border-gray-600 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
@@ -241,7 +250,7 @@
         </div>
     </div>
     
-    <!-- Confirmation Modal --><div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <div id="confirm-modal" class="fixed inset-0 bg-black bg-opacity-70 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="bg-gray-700 rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
             <div class="p-4 border-b border-gray-600">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
@@ -257,7 +266,7 @@
     </div>
 
 
-    <!-- Notification Element --><div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
+    <div id="notification" class="fixed top-5 right-5 bg-red-600 text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
     </div>
 
@@ -528,7 +537,7 @@
                     let startY = 15;
                     if(logoBase64) {
                         const imgWidth = 50;
-                        const imgHeight = 25;
+                        const imgHeight = 16.67; // Maintain aspect ratio of 300x100
                         const pageWidth = doc.internal.pageSize.getWidth();
                         const x = (pageWidth - imgWidth) / 2;
                         doc.addImage(logoBase64, 'PNG', x, 15, imgWidth, imgHeight);
@@ -711,4 +720,3 @@
 
 </body>
 </html>
-
