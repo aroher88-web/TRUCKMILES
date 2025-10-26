@@ -235,12 +235,8 @@
 
         <!-- Trip History Section -->
         <div>
-            <!-- Control Buttons & Totals (Always Visible) -->
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-                 <button type="button" id="share-pdf-btn" class="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path d="M15 8a3 3 0 10-2.977-2.63l-4.94 2.47a3 3 0 100 4.319l4.94 2.47a3 3 0 10.895-1.789l-4.94-2.47a3.027 3.027 0 000-.74l4.94-2.47C13.456 7.68 14.19 8 15 8z"></path></svg>
-                    Share PDF
-                </button>
+            <!-- Control Buttons & Totals (Always Visible) - "Share PDF" removed -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
                     <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                     <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
@@ -387,7 +383,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
-                                <th scope="col" class="px-6 py-3">Total Miles</th>
+                                <th scope="col" classs="px-6 py-3">Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
                                 <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
                             </tr>
@@ -521,7 +517,6 @@
             const cancelAddTripBtn = document.getElementById('cancel-add-trip-btn');
 
             // Control Buttons
-            const sharePdfBtn = document.getElementById('share-pdf-btn');
             const archiveResetBtn = document.getElementById('archive-reset-btn');
 
             // History Table Section
@@ -629,14 +624,10 @@
                 tableBody.innerHTML = '';
                 if (records.length === 0) {
                     tableBody.appendChild(emptyRow.cloneNode(true));
-                    sharePdfBtn.disabled = true;
                     archiveResetBtn.disabled = true;
-                    sharePdfBtn.classList.add('opacity-50', 'cursor-not-allowed');
                     archiveResetBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
-                    sharePdfBtn.disabled = false;
                     archiveResetBtn.disabled = false;
-                    sharePdfBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                     archiveResetBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                      records.forEach(record => {
                         const row = document.createElement('tr');
@@ -839,14 +830,6 @@
                     }
                 }
             };
-
-            sharePdfBtn.addEventListener('click', () => {
-                if (records.length === 0) {
-                    showNotification('No trip data to share.');
-                    return;
-                }
-                generateAndHandlePdf(records, true);
-            });
 
             // --- Edit Modal Logic ---
             const openEditModal = (trip) => {
