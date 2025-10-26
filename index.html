@@ -152,12 +152,13 @@
             </div>
             <!-- Info Display Area (No longer used, form shown directly for editing) -->
             <div id="vehicle-info-display" class="hidden">
-                <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4 text-gray-300">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-300">
                     <p><strong>Driver:</strong> <span id="display-driverName"></span></p>
                     <p><strong>Company:</strong> <span id="display-company"></span></p>
                     <p><strong>Truck #:</strong> <span id="display-truckNumber"></span></p>
                     <p><strong>Trailer #:</strong> <span id="display-trailerNumber"></span></p>
                     <p><strong>Initial Odometer:</strong> <span id="display-initialOdometer"></span></p>
+                    <p><strong>Rate per Mile:</strong> <span id="display-ratePerMile"></span></p>
                 </div>
             </div>
             <!-- Info Edit Form -->
@@ -180,9 +181,16 @@
                         <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                 </div>
-                <div class="mb-4">
-                     <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
-                     <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full md:w-1/4 glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                <!-- Updated grid for Odometer and Rate -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                     <div>
+                        <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
+                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                     </div>
+                     <div>
+                        <label for="ratePerMileInfo" class="block text-sm font-medium text-gray-300 mb-1">Rate per Mile</label>
+                        <input type="text" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" id="ratePerMileInfo" placeholder="e.g., 0.70" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                     </div>
                 </div>
                 <div class="flex justify-end gap-4">
                      <button type="button" id="cancel-info-edit-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Cancel</button>
@@ -191,7 +199,7 @@
             </form>
         </div>
 
-        <!-- NEW "Add New Trip" Button (Enlarged) -->
+        <!-- "Add New Trip" Button (Enlarged) -->
         <div class="mb-8 text-center">
              <button id="show-add-trip-btn" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -222,7 +230,7 @@
                     </div>
                 </div>
                 <div class="flex justify-end gap-4">
-                    <!-- NEW Cancel Button -->
+                    <!-- Cancel Button -->
                     <button type="button" id="cancel-add-trip-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2.5 px-6 rounded-lg transition-colors duration-300">
                         Cancel
                     </button>
@@ -290,11 +298,9 @@
                 </div>
             </div>
 
-            <!-- "Last Archive Summary" Section REMOVED -->
-
         </div>
 
-        <!-- New "View Archive History" Button -->
+        <!-- "View Archive History" Button -->
         <div class="fixed bottom-6 right-6 z-40">
             <button id="view-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="View Archive History">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -352,7 +358,7 @@
         </div>
     </div>
 
-    <!-- New Archive History Modal -->
+    <!-- Archive History Modal -->
     <div id="history-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width -->
             <div class="p-4 border-b border-white/10 flex justify-between items-center">
@@ -366,6 +372,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
+                                <th scope="col" class="px-6 py-3">Rate</th>
                                 <th scope="col" class="px-6 py-3">Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
                                 <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
@@ -374,7 +381,7 @@
                         <tbody id="archive-history-table-body">
                             <!-- History rows will be injected here -->
                             <tr id="empty-history-row" class="bg-white/5 border-b border-white/10">
-                               <td colspan="5" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan -->
+                               <td colspan="6" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan -->
                             </tr>
                         </tbody>
                     </table>
@@ -387,7 +394,7 @@
         </div>
     </div>
 
-    <!-- New Confirmation Modal (Clear History) -->
+    <!-- Confirmation Modal (Clear History) -->
     <div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index -->
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-clear-modal-content">
             <div class="p-4 border-b border-white/10">
@@ -488,11 +495,13 @@
             const truckNumberInfoInput = document.getElementById('truckNumberInfo');
             const trailerNumberInfoInput = document.getElementById('trailerNumberInfo');
             const initialOdometerInfoInput = document.getElementById('initialOdometerInfo');
+            const ratePerMileInfoInput = document.getElementById('ratePerMileInfo'); // Nuevo
             const displayDriverName = document.getElementById('display-driverName');
             const displayCompany = document.getElementById('display-company');
             const displayTruckNumber = document.getElementById('display-truckNumber');
             const displayTrailerNumber = document.getElementById('display-trailerNumber');
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
+            const displayRatePerMile = document.getElementById('display-ratePerMile'); // Nuevo
 
             // NEW Add Trip Section
             const addTripSection = document.getElementById('add-trip-section');
@@ -506,8 +515,6 @@
             const toggleHistoryTableBtn = document.getElementById('toggle-history-table-btn');
             const historyToggleIcon = document.getElementById('history-toggle-icon');
             const historyTableContainer = document.getElementById('history-table-container');
-
-            // "Last Archive Summary" variables REMOVED
 
             // Edit Modal
             const editModal = document.getElementById('edit-modal');
@@ -552,11 +559,13 @@
                     displayTruckNumber.textContent = vehicleInfo.truckNumber;
                     displayTrailerNumber.textContent = vehicleInfo.trailerNumber;
                     displayInitialOdometer.textContent = Number(vehicleInfo.initialOdometer).toLocaleString();
+                    displayRatePerMile.textContent = (parseFloat(vehicleInfo.ratePerMile) || 0.70).toLocaleString('en-US', { style: 'currency', currency: 'USD' }); // Nuevo
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
+                    ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70'; // Nuevo
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.remove('hidden');
@@ -566,6 +575,7 @@
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.add('hidden');
+                    ratePerMileInfoInput.value = '0.70'; // Nuevo: default rate
                 }
             };
             
@@ -578,6 +588,13 @@
                 if (vehicleInfo) {
                     driverVehicleSection.classList.add('hidden');
                     showInfoSectionBtn.classList.remove('hidden');
+                    // Reset form fields to original values
+                    driverNameInfoInput.value = vehicleInfo.driverName;
+                    companyInfoInput.value = vehicleInfo.company;
+                    truckNumberInfoInput.value = vehicleInfo.truckNumber;
+                    trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
+                    initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
+                    ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
                 } 
             });
 
@@ -589,12 +606,14 @@
                     truckNumber: truckNumberInfoInput.value,
                     trailerNumber: trailerNumberInfoInput.value,
                     initialOdometer: initialOdometerInfoInput.value,
+                    ratePerMile: ratePerMileInfoInput.value || '0.70', // Nuevo
                 };
                 localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
                 vehicleInfo = newInfo;
                 driverVehicleSection.classList.add('hidden');
                 showInfoSectionBtn.classList.remove('hidden');
-                loadVehicleInfo(); 
+                loadVehicleInfo(); // To update display values
+                updateTotalMiles(); // Recalculate totals with new rate
                 showNotification('Driver Info saved successfully.', false);
             });
             
@@ -637,7 +656,8 @@
             const updateTotalMiles = () => {
                 const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
-                const amount = total * 0.70;
+                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70'); // Usar la tarifa guardada
+                const amount = total * rate;
                 totalAmountEl.textContent = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             };
 
@@ -861,8 +881,6 @@
                 closeEditModal();
                 showNotification('Trip updated successfully.', false);
             });
-            
-            // --- "Last Archive Summary" Logic REMOVED ---
 
             // --- Archive & Reset Logic ---
             const openConfirmModal = () => {
@@ -887,8 +905,9 @@
                 await generateAndHandlePdf(records, false);
 
                 // --- Archive History Logic ---
+                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70'); // Usar la tarifa guardada
                 const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
-                const totalAmount = totalMiles * 0.70;
+                const totalAmount = totalMiles * rate;
                 const firstDate = records[0]?.date;
                 const lastDate = records[records.length - 1]?.date;
                 const period = firstDate === lastDate ? firstDate : `${firstDate} to ${lastDate}`;
@@ -899,14 +918,13 @@
                     period: period,
                     totalMiles: totalMiles,
                     totalAmount: totalAmount,
-                    detailedRecords: [...records] // Save a copy of the detailed records
+                    detailedRecords: [...records], // Save a copy of the detailed records
+                    ratePerMile: rate // Guardar la tarifa usada para este archivo
                 };
 
                 // Save to full archive history
                 archiveHistory.unshift(newArchiveEntry); // Add to the beginning
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
-
-                // "Last Archive Summary" logic REMOVED
                 // --- End Archive History Logic ---
 
                 const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
@@ -953,6 +971,7 @@
                         row.innerHTML = `
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${entry.archiveDate}</td>
                             <td class="px-6 py-4">${entry.period}</td>
+                            <td class="px-6 py-4">${(parseFloat(entry.ratePerMile || 0.70)).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 })}</td>
                             <td class="px-6 py-4">${entry.totalMiles.toLocaleString()}</td>
                             <td class="px-6 py-4 font-medium text-green-400">${entry.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                             <td class="px-6 py-4 text-center">
@@ -998,8 +1017,6 @@
             confirmClearYesBtn.addEventListener('click', () => {
                 archiveHistory = [];
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
-                localStorage.removeItem('lastArchiveSummary'); // Also clear the summary box (though it's unused)
-                // loadLastArchiveSummary(); // REMOVED
                 renderArchiveHistoryTable(); // Update table inside the modal
                 closeConfirmClearModal();
                 showNotification('Archive history has been cleared.', false);
@@ -1023,7 +1040,6 @@
             // --- Initial Load ---
             loadVehicleInfo();
             renderTable();
-            // loadLastArchiveSummary(); // REMOVED
         });
     </script>
 
