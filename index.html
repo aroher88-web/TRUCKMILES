@@ -870,15 +870,15 @@
                 if (isHistoryVisible) {
                     historyTableContainer.classList.remove('hidden');
                     historyToggleIcon.classList.remove('rotate-180');
-                    // Removed button movement logic
-                    // backupBtnContainer.classList.add('translate-y-20'); 
-                    // historyBtnContainer.classList.add('translate-y-20'); 
+                    // Move buttons down - Restored
+                    backupBtnContainer.classList.add('translate-y-20'); 
+                    historyBtnContainer.classList.add('translate-y-20'); 
                 } else {
                     historyTableContainer.classList.add('hidden');
                     historyToggleIcon.classList.add('rotate-180');
-                     // Removed button movement logic
-                    // backupBtnContainer.classList.remove('translate-y-20');
-                    // historyBtnContainer.classList.remove('translate-y-20');
+                     // Move buttons back up - Restored
+                    backupBtnContainer.classList.remove('translate-y-20');
+                    historyBtnContainer.classList.remove('translate-y-20');
                 }
             });
 
