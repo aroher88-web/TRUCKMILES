@@ -16,7 +16,32 @@
             font-family: 'Inter', sans-serif;
             /* Background gradient for glassmorphism effect */
             background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
+            /* Prevent body scroll when modals are open */
+            overflow: hidden; 
+            min-height: 100vh; /* Ensure body takes at least full height */
         }
+        /* Allow scrolling within the main container */
+        .main-container {
+            overflow-y: auto;
+            /* Custom scrollbar for main container */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: rgba(74, 85, 104, 0.7) rgba(45, 55, 72, 0.5); /* Firefox */
+        }
+        .main-container::-webkit-scrollbar {
+             width: 8px;
+        }
+        .main-container::-webkit-scrollbar-track {
+            background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparent */
+        }
+        .main-container::-webkit-scrollbar-thumb {
+             background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparent */
+             border-radius: 4px;
+        }
+        .main-container::-webkit-scrollbar-thumb:hover {
+             background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparent */
+        }
+
+
         /* Welcome screen animation */
         @keyframes pulse {
             0%, 100% {
@@ -40,17 +65,17 @@
         }
 
         /* Custom scrollbar for modal content */
-        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar, #history-modal-content::-webkit-scrollbar, #confirm-clear-modal-content::-webkit-scrollbar, #backup-restore-modal-content::-webkit-scrollbar, #confirm-restore-modal-content::-webkit-scrollbar {
+        .modal-scrollbar::-webkit-scrollbar {
             width: 8px;
         }
-        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track, #confirm-clear-modal-content::-webkit-scrollbar-track, #backup-restore-modal-content::-webkit-scrollbar-track, #confirm-restore-modal-content::-webkit-scrollbar-track {
+        .modal-scrollbar::-webkit-scrollbar-track {
             background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparent */
         }
-        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb, #confirm-clear-modal-content::-webkit-scrollbar-thumb, #backup-restore-modal-content::-webkit-scrollbar-thumb, #confirm-restore-modal-content::-webkit-scrollbar-thumb {
+        .modal-scrollbar::-webkit-scrollbar-thumb {
             background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparent */
             border-radius: 4px;
         }
-       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover, #confirm-clear-modal-content::-webkit-scrollbar-thumb:hover, #backup-restore-modal-content::-webkit-scrollbar-thumb:hover, #confirm-restore-modal-content::-webkit-scrollbar-thumb:hover {
+       .modal-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparent */
         }
        
@@ -115,8 +140,8 @@
     </div>
 
     <!-- Main Content Container -->
-    <!-- Adjustments for mobile view: w-[95%] h-[95vh] and overflow-y-auto -->
-    <div class="w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 overflow-y-auto">
+    <!-- Adjustments for mobile view: w-[95%] h-[95vh] and overflow-y-auto. Added class main-container -->
+    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> <!-- Added relative positioning -->
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
@@ -301,7 +326,8 @@
         </div>
 
         <!-- "View Archive History" Button -->
-        <div class="fixed bottom-6 right-6 z-40">
+        <!-- Moved lower (bottom-4) and more centered (right-20) -->
+        <div id="history-btn-container" class="fixed bottom-4 right-20 z-40 transition-transform duration-300 ease-in-out">
             <button id="view-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="View Archive History">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -310,7 +336,8 @@
         </div>
 
         <!-- NEW "Backup & Restore" Button -->
-        <div class="fixed bottom-6 left-6 z-40">
+        <!-- Moved lower (bottom-4) and more centered (left-20) -->
+        <div id="backup-btn-container" class="fixed bottom-4 left-20 z-40 transition-transform duration-300 ease-in-out">
             <button id="open-backup-modal-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="Backup & Restore">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -325,7 +352,7 @@
     
     <!-- Modal for Editing a Trip -->
     <div id="edit-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="edit-modal-content">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="edit-modal-content">
             <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
                 <button id="edit-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
@@ -356,7 +383,7 @@
     
     <!-- Confirmation Modal (Archive & Reset) -->
     <div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-modal-content">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
             </div>
@@ -377,10 +404,10 @@
                 <h3 class="text-lg font-semibold text-blue-400">Archive History</h3>
                 <button id="history-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
-            <div class="p-6 flex-grow overflow-y-auto" id="history-modal-content">
+            <div class="p-6 flex-grow overflow-y-auto modal-scrollbar" id="history-modal-content">
                 <div class="overflow-x-auto rounded-lg border border-white/10">
                     <table class="w-full text-sm text-left text-gray-200">
-                        <thead class="text-xs text-blue-300 uppercase bg-white/5">
+                        <thead class="text-xs text-blue-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky -->
                             <tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
@@ -408,7 +435,7 @@
 
     <!-- Confirmation Modal (Clear History) -->
     <div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index -->
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-clear-modal-content">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Clear Archive History?</h3>
             </div>
@@ -429,7 +456,7 @@
                 <h3 class="text-lg font-semibold text-green-400">Backup & Restore</h3>
                 <button id="backup-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
-            <div class="p-6 flex-grow overflow-y-auto space-y-6" id="backup-restore-modal-content">
+            <div class="p-6 flex-grow overflow-y-auto space-y-6 modal-scrollbar" id="backup-restore-modal-content">
                 <!-- Manual Controls -->
                 <div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
@@ -445,7 +472,7 @@
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Recent Backups (Auto/Manual)</h4>
                     <div class="overflow-x-auto rounded-lg border border-white/10" style="max-height: 40vh; overflow-y: auto;">
                         <table class="w-full text-sm text-left text-gray-200">
-                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0">
+                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky -->
                                 <tr>
                                     <th scope="col" class="px-6 py-3">Backup Date</th>
                                     <th scope="col" class="px-6 py-3">Type</th>
@@ -470,7 +497,7 @@
 
     <!-- NEW Confirmation Modal (Restore) -->
     <div id="confirm-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-restore-modal-content">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-restore-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-yellow-400">Confirm Restore</h3>
             </div>
@@ -486,7 +513,7 @@
 
     <!-- NEW Confirmation Modal (Clear Backups) -->
     <div id="confirm-clear-backups-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-clear-backups-modal-content">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-backups-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Clear All Backups?</h3>
             </div>
@@ -509,12 +536,11 @@
 
     <script>
         // --- Global Notification Function ---
-        const showNotification = (message, isError = true, lang = 'en') => {
+        const showNotification = (message, isError = true) => {
             const notification = document.getElementById('notification');
             const notificationMessage = document.getElementById('notification-message');
             if (!notification || !notificationMessage) return;
-
-             // Always show English messages now
+            
             notificationMessage.textContent = message; 
 
             notification.classList.remove('bg-red-600/70', 'bg-green-500/70');
@@ -608,6 +634,10 @@
             const historyToggleIcon = document.getElementById('history-toggle-icon');
             const historyTableContainer = document.getElementById('history-table-container');
 
+            // Floating Buttons Containers
+            const backupBtnContainer = document.getElementById('backup-btn-container');
+            const historyBtnContainer = document.getElementById('history-btn-container');
+
             // Edit Modal
             const editModal = document.getElementById('edit-modal');
             const editTripForm = document.getElementById('edit-trip-form');
@@ -633,7 +663,7 @@
             const confirmClearYesBtn = document.getElementById('confirm-clear-yes-btn');
             const confirmClearNoBtn = document.getElementById('confirm-clear-no-btn');
 
-            // --- NEW Backup/Restore Elements ---
+            // --- Backup/Restore Elements ---
             const openBackupModalBtn = document.getElementById('open-backup-modal-btn');
             const backupRestoreModal = document.getElementById('backup-restore-modal');
             const backupCloseBtn = document.getElementById('backup-close-btn');
@@ -840,9 +870,15 @@
                 if (isHistoryVisible) {
                     historyTableContainer.classList.remove('hidden');
                     historyToggleIcon.classList.remove('rotate-180');
+                    // Removed button movement logic
+                    // backupBtnContainer.classList.add('translate-y-20'); 
+                    // historyBtnContainer.classList.add('translate-y-20'); 
                 } else {
                     historyTableContainer.classList.add('hidden');
                     historyToggleIcon.classList.add('rotate-180');
+                     // Removed button movement logic
+                    // backupBtnContainer.classList.remove('translate-y-20');
+                    // historyBtnContainer.classList.remove('translate-y-20');
                 }
             });
 
@@ -1346,11 +1382,14 @@
             const checkAndRunAutoBackup = () => {
                 const lastBackupTime = parseInt(localStorage.getItem('lastAutoBackupTime') || '0', 10);
                 const now = Date.now();
-                const twentyFourHours = 24 * 60 * 60 * 1000;
+                // --- Interval changed to 1 hour ---
+                const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
 
-                if (now - lastBackupTime > twentyFourHours) {
-                    const backupData = getAllDataAsObject();
+                // --- Comparison uses oneHour ---
+                if (now - lastBackupTime > oneHour) {
+                    const backupData = getAllDataAsObject(); // This function already includes everything
                     
+                    // Make sure there is data to back up
                     if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
                         console.log('No data to back up automatically.');
                         return; // No data to back up
@@ -1359,13 +1398,13 @@
                     const newBackup = {
                         timestamp: now,
                         type: 'auto',
-                        data: backupData
+                        data: backupData // Includes vehicleInfo, records, archiveHistory
                     };
                     
                     let currentBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
                     currentBackups.unshift(newBackup); // Add to start
 
-                    // Keep only the last 7 auto backups
+                    // Keep only the last 7 auto backups (you could increase this number if you want to save more hourly backups)
                     const autoBackups = currentBackups.filter(b => b.type === 'auto');
                     if (autoBackups.length > 7) {
                         const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); // Sort oldest first
@@ -1380,9 +1419,8 @@
 
                     localStorage.setItem('mileageBackups', JSON.stringify(currentBackups));
                     localStorage.setItem('lastAutoBackupTime', now.toString());
-                    console.log('Automatic backup created.');
-                    // Don't show notification for auto backups to avoid bothering the user
-                    // showNotification('Automatic backup created.', false);
+                    console.log('Automatic backup created (hourly).');
+                    // We don't show a notification for auto backups
                 }
             };
             
