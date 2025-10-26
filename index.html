@@ -109,6 +109,92 @@
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
         }
+
+        /* Sticky Footer for Buttons */
+        .sticky-footer {
+            position: sticky;
+            bottom: -1rem; /* Adjust slightly to account for padding */
+            left: 0; 
+            width: 100%; 
+            padding: 1rem; /* Consistent padding */
+            margin-top: auto; /* Push to bottom */
+            /* Add a subtle background gradient to fade out content behind */
+            background: linear-gradient(to top, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0)); 
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 40; 
+        }
+
+         /* Container for the floating buttons inside sticky footer */
+        .floating-buttons-container {
+            display: flex;
+            justify-content: space-between;
+            max-width: 300px; /* Adjust max-width as needed */
+            margin: 0 auto; /* Center the container */
+        }
+        
+        /* Base styles for buttons to apply glass effect - MORE TRANSPARENT */
+        .btn-liquid-glass {
+            background-color: rgba(255, 255, 255, 0.02); /* More transparent (was 0.05) */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08); /* Border also more transparent (was 0.1) */
+            color: white;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+        .btn-liquid-glass:hover {
+            background-color: rgba(255, 255, 255, 0.05); /* Hover is slightly less transparent */
+        }
+        .btn-liquid-glass:active {
+            transform: scale(0.98);
+        }
+
+        /* Specific colored buttons - VERY LIGHT COLOR TRACE */
+        .btn-danger {
+            background-color: rgba(239, 68, 68, 0.1); /* red-500 with minimal opacity (was 0.35) */
+            border-color: rgba(255, 100, 100, 0.08); /* Border extremely subtle */
+        }
+        .btn-danger:hover {
+            background-color: rgba(220, 38, 38, 0.15); /* red-600 hover with slight increase in color */
+        }
+         .btn-edit {
+            background-color: rgba(234, 179, 8, 0.1); /* yellow-500 with minimal opacity (was 0.35) */
+            border-color: rgba(255, 220, 100, 0.08); 
+        }
+        .btn-edit:hover {
+            background-color: rgba(217, 119, 6, 0.15); /* yellow-600 hover with slight increase in color */
+        }
+        .btn-purple {
+             background-color: rgba(147, 51, 234, 0.1); /* purple-600 with minimal opacity (was 0.35) */
+            border-color: rgba(160, 90, 240, 0.08); 
+        }
+        .btn-purple:hover{
+            background-color: rgba(126, 34, 206, 0.15); /* purple-700 hover with slight increase in color */
+        }
+         /* Apply base glass effect to specific solid color buttons if needed */
+        #show-info-section-btn, 
+        #cancel-info-edit-btn, 
+        #cancel-add-trip-btn, 
+        #close-history-modal-btn,
+        #confirm-no-btn,
+        #confirm-clear-no-btn,
+        #close-backup-modal-btn,
+        #confirm-restore-no-btn,
+        #confirm-clear-backups-no-btn {
+            /* Inherits .btn-liquid-glass styles */
+        }
+         /* Override specific colors where needed */
+        #confirm-yes-btn, #clear-history-btn, #confirm-clear-yes-btn, #clear-backups-btn, #confirm-clear-backups-yes-btn {
+             /* Inherits .btn-liquid-glass and applies .btn-danger */
+        }
+         #confirm-restore-yes-btn, #edit-trip-form button[type='submit'] {
+             /* Inherits .btn-liquid-glass and applies .btn-edit */
+        }
+         #backup-restore-modal .generate-history-pdf-btn { /* Specificity needed */
+            /* Inherits .btn-liquid-glass and applies .btn-purple */
+         }
+
+
     </style>
 </head>
 <!-- Adjustments in body for mobile view: center content and add small padding -->
@@ -122,29 +208,26 @@
             <!-- Cab -->
             <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
             <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
-            <!-- Wheels with native SVG animation -->
+            <!-- Wheels (removed animation for favicon) -->
             <g>
                 <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="50" cy="70" r="5" fill="#4A5568"/>
-                <animateTransform attributeName="transform" type="rotate" from="0 50 70" to="360 50 70" dur="1s" repeatCount="indefinite"/>
             </g>
             <g>
                 <circle cx="230" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="230" cy="70" r="5" fill="#4A5568"/>
-                <animateTransform attributeName="transform" type="rotate" from="0 230 70" to="360 230 70" dur="1s" repeatCount="indefinite"/>
             </g>
              <g>
                 <circle cx="260" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="260" cy="70" r="5" fill="#4A5568"/>
-                <animateTransform attributeName="transform" type="rotate" from="0 260 70" to="360 260 70" dur="1s" repeatCount="indefinite"/>
             </g>
         </svg>
         <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
     </div>
 
     <!-- Main Content Container -->
-    <!-- Adjustments for mobile view: w-[95%] h-[95vh] and overflow-y-auto. Added class main-container -->
-    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> <!-- Added relative positioning -->
+    <!-- Added pb-20 to provide space for sticky buttons -->
+    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative pb-20"> <!-- Added pb-20 -->
         
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
@@ -168,7 +251,7 @@
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
             <p class="text-gray-300 mt-1">Log your trips and keep accurate track of your miles.</p>
             <!-- Button to show/edit info -->
-            <button id="show-info-section-btn" class="hidden mt-4 glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">
+            <button id="show-info-section-btn" class="hidden mt-4 btn-liquid-glass font-bold py-2 px-4 rounded-lg">
                 View/Edit Driver Info
             </button>
         </header>
@@ -221,7 +304,7 @@
                      </div>
                 </div>
                 <div class="flex justify-end gap-4">
-                     <button type="button" id="cancel-info-edit-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 hidden">Cancel</button>
+                     <button type="button" id="cancel-info-edit-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg hidden">Cancel</button>
                     <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Save Info</button>
                 </div>
             </form>
@@ -229,7 +312,7 @@
 
         <!-- "Add New Trip" Button (Enlarged) -->
         <div class="mb-8 text-center">
-             <button id="show-add-trip-btn" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+             <button id="show-add-trip-btn" class="w-full md:w-auto bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                 </svg>
@@ -259,7 +342,7 @@
                 </div>
                 <div class="flex justify-end gap-4">
                     <!-- Cancel Button -->
-                    <button type="button" id="cancel-add-trip-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2.5 px-6 rounded-lg transition-colors duration-300">
+                    <button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
                         Cancel
                     </button>
                     <button type="submit" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors duration-300">
@@ -281,7 +364,7 @@
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
-                 <button type="button" id="archive-reset-btn" class="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
+                 <button type="button" id="archive-reset-btn" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
                     Archive &amp; Reset
                 </button>
@@ -328,25 +411,30 @@
 
         </div>
 
-        <!-- "View Archive History" Button -->
-        <!-- Moved lower (bottom-4) and more centered (right-20) -->
-        <div id="history-btn-container" class="fixed bottom-4 right-20 z-40 transition-transform duration-300 ease-in-out">
-            <button id="view-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="View Archive History">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-            </button>
+        <!-- Floating Buttons Container -->
+        <!-- Placed inside the main container, uses sticky-footer class for positioning -->
+        <div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> <!-- Added margin-top -->
+            <!-- Backup & Restore Button -->
+             <!-- Added transition class -->
+            <div id="backup-btn-container" class="z-40 transition-transform duration-300 ease-in-out"> <!-- Removed fixed positioning -->
+                <button id="open-backup-modal-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="Backup & Restore">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                    </svg>
+                </button>
+            </div>
+            <!-- View Archive History Button -->
+            <!-- Added transition class -->
+            <div id="history-btn-container" class="z-40 transition-transform duration-300 ease-in-out"> <!-- Removed fixed positioning -->
+                <button id="view-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="View Archive History">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                </button>
+            </div>
         </div>
 
-        <!-- NEW "Backup & Restore" Button -->
-        <!-- Moved lower (bottom-4) and more centered (left-20) -->
-        <div id="backup-btn-container" class="fixed bottom-4 left-20 z-40 transition-transform duration-300 ease-in-out">
-            <button id="open-backup-modal-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="Backup & Restore">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
-                </svg>
-            </button>
-        </div>
+
         <!-- Hidden input for file upload -->
         <input type="file" id="upload-backup-input" class="hidden" accept=".json">
 
@@ -377,8 +465,8 @@
                     </div>
                 </div>
                 <div class="p-4 border-t border-white/10 flex justify-end gap-4">
-                    <button type="button" id="cancel-edit-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                    <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Save Changes</button>
+                    <button type="button" id="cancel-edit-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Cancel</button>
+                    <button type="submit" class="btn-liquid-glass btn-edit font-bold py-2 px-4 rounded-lg">Save Changes</button>
                 </div>
             </form>
         </div>
@@ -394,8 +482,8 @@
                 <p>Are you sure you want to archive all trips? This will download a PDF report, add a summary to the archive history, clear all records, and update the initial odometer. This action cannot be undone.</p>
             </div>
             <div class="p-4 border-t border-white/10 flex justify-end gap-4">
-                <button id="confirm-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="confirm-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Archive & Reset</button>
+                <button id="confirm-no-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-yes-btn" class="btn-liquid-glass btn-danger font-bold py-2 px-4 rounded-lg">Yes, Archive & Reset</button>
             </div>
         </div>
     </div>
@@ -430,8 +518,8 @@
                 </div>
             </div>
             <div class="p-4 border-t border-white/10 flex justify-between items-center">
-                <button type="button" id="clear-history-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear All History</button>
-                <button type="button" id="close-history-modal-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+                <button type="button" id="clear-history-btn" class="btn-liquid-glass btn-danger font-bold py-2 px-4 rounded-lg">Clear All History</button>
+                <button type="button" id="close-history-modal-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Close</button>
             </div>
         </div>
     </div>
@@ -446,8 +534,8 @@
                 <p>Are you sure you want to permanently delete all archive history? This action cannot be undone.</p>
             </div>
             <div class="p-4 border-t border-white/10 flex justify-end gap-4">
-                <button id="confirm-clear-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="confirm-clear-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Clear</button>
+                <button id="confirm-clear-no-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-clear-yes-btn" class="btn-liquid-glass btn-danger font-bold py-2 px-4 rounded-lg">Yes, Clear</button>
             </div>
         </div>
     </div>
@@ -464,9 +552,9 @@
                 <div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <button id="btn-manual-backup" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Create Manual Backup Now</button>
-                        <button id="btn-download-backup" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Download Backup File</button>
-                        <button id="btn-upload-backup" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Upload & Restore File</button>
+                        <button id="btn-manual-backup" class="btn-liquid-glass bg-blue-600 hover:bg-blue-700 font-bold py-3 px-4 rounded-lg">Create Manual Backup Now</button>
+                        <button id="btn-download-backup" class="btn-liquid-glass bg-green-600 hover:bg-green-700 font-bold py-3 px-4 rounded-lg">Download Backup File</button>
+                        <button id="btn-upload-backup" class="btn-liquid-glass bg-purple-600 hover:bg-purple-700 font-bold py-3 px-4 rounded-lg">Upload & Restore File</button>
                     </div>
                 </div>
 
@@ -492,8 +580,8 @@
                 </div>
             </div>
             <div class="p-4 border-t border-white/10 flex justify-between items-center">
-                <button type="button" id="clear-backups-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear All Backups</button>
-                <button type="button" id="close-backup-modal-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+                <button type="button" id="clear-backups-btn" class="btn-liquid-glass btn-danger font-bold py-2 px-4 rounded-lg">Clear All Backups</button>
+                <button type="button" id="close-backup-modal-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Close</button>
             </div>
         </div>
     </div>
@@ -508,8 +596,8 @@
                 <p id="confirm-restore-message">Are you sure you want to restore from this backup? All current data will be overwritten.</p>
             </div>
             <div class="p-4 border-t border-white/10 flex justify-end gap-4">
-                <button id="confirm-restore-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="confirm-restore-yes-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Restore</button>
+                <button id="confirm-restore-no-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-restore-yes-btn" class="btn-liquid-glass btn-edit font-bold py-2 px-4 rounded-lg">Yes, Restore</button>
             </div>
         </div>
     </div>
@@ -524,8 +612,8 @@
                 <p>Are you sure you want to delete all automatic and manual backups? This action cannot be undone.</p>
             </div>
             <div class="p-4 border-t border-white/10 flex justify-end gap-4">
-                <button id="confirm-clear-backups-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
-                <button id="confirm-clear-backups-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Clear</button>
+                <button id="confirm-clear-backups-no-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-clear-backups-yes-btn" class="btn-liquid-glass btn-danger font-bold py-2 px-4 rounded-lg">Yes, Clear</button>
             </div>
         </div>
     </div>
@@ -696,6 +784,39 @@
             let mileageBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
             let isHistoryVisible = false; // Table starts hidden
 
+             // --- Helper function to check if any modal or collapsible section is open ---
+             const isUIElementOpen = () => {
+                return !editModal.classList.contains('hidden') ||
+                       !confirmModal.classList.contains('hidden') ||
+                       !historyModal.classList.contains('hidden') ||
+                       !confirmClearModal.classList.contains('hidden') ||
+                       !backupRestoreModal.classList.contains('hidden') ||
+                       !confirmRestoreModal.classList.contains('hidden') ||
+                       !confirmClearBackupsModal.classList.contains('hidden') ||
+                       !driverVehicleSection.classList.contains('hidden') || 
+                       !addTripSection.classList.contains('hidden') ||
+                       isHistoryVisible; // Check if the history table is visible
+            };
+
+            // --- Helper functions for moving floating buttons ---
+            const moveButtonsDown = () => {
+                if (backupBtnContainer && historyBtnContainer) {
+                    backupBtnContainer.classList.add('translate-y-20'); 
+                    historyBtnContainer.classList.add('translate-y-20'); 
+                }
+            };
+
+            const moveButtonsUp = () => {
+                // Use setTimeout to allow closing animations to potentially finish
+                setTimeout(() => {
+                    if (!isUIElementOpen() && backupBtnContainer && historyBtnContainer) {
+                        backupBtnContainer.classList.remove('translate-y-20');
+                        historyBtnContainer.classList.remove('translate-y-20');
+                    }
+                }, 150); // Small delay, adjust if needed
+            };
+
+
             // --- Driver Info Logic ---
             const loadVehicleInfo = () => {
                 vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
@@ -724,26 +845,28 @@
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.add('hidden');
                     ratePerMileInfoInput.value = '0.70';
+                    moveButtonsDown(); // Keep buttons down if driver info is first thing shown
                 }
             };
             
             showInfoSectionBtn.addEventListener('click', () => {
                 driverVehicleSection.classList.remove('hidden');
                 showInfoSectionBtn.classList.add('hidden');
-                moveButtonsDown(); // Mover botones al abrir
+                moveButtonsDown(); 
             });
 
              cancelInfoEditBtn.addEventListener('click', () => {
                 if (vehicleInfo) {
                     driverVehicleSection.classList.add('hidden');
                     showInfoSectionBtn.classList.remove('hidden');
+                    // Reset form fields
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
                     ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
-                    moveButtonsUp(); // Mover botones al cerrar
+                    moveButtonsUp(); 
                 } 
             });
 
@@ -761,10 +884,10 @@
                 vehicleInfo = newInfo;
                 driverVehicleSection.classList.add('hidden');
                 showInfoSectionBtn.classList.remove('hidden');
-                loadVehicleInfo();
+                loadVehicleInfo(); // Reload to update display spans if needed later
                 updateTotalMiles();
                 showNotification('Driver Info saved successfully.', false);
-                moveButtonsUp(); // Mover botones al guardar/cerrar
+                moveButtonsUp(); 
             });
             
             // --- Trip Table Logic ---
@@ -791,8 +914,8 @@
                             <td class="px-6 py-4">${record.trailerNumber}</td>
                             <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString()}</td>
                             <td class="px-6 py-4 text-center whitespace-nowrap">
-                                <button data-id="${record.id}" class="edit-btn text-yellow-500 hover:text-yellow-400 font-medium mr-4">Edit</button>
-                                <button data-id="${record.id}" class="delete-btn text-red-500 hover:text-red-400 font-medium">Delete</button>
+                                <button data-id="${record.id}" class="edit-btn btn-liquid-glass btn-edit font-medium mr-4 px-2 py-1 rounded-lg text-sm">Edit</button>
+                                <button data-id="${record.id}" class="delete-btn btn-liquid-glass btn-danger font-medium px-2 py-1 rounded-lg text-sm">Delete</button>
                             </td>
                         `;
                         tableBody.appendChild(row);
@@ -818,14 +941,14 @@
             showAddTripBtn.addEventListener('click', () => {
                 addTripSection.classList.remove('hidden');
                 showAddTripBtn.classList.add('hidden');
-                moveButtonsDown(); // Mover botones al abrir
+                moveButtonsDown(); 
             });
 
             cancelAddTripBtn.addEventListener('click', () => {
                 addTripSection.classList.add('hidden');
                 showAddTripBtn.classList.remove('hidden');
                 form.reset();
-                moveButtonsUp(); // Mover botones al cerrar
+                moveButtonsUp(); 
             });
 
             form.addEventListener('submit', (e) => {
@@ -867,10 +990,10 @@
                 }
                 form.reset();
                 renderTable();
-                loadVehicleInfo();
+                loadVehicleInfo(); // Reload info in case odometer changed
                 addTripSection.classList.add('hidden');
                 showAddTripBtn.classList.remove('hidden');
-                moveButtonsUp(); // Mover botones al guardar/cerrar
+                moveButtonsUp(); 
             });
             
             // --- History Table Toggle Logic ---
@@ -879,11 +1002,11 @@
                 if (isHistoryVisible) {
                     historyTableContainer.classList.remove('hidden');
                     historyToggleIcon.classList.remove('rotate-180');
-                    moveButtonsDown(); // Mover botones al expandir
+                    moveButtonsDown(); 
                 } else {
                     historyTableContainer.classList.add('hidden');
                     historyToggleIcon.classList.add('rotate-180');
-                    moveButtonsUp(); // Mover botones al contraer
+                    moveButtonsUp(); 
                 }
             });
 
@@ -991,14 +1114,14 @@
                 document.getElementById('edit-odometer').value = trip.odometer;
                 editModal.classList.remove('hidden');
                 editModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal
+                moveButtonsDown(); 
             };
 
             const closeEditModal = () => {
                 editModal.classList.add('hidden');
                 editModal.classList.remove('flex');
                 editTripForm.reset();
-                moveButtonsUp(); // Mover botones al cerrar modal
+                moveButtonsUp(); 
             };
 
             editCloseBtn.addEventListener('click', closeEditModal);
@@ -1041,12 +1164,12 @@
             const openConfirmModal = () => {
                 confirmModal.classList.remove('hidden');
                 confirmModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal
+                moveButtonsDown(); 
             };
             const closeConfirmModal = () => {
                 confirmModal.classList.add('hidden');
                 confirmModal.classList.remove('flex');
-                moveButtonsUp(); // Mover botones al cerrar modal
+                moveButtonsUp(); 
             };
 
             archiveResetBtn.addEventListener('click', openConfirmModal);
@@ -1131,7 +1254,7 @@
                             <td class="px-6 py-4">${entry.totalMiles.toLocaleString()}</td>
                             <td class="px-6 py-4 font-medium text-green-400">${entry.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
                             <td class="px-6 py-4 text-center">
-                                <button data-id="${entry.id}" class="generate-history-pdf-btn text-purple-400 hover:text-purple-300 font-medium text-sm py-1 px-2 rounded-lg bg-white/10 hover:bg-white/20">
+                                <button data-id="${entry.id}" class="generate-history-pdf-btn btn-liquid-glass btn-purple font-medium text-sm py-1 px-2 rounded-lg">
                                     Generate PDF
                                 </button>
                             </td>
@@ -1145,13 +1268,13 @@
                 renderArchiveHistoryTable();
                 historyModal.classList.remove('hidden');
                 historyModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal
+                moveButtonsDown(); 
             };
 
             const closeHistoryModal = () => {
                 historyModal.classList.add('hidden');
                 historyModal.classList.remove('flex');
-                moveButtonsUp(); // Mover botones al cerrar modal
+                moveButtonsUp(); 
             };
 
             viewHistoryBtn.addEventListener('click', openHistoryModal);
@@ -1162,13 +1285,13 @@
             const openConfirmClearModal = () => {
                 confirmClearModal.classList.remove('hidden');
                 confirmClearModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal (encima del de historial)
+                // No need to move buttons down again if history modal is already open
             };
 
             const closeConfirmClearModal = () => {
                 confirmClearModal.classList.add('hidden');
                 confirmClearModal.classList.remove('flex');
-                moveButtonsUp(); // Mover botones al cerrar modal
+                // Don't move buttons up yet, wait until parent modal (history) is closed
             };
 
             clearHistoryBtn.addEventListener('click', openConfirmClearModal);
@@ -1226,10 +1349,10 @@
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${backupDate}</td>
                             <td class="px-6 py-4">${type}</td>
                             <td class="px-6 py-4 text-center space-x-2">
-                                <button data-timestamp="${backup.timestamp}" class="restore-backup-btn text-yellow-400 hover:text-yellow-300 font-medium text-sm py-1 px-2 rounded-lg bg-white/10 hover:bg-white/20">
+                                <button data-timestamp="${backup.timestamp}" class="restore-backup-btn btn-liquid-glass btn-edit font-medium text-sm py-1 px-2 rounded-lg">
                                     Restore
                                 </button>
-                                <button data-timestamp="${backup.timestamp}" class="delete-backup-btn text-red-400 hover:text-red-300 font-medium text-sm py-1 px-2 rounded-lg bg-white/10 hover:bg-white/20">
+                                <button data-timestamp="${backup.timestamp}" class="delete-backup-btn btn-liquid-glass btn-danger font-medium text-sm py-1 px-2 rounded-lg">
                                     Delete
                                 </button>
                             </td>
@@ -1244,12 +1367,12 @@
                 renderBackupList();
                 backupRestoreModal.classList.remove('hidden');
                 backupRestoreModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal
+                moveButtonsDown(); 
             };
             const closeBackupModal = () => {
                 backupRestoreModal.classList.add('hidden');
                 backupRestoreModal.classList.remove('flex');
-                moveButtonsUp(); // Mover botones al cerrar modal
+                moveButtonsUp(); 
             };
 
             openBackupModalBtn.addEventListener('click', openBackupModal);
@@ -1321,13 +1444,13 @@
                 confirmRestoreMessage.textContent = message;
                 confirmRestoreModal.classList.remove('hidden');
                 confirmRestoreModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal (encima del de backup)
+                // No need to move buttons again if backup modal is already open
             };
             const closeConfirmRestoreModal = () => {
                 confirmRestoreModal.classList.add('hidden');
                 confirmRestoreModal.classList.remove('flex');
                 localStorage.removeItem('pendingRestoreData');
-                moveButtonsUp(); // Mover botones al cerrar modal
+                // Don't move buttons up yet, wait until parent modal (backup) is closed
             };
 
             confirmRestoreNoBtn.addEventListener('click', closeConfirmRestoreModal);
@@ -1378,12 +1501,12 @@
             const openConfirmClearBackupsModal = () => {
                 confirmClearBackupsModal.classList.remove('hidden');
                 confirmClearBackupsModal.classList.add('flex');
-                moveButtonsDown(); // Mover botones al abrir modal (encima del de backup)
+                 // No need to move buttons again if backup modal is already open
             };
             const closeConfirmClearBackupsModal = () => {
                 confirmClearBackupsModal.classList.add('hidden');
                 confirmClearBackupsModal.classList.remove('flex');
-                moveButtonsUp(); // Mover botones al cerrar modal
+                 // Don't move buttons up yet, wait until parent modal (backup) is closed
             };
 
             clearBackupsBtn.addEventListener('click', openConfirmClearBackupsModal);
@@ -1401,73 +1524,41 @@
             const checkAndRunAutoBackup = () => {
                 const lastBackupTime = parseInt(localStorage.getItem('lastAutoBackupTime') || '0', 10);
                 const now = Date.now();
-                // --- Interval changed to 1 hour ---
-                const oneHour = 60 * 60 * 1000; // 1 hour in milliseconds
+                const oneHour = 60 * 60 * 1000; 
 
-                // --- Comparison uses oneHour ---
                 if (now - lastBackupTime > oneHour) {
-                    const backupData = getAllDataAsObject(); // This function already includes everything
+                    const backupData = getAllDataAsObject(); 
                     
-                    // Make sure there is data to back up
                     if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
                         console.log('No data to back up automatically.');
-                        return; // No data to back up
+                        return; 
                     }
 
                     const newBackup = {
                         timestamp: now,
                         type: 'auto',
-                        data: backupData // Includes vehicleInfo, records, archiveHistory
+                        data: backupData 
                     };
                     
                     let currentBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
-                    currentBackups.unshift(newBackup); // Add to start
+                    currentBackups.unshift(newBackup); 
 
-                    // Keep only the last 7 auto backups (you could increase this number if you want to save more hourly backups)
                     const autoBackups = currentBackups.filter(b => b.type === 'auto');
                     if (autoBackups.length > 7) {
-                        const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); // Sort oldest first
+                        const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); 
                         const oldestTimestamp = timestamps[0];
-                         // Find the index of the oldest auto backup in the main array and remove it
                         const indexToRemove = currentBackups.findIndex(b => b.timestamp === oldestTimestamp && b.type === 'auto');
                         if (indexToRemove > -1) {
                             currentBackups.splice(indexToRemove, 1);
                         }
                     }
 
-
                     localStorage.setItem('mileageBackups', JSON.stringify(currentBackups));
                     localStorage.setItem('lastAutoBackupTime', now.toString());
                     console.log('Automatic backup created (hourly).');
-                    // We don't show a notification for auto backups
                 }
             };
             
-            // --- Helper functions for moving buttons ---
-            const moveButtonsDown = () => {
-                backupBtnContainer.classList.add('translate-y-20'); 
-                historyBtnContainer.classList.add('translate-y-20'); 
-            };
-
-            const moveButtonsUp = () => {
-                // Only move up if no modals are open and history table is closed
-                if (!isModalOpen() && !isHistoryVisible) {
-                    backupBtnContainer.classList.remove('translate-y-20');
-                    historyBtnContainer.classList.remove('translate-y-20');
-                }
-            };
-            
-            // --- Helper function to check if any modal is open ---
-            const isModalOpen = () => {
-                return !editModal.classList.contains('hidden') ||
-                       !confirmModal.classList.contains('hidden') ||
-                       !historyModal.classList.contains('hidden') ||
-                       !confirmClearModal.classList.contains('hidden') ||
-                       !backupRestoreModal.classList.contains('hidden') ||
-                       !confirmRestoreModal.classList.contains('hidden') ||
-                       !confirmClearBackupsModal.classList.contains('hidden');
-            };
-
             // --- Initial Load ---
             loadVehicleInfo();
             renderTable();
