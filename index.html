@@ -558,9 +558,7 @@
                 <!-- Manual Controls -->
                 <div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <!-- MODIFIED: Removed solid bg-blue-600, added btn-primary -->
-                        <button id="btn-manual-backup" class="btn-liquid-glass btn-primary font-bold py-3 px-4 rounded-lg">Create Manual Backup Now</button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- MODIFIED: Removed solid bg-green-600, added btn-success -->
                         <button id="btn-download-backup" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-lg">Download Backup File</button>
                         <!-- MODIFIED: Removed solid bg-purple-600, added btn-purple -->
@@ -769,7 +767,6 @@
             const backupRestoreModal = document.getElementById('backup-restore-modal');
             const backupCloseBtn = document.getElementById('backup-close-btn');
             const closeBackupModalBtn = document.getElementById('close-backup-modal-btn');
-            const btnManualBackup = document.getElementById('btn-manual-backup');
             const btnDownloadBackup = document.getElementById('btn-download-backup');
             const btnUploadBackup = document.getElementById('btn-upload-backup');
             const uploadBackupInput = document.getElementById('upload-backup-input');
@@ -1389,19 +1386,6 @@
             backupCloseBtn.addEventListener('click', closeBackupModal);
             closeBackupModalBtn.addEventListener('click', closeBackupModal);
 
-            // Manual Backup
-            btnManualBackup.addEventListener('click', () => {
-                const newBackup = {
-                    timestamp: Date.now(),
-                    type: 'manual',
-                    data: getAllDataAsObject()
-                };
-                mileageBackups.unshift(newBackup);
-                localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
-                renderBackupList();
-                showNotification('Manual backup created.', false);
-            });
-
             // Download Backup
             btnDownloadBackup.addEventListener('click', () => {
                 const backupData = getAllDataAsObject();
@@ -1578,3 +1562,4 @@
 
 </body>
 </html>
+
