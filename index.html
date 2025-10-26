@@ -14,7 +14,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* Fondo degradado para el efecto glassmorphism */
+            /* Background gradient for glassmorphism effect */
             background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
         }
         /* Welcome screen animation */
@@ -40,50 +40,50 @@
         }
 
         /* Custom scrollbar for modal content */
-        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar, #history-modal-content::-webkit-scrollbar, #confirm-clear-modal-content::-webkit-scrollbar {
+        #edit-modal-content::-webkit-scrollbar, #confirm-modal-content::-webkit-scrollbar, #history-modal-content::-webkit-scrollbar, #confirm-clear-modal-content::-webkit-scrollbar, #backup-restore-modal-content::-webkit-scrollbar, #confirm-restore-modal-content::-webkit-scrollbar {
             width: 8px;
         }
-        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track, #confirm-clear-modal-content::-webkit-scrollbar-track {
-            background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparente */
+        #edit-modal-content::-webkit-scrollbar-track, #confirm-modal-content::-webkit-scrollbar-track, #history-modal-content::-webkit-scrollbar-track, #confirm-clear-modal-content::-webkit-scrollbar-track, #backup-restore-modal-content::-webkit-scrollbar-track, #confirm-restore-modal-content::-webkit-scrollbar-track {
+            background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparent */
         }
-        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb, #confirm-clear-modal-content::-webkit-scrollbar-thumb {
-            background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparente */
+        #edit-modal-content::-webkit-scrollbar-thumb, #confirm-modal-content::-webkit-scrollbar-thumb, #history-modal-content::-webkit-scrollbar-thumb, #confirm-clear-modal-content::-webkit-scrollbar-thumb, #backup-restore-modal-content::-webkit-scrollbar-thumb, #confirm-restore-modal-content::-webkit-scrollbar-thumb {
+            background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparent */
             border-radius: 4px;
         }
-       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover, #confirm-clear-modal-content::-webkit-scrollbar-thumb:hover {
-            background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparente */
+       #edit-modal-content::-webkit-scrollbar-thumb:hover, #confirm-modal-content::-webkit-scrollbar-thumb:hover, #history-modal-content::-webkit-scrollbar-thumb:hover, #confirm-clear-modal-content::-webkit-scrollbar-thumb:hover, #backup-restore-modal-content::-webkit-scrollbar-thumb:hover, #confirm-restore-modal-content::-webkit-scrollbar-thumb:hover {
+            background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparent */
         }
        
-       /* Clase para el efecto Glassmorphism */
+       /* Class for Glassmorphism effect */
        .glass-effect {
-            background-color: rgba(255, 255, 255, 0.05); /* Ligeramente blanco */
+            background-color: rgba(255, 255, 255, 0.05); /* Slightly white */
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1); /* Borde sutil */
+            border: 1px solid rgba(255, 255, 255, 0.1); /* Subtle border */
        }
 
-       /* Estilo para los inputs con efecto glass */
+       /* Style for inputs with glass effect */
        .glass-input {
-            background-color: rgba(17, 24, 39, 0.5); /* gray-900 semi-transparente */
+            background-color: rgba(17, 24, 39, 0.5); /* gray-900 semi-transparent */
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
        }
        .glass-input::placeholder {
-            color: rgba(209, 213, 219, 0.6); /* gray-300 semi-transparente */
+            color: rgba(209, 213, 219, 0.6); /* gray-300 semi-transparent */
        }
        .glass-input:focus {
             background-color: rgba(17, 24, 39, 0.7);
-            border-color: rgba(59, 130, 246, 0.7); /* cyan-500 semi-transparente */
+            border-color: rgba(59, 130, 246, 0.7); /* cyan-500 semi-transparent */
             --tw-ring-color: rgba(59, 130, 246, 0.5);
        }
 
-       /* Para el color del texto del date picker */
+       /* For the date picker text color */
         input[type="date"]::-webkit-calendar-picker-indicator {
             filter: invert(1);
         }
     </style>
 </head>
-<!-- Ajustes en body para vista móvil: centrar el contenido y añadir un pequeño padding -->
+<!-- Adjustments in body for mobile view: center content and add small padding -->
 <body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-2 md:p-4">
 
     <!-- Welcome Screen -->
@@ -115,7 +115,7 @@
     </div>
 
     <!-- Main Content Container -->
-    <!-- Ajustes para vista móvil: w-[95%] h-[95vh] y overflow-y-auto -->
+    <!-- Adjustments for mobile view: w-[95%] h-[95vh] and overflow-y-auto -->
     <div class="w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 overflow-y-auto">
         
         <header class="mb-6 text-center">
@@ -309,6 +309,18 @@
             </button>
         </div>
 
+        <!-- NEW "Backup & Restore" Button -->
+        <div class="fixed bottom-6 left-6 z-40">
+            <button id="open-backup-modal-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="Backup & Restore">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+                </svg>
+            </button>
+        </div>
+        <!-- Hidden input for file upload -->
+        <input type="file" id="upload-backup-input" class="hidden" accept=".json">
+
+
     </div> <!-- End Main Content Container -->
     
     <!-- Modal for Editing a Trip -->
@@ -410,6 +422,84 @@
         </div>
     </div>
 
+    <!-- NEW Backup & Restore Modal -->
+    <div id="backup-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-3xl flex flex-col" style="height: 80vh;">
+            <div class="p-4 border-b border-white/10 flex justify-between items-center">
+                <h3 class="text-lg font-semibold text-green-400">Backup & Restore</h3>
+                <button id="backup-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
+            </div>
+            <div class="p-6 flex-grow overflow-y-auto space-y-6" id="backup-restore-modal-content">
+                <!-- Manual Controls -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <button id="btn-manual-backup" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Create Manual Backup Now</button>
+                        <button id="btn-download-backup" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Download Backup File</button>
+                        <button id="btn-upload-backup" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300">Upload & Restore File</button>
+                    </div>
+                </div>
+
+                <!-- Automatic Backups List -->
+                <div>
+                    <h4 class="text-md font-semibold text-gray-200 mb-3">Recent Backups (Auto/Manual)</h4>
+                    <div class="overflow-x-auto rounded-lg border border-white/10" style="max-height: 40vh; overflow-y: auto;">
+                        <table class="w-full text-sm text-left text-gray-200">
+                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">Backup Date</th>
+                                    <th scope="col" class="px-6 py-3">Type</th>
+                                    <th scope="col" class="px-6 py-3 text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="backup-list-body">
+                                <tr id="empty-backup-row" class="bg-white/5 border-b border-white/10">
+                                   <td colspan="3" class="text-center py-8 text-gray-400">No backups yet.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="p-4 border-t border-white/10 flex justify-between items-center">
+                <button type="button" id="clear-backups-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Clear All Backups</button>
+                <button type="button" id="close-backup-modal-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW Confirmation Modal (Restore) -->
+    <div id="confirm-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-restore-modal-content">
+            <div class="p-4 border-b border-white/10">
+                <h3 class="text-lg font-semibold text-yellow-400">Confirm Restore</h3>
+            </div>
+            <div class="p-6 text-gray-200">
+                <p id="confirm-restore-message">Are you sure you want to restore from this backup? All current data will be overwritten.</p>
+            </div>
+            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
+                <button id="confirm-restore-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-restore-yes-btn" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Restore</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEW Confirmation Modal (Clear Backups) -->
+    <div id="confirm-clear-backups-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg" id="confirm-clear-backups-modal-content">
+            <div class="p-4 border-b border-white/10">
+                <h3 class="text-lg font-semibold text-red-400">Clear All Backups?</h3>
+            </div>
+            <div class="p-6 text-gray-200">
+                <p>Are you sure you want to delete all automatic and manual backups? This action cannot be undone.</p>
+            </div>
+            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
+                <button id="confirm-clear-backups-no-btn" class="glass-effect hover:bg-white/10 text-white font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-clear-backups-yes-btn" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg">Yes, Clear</button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Notification Element -->
     <div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
@@ -419,14 +509,15 @@
 
     <script>
         // --- Global Notification Function ---
-        const showNotification = (message, isError = true) => {
+        const showNotification = (message, isError = true, lang = 'en') => {
             const notification = document.getElementById('notification');
             const notificationMessage = document.getElementById('notification-message');
             if (!notification || !notificationMessage) return;
 
-            notificationMessage.textContent = message;
+             // Always show English messages now
+            notificationMessage.textContent = message; 
+
             notification.classList.remove('bg-red-600/70', 'bg-green-500/70');
-            // Remove glass-effect base, apply colored glass
             notification.classList.add(isError ? 'bg-red-600/70' : 'bg-green-500/70');
             notification.classList.add('backdrop-blur-md');
             notification.classList.remove('opacity-0');
@@ -434,6 +525,7 @@
                 notification.classList.add('opacity-0');
             }, 4000);
         };
+
         
         const getSvgAsImageBase64 = (svgElement) => {
             return new Promise((resolve, reject) => {
@@ -495,15 +587,15 @@
             const truckNumberInfoInput = document.getElementById('truckNumberInfo');
             const trailerNumberInfoInput = document.getElementById('trailerNumberInfo');
             const initialOdometerInfoInput = document.getElementById('initialOdometerInfo');
-            const ratePerMileInfoInput = document.getElementById('ratePerMileInfo'); // Nuevo
+            const ratePerMileInfoInput = document.getElementById('ratePerMileInfo');
             const displayDriverName = document.getElementById('display-driverName');
             const displayCompany = document.getElementById('display-company');
             const displayTruckNumber = document.getElementById('display-truckNumber');
             const displayTrailerNumber = document.getElementById('display-trailerNumber');
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
-            const displayRatePerMile = document.getElementById('display-ratePerMile'); // Nuevo
+            const displayRatePerMile = document.getElementById('display-ratePerMile');
 
-            // NEW Add Trip Section
+            // Add Trip Section
             const addTripSection = document.getElementById('add-trip-section');
             const showAddTripBtn = document.getElementById('show-add-trip-btn');
             const cancelAddTripBtn = document.getElementById('cancel-add-trip-btn');
@@ -541,11 +633,34 @@
             const confirmClearYesBtn = document.getElementById('confirm-clear-yes-btn');
             const confirmClearNoBtn = document.getElementById('confirm-clear-no-btn');
 
+            // --- NEW Backup/Restore Elements ---
+            const openBackupModalBtn = document.getElementById('open-backup-modal-btn');
+            const backupRestoreModal = document.getElementById('backup-restore-modal');
+            const backupCloseBtn = document.getElementById('backup-close-btn');
+            const closeBackupModalBtn = document.getElementById('close-backup-modal-btn');
+            const btnManualBackup = document.getElementById('btn-manual-backup');
+            const btnDownloadBackup = document.getElementById('btn-download-backup');
+            const btnUploadBackup = document.getElementById('btn-upload-backup');
+            const uploadBackupInput = document.getElementById('upload-backup-input');
+            const backupListBody = document.getElementById('backup-list-body');
+            const emptyBackupRow = document.getElementById('empty-backup-row');
+            const clearBackupsBtn = document.getElementById('clear-backups-btn');
+            
+            const confirmRestoreModal = document.getElementById('confirm-restore-modal');
+            const confirmRestoreMessage = document.getElementById('confirm-restore-message');
+            const confirmRestoreYesBtn = document.getElementById('confirm-restore-yes-btn');
+            const confirmRestoreNoBtn = document.getElementById('confirm-restore-no-btn');
+            
+            const confirmClearBackupsModal = document.getElementById('confirm-clear-backups-modal');
+            const confirmClearBackupsYesBtn = document.getElementById('confirm-clear-backups-yes-btn');
+            const confirmClearBackupsNoBtn = document.getElementById('confirm-clear-backups-no-btn');
+
 
             // --- State Variables ---
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
             let archiveHistory = JSON.parse(localStorage.getItem('archiveHistory')) || [];
+            let mileageBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
             let isHistoryVisible = false; // Table starts hidden
 
             // --- Driver Info Logic ---
@@ -559,13 +674,13 @@
                     displayTruckNumber.textContent = vehicleInfo.truckNumber;
                     displayTrailerNumber.textContent = vehicleInfo.trailerNumber;
                     displayInitialOdometer.textContent = Number(vehicleInfo.initialOdometer).toLocaleString();
-                    displayRatePerMile.textContent = (parseFloat(vehicleInfo.ratePerMile) || 0.70).toLocaleString('en-US', { style: 'currency', currency: 'USD' }); // Nuevo
+                    displayRatePerMile.textContent = (parseFloat(vehicleInfo.ratePerMile) || 0.70).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
-                    ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70'; // Nuevo
+                    ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.remove('hidden');
@@ -575,7 +690,7 @@
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.add('hidden');
-                    ratePerMileInfoInput.value = '0.70'; // Nuevo: default rate
+                    ratePerMileInfoInput.value = '0.70';
                 }
             };
             
@@ -588,7 +703,6 @@
                 if (vehicleInfo) {
                     driverVehicleSection.classList.add('hidden');
                     showInfoSectionBtn.classList.remove('hidden');
-                    // Reset form fields to original values
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
@@ -606,14 +720,14 @@
                     truckNumber: truckNumberInfoInput.value,
                     trailerNumber: trailerNumberInfoInput.value,
                     initialOdometer: initialOdometerInfoInput.value,
-                    ratePerMile: ratePerMileInfoInput.value || '0.70', // Nuevo
+                    ratePerMile: ratePerMileInfoInput.value || '0.70',
                 };
                 localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
                 vehicleInfo = newInfo;
                 driverVehicleSection.classList.add('hidden');
                 showInfoSectionBtn.classList.remove('hidden');
-                loadVehicleInfo(); // To update display values
-                updateTotalMiles(); // Recalculate totals with new rate
+                loadVehicleInfo();
+                updateTotalMiles();
                 showNotification('Driver Info saved successfully.', false);
             });
             
@@ -629,7 +743,6 @@
                     archiveResetBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                      records.forEach(record => {
                         const row = document.createElement('tr');
-                        // Glass effect for table rows
                         row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
                         row.innerHTML = `
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
@@ -656,7 +769,7 @@
             const updateTotalMiles = () => {
                 const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
-                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70'); // Usar la tarifa guardada
+                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
                 const amount = total * rate;
                 totalAmountEl.textContent = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             };
@@ -665,7 +778,7 @@
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
             };
 
-            // --- Add Trip Section Logic (NEW) ---
+            // --- Add Trip Section Logic ---
             showAddTripBtn.addEventListener('click', () => {
                 addTripSection.classList.remove('hidden');
                 showAddTripBtn.classList.add('hidden');
@@ -674,7 +787,7 @@
             cancelAddTripBtn.addEventListener('click', () => {
                 addTripSection.classList.add('hidden');
                 showAddTripBtn.classList.remove('hidden');
-                form.reset(); // Clear form on cancel
+                form.reset();
             });
 
             form.addEventListener('submit', (e) => {
@@ -716,9 +829,7 @@
                 }
                 form.reset();
                 renderTable();
-                loadVehicleInfo(); // To update odometer in case it changed
-
-                // Hide form and show button after successful add
+                loadVehicleInfo();
                 addTripSection.classList.add('hidden');
                 showAddTripBtn.classList.remove('hidden');
             });
@@ -749,6 +860,7 @@
                 }
                 const uniqueDrivers = [...new Set(recordsToExport.map(r => r.driverName))];
                 showNotification(`Generating ${uniqueDrivers.length} PDF report(s)...`, false);
+
                 for (const driver of uniqueDrivers) {
                     const driverRecords = recordsToExport.filter(r => r.driverName === driver);
                      const driverInfo = {
@@ -905,7 +1017,7 @@
                 await generateAndHandlePdf(records, false);
 
                 // --- Archive History Logic ---
-                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70'); // Usar la tarifa guardada
+                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
                 const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 const totalAmount = totalMiles * rate;
                 const firstDate = records[0]?.date;
@@ -918,12 +1030,11 @@
                     period: period,
                     totalMiles: totalMiles,
                     totalAmount: totalAmount,
-                    detailedRecords: [...records], // Save a copy of the detailed records
-                    ratePerMile: rate // Guardar la tarifa usada para este archivo
+                    detailedRecords: [...records],
+                    ratePerMile: rate
                 };
 
-                // Save to full archive history
-                archiveHistory.unshift(newArchiveEntry); // Add to the beginning
+                archiveHistory.unshift(newArchiveEntry);
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
                 // --- End Archive History Logic ---
 
@@ -1017,13 +1128,11 @@
             confirmClearYesBtn.addEventListener('click', () => {
                 archiveHistory = [];
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
-                renderArchiveHistoryTable(); // Update table inside the modal
+                renderArchiveHistoryTable();
                 closeConfirmClearModal();
                 showNotification('Archive history has been cleared.', false);
             });
 
-
-            // New listener for generating PDFs from history
             archiveHistoryTableBody.addEventListener('click', async (e) => {
                 if (e.target.classList.contains('generate-history-pdf-btn')) {
                     const id = Number(e.target.dataset.id);
@@ -1036,10 +1145,251 @@
                     }
                 }
             });
+
+            // --- NEW Backup & Restore Logic ---
+
+            // Helper function to get all app data
+            const getAllDataAsObject = () => {
+                return {
+                    vehicleInfo: JSON.parse(localStorage.getItem('vehicleInfo')) || null,
+                    records: JSON.parse(localStorage.getItem('mileageRecords')) || [],
+                    archiveHistory: JSON.parse(localStorage.getItem('archiveHistory')) || []
+                };
+            };
+
+            // Render the list of backups in the modal
+            const renderBackupList = () => {
+                mileageBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
+                backupListBody.innerHTML = '';
+                if (mileageBackups.length === 0) {
+                    backupListBody.appendChild(emptyBackupRow.cloneNode(true));
+                    clearBackupsBtn.disabled = true;
+                    clearBackupsBtn.classList.add('opacity-50', 'cursor-not-allowed');
+                } else {
+                    clearBackupsBtn.disabled = false;
+                    clearBackupsBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    mileageBackups.forEach(backup => {
+                        const row = document.createElement('tr');
+                        row.className = 'bg-white/5 border-b border-white/10';
+                        const backupDate = new Date(backup.timestamp).toLocaleString();
+                        const type = backup.type === 'auto' ? 'Automatic' : 'Manual';
+                        row.innerHTML = `
+                            <td class="px-6 py-4 font-medium whitespace-nowrap">${backupDate}</td>
+                            <td class="px-6 py-4">${type}</td>
+                            <td class="px-6 py-4 text-center space-x-2">
+                                <button data-timestamp="${backup.timestamp}" class="restore-backup-btn text-yellow-400 hover:text-yellow-300 font-medium text-sm py-1 px-2 rounded-lg bg-white/10 hover:bg-white/20">
+                                    Restore
+                                </button>
+                                <button data-timestamp="${backup.timestamp}" class="delete-backup-btn text-red-400 hover:text-red-300 font-medium text-sm py-1 px-2 rounded-lg bg-white/10 hover:bg-white/20">
+                                    Delete
+                                </button>
+                            </td>
+                        `;
+                        backupListBody.appendChild(row);
+                    });
+                }
+            };
+
+            // Open/Close Backup Modal
+            const openBackupModal = () => {
+                renderBackupList();
+                backupRestoreModal.classList.remove('hidden');
+                backupRestoreModal.classList.add('flex');
+            };
+            const closeBackupModal = () => {
+                backupRestoreModal.classList.add('hidden');
+                backupRestoreModal.classList.remove('flex');
+            };
+
+            openBackupModalBtn.addEventListener('click', openBackupModal);
+            backupCloseBtn.addEventListener('click', closeBackupModal);
+            closeBackupModalBtn.addEventListener('click', closeBackupModal);
+
+            // Manual Backup
+            btnManualBackup.addEventListener('click', () => {
+                const newBackup = {
+                    timestamp: Date.now(),
+                    type: 'manual',
+                    data: getAllDataAsObject()
+                };
+                mileageBackups.unshift(newBackup);
+                localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
+                renderBackupList();
+                showNotification('Manual backup created.', false);
+            });
+
+            // Download Backup
+            btnDownloadBackup.addEventListener('click', () => {
+                const backupData = getAllDataAsObject();
+                 // Check if there is actually data to backup
+                if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
+                    showNotification('No data to back up.');
+                    return; 
+                }
+                const jsonString = JSON.stringify(backupData, null, 2);
+                const blob = new Blob([jsonString], { type: 'application/json' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `truck_mileage_backup_${new Date().toISOString().split('T')[0]}.json`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+            });
+
+            // Upload Backup (trigger input)
+            btnUploadBackup.addEventListener('click', () => {
+                uploadBackupInput.click();
+            });
+
+            // Handle File Upload
+            uploadBackupInput.addEventListener('change', (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    try {
+                        const data = JSON.parse(event.target.result);
+                        if (data.hasOwnProperty('vehicleInfo') && data.hasOwnProperty('records') && data.hasOwnProperty('archiveHistory')) {
+                            localStorage.setItem('pendingRestoreData', JSON.stringify(data));
+                            openConfirmRestoreModal('Are you sure you want to restore from this file? All current data will be overwritten.');
+                        } else {
+                            showNotification('Invalid backup file format.');
+                        }
+                    } catch (err) {
+                        showNotification('Could not read backup file.');
+                    }
+                    e.target.value = null; // Reset input
+                };
+                reader.readAsText(file);
+            });
+
+            // Open/Close Restore Confirmation Modal
+            const openConfirmRestoreModal = (message) => {
+                confirmRestoreMessage.textContent = message;
+                confirmRestoreModal.classList.remove('hidden');
+                confirmRestoreModal.classList.add('flex');
+            };
+            const closeConfirmRestoreModal = () => {
+                confirmRestoreModal.classList.add('hidden');
+                confirmRestoreModal.classList.remove('flex');
+                localStorage.removeItem('pendingRestoreData');
+            };
+
+            confirmRestoreNoBtn.addEventListener('click', closeConfirmRestoreModal);
+
+            // Restore Logic
+            confirmRestoreYesBtn.addEventListener('click', () => {
+                const dataToRestoreJSON = localStorage.getItem('pendingRestoreData');
+                if (!dataToRestoreJSON) return;
+                
+                const dataToRestore = JSON.parse(dataToRestoreJSON);
+                
+                localStorage.setItem('vehicleInfo', JSON.stringify(dataToRestore.vehicleInfo));
+                localStorage.setItem('mileageRecords', JSON.stringify(dataToRestore.records));
+                localStorage.setItem('archiveHistory', JSON.stringify(dataToRestore.archiveHistory));
+                
+                localStorage.removeItem('pendingRestoreData');
+                closeConfirmRestoreModal();
+                closeBackupModal(); // Close backup modal as well
+                showNotification('Data restored successfully. Reloading...', false);
+                
+                setTimeout(() => {
+                    location.reload();
+                }, 1500); // Reload page to reflect all changes
+            });
+
+            // Delete/Restore from Backup List
+            backupListBody.addEventListener('click', (e) => {
+                const timestamp = e.target.dataset.timestamp;
+                if (!timestamp) return;
+
+                if (e.target.classList.contains('restore-backup-btn')) {
+                    const backup = mileageBackups.find(b => b.timestamp == timestamp);
+                    if (backup) {
+                        localStorage.setItem('pendingRestoreData', JSON.stringify(backup.data));
+                        openConfirmRestoreModal(`Are you sure you want to restore the backup from ${new Date(Number(backup.timestamp)).toLocaleString()}? All current data will be overwritten.`);
+                    }
+                }
+
+                if (e.target.classList.contains('delete-backup-btn')) {
+                    mileageBackups = mileageBackups.filter(b => b.timestamp != timestamp);
+                    localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
+                    renderBackupList();
+                    showNotification('Backup deleted.', false);
+                }
+            });
+
+            // Clear All Backups
+            const openConfirmClearBackupsModal = () => {
+                confirmClearBackupsModal.classList.remove('hidden');
+                confirmClearBackupsModal.classList.add('flex');
+            };
+            const closeConfirmClearBackupsModal = () => {
+                confirmClearBackupsModal.classList.add('hidden');
+                confirmClearBackupsModal.classList.remove('flex');
+            };
+
+            clearBackupsBtn.addEventListener('click', openConfirmClearBackupsModal);
+            confirmClearBackupsNoBtn.addEventListener('click', closeConfirmClearBackupsModal);
+            confirmClearBackupsYesBtn.addEventListener('click', () => {
+                mileageBackups = [];
+                localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
+                localStorage.removeItem('lastAutoBackupTime');
+                 renderBackupList(); 
+                closeConfirmClearBackupsModal();
+                showNotification('All backups cleared.', false);
+            });
+            
+            // Automatic Backup Check (on load)
+            const checkAndRunAutoBackup = () => {
+                const lastBackupTime = parseInt(localStorage.getItem('lastAutoBackupTime') || '0', 10);
+                const now = Date.now();
+                const twentyFourHours = 24 * 60 * 60 * 1000;
+
+                if (now - lastBackupTime > twentyFourHours) {
+                    const backupData = getAllDataAsObject();
+                    
+                    if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
+                        console.log('No data to back up automatically.');
+                        return; // No data to back up
+                    }
+
+                    const newBackup = {
+                        timestamp: now,
+                        type: 'auto',
+                        data: backupData
+                    };
+                    
+                    let currentBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
+                    currentBackups.unshift(newBackup); // Add to start
+
+                    // Keep only the last 7 auto backups
+                    const autoBackups = currentBackups.filter(b => b.type === 'auto');
+                    if (autoBackups.length > 7) {
+                        const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); // Sort oldest first
+                        const oldestTimestamp = timestamps[0];
+                         // Find the index of the oldest auto backup in the main array and remove it
+                        const indexToRemove = currentBackups.findIndex(b => b.timestamp === oldestTimestamp && b.type === 'auto');
+                        if (indexToRemove > -1) {
+                            currentBackups.splice(indexToRemove, 1);
+                        }
+                    }
+
+
+                    localStorage.setItem('mileageBackups', JSON.stringify(currentBackups));
+                    localStorage.setItem('lastAutoBackupTime', now.toString());
+                    console.log('Automatic backup created.');
+                    // Don't show notification for auto backups to avoid bothering the user
+                    // showNotification('Automatic backup created.', false);
+                }
+            };
             
             // --- Initial Load ---
             loadVehicleInfo();
             renderTable();
+            checkAndRunAutoBackup(); // Run the auto-backup check on load
         });
     </script>
 
