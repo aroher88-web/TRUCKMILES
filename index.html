@@ -81,8 +81,8 @@
        .modal-scrollbar::-webkit-scrollbar-thumb:hover {
             background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparent */
         }
-       
-       /* Class for Glassmorphism effect */
+        
+        /* Class for Glassmorphism effect */
        .glass-effect {
             background-color: rgba(255, 255, 255, 0.05); /* Slightly white */
             backdrop-filter: blur(12px);
@@ -171,30 +171,31 @@
         .btn-purple:hover{
             background-color: rgba(126, 34, 206, 0.15); /* purple-700 hover with slight increase in color */
         }
-         /* Apply base glass effect to specific solid color buttons if needed */
-        #show-info-section-btn, 
-        #cancel-info-edit-btn, 
-        #cancel-add-trip-btn, 
-        #close-history-modal-btn,
-        #confirm-no-btn,
-        #confirm-clear-no-btn,
-        #close-backup-modal-btn,
-        #confirm-restore-no-btn,
-        #confirm-clear-backups-no-btn {
-            /* Inherits .btn-liquid-glass styles */
+        
+        /* --- NEWLY ADDED BUTTON STYLES --- */
+        .btn-success {
+            background-color: rgba(34, 197, 94, 0.1); /* green-500 @ 10% */
+            border-color: rgba(74, 222, 128, 0.08);
         }
-         /* Override specific colors where needed */
-        #confirm-yes-btn, #clear-history-btn, #confirm-clear-yes-btn, #clear-backups-btn, #confirm-clear-backups-yes-btn {
-             /* Inherits .btn-liquid-glass and applies .btn-danger */
+        .btn-success:hover {
+            background-color: rgba(22, 163, 74, 0.15); /* green-600 @ 15% */
         }
-         #confirm-restore-yes-btn, #edit-trip-form button[type='submit'] {
-             /* Inherits .btn-liquid-glass and applies .btn-edit */
+        .btn-primary {
+            background-color: rgba(59, 130, 246, 0.1); /* blue-500 @ 10% */
+            border-color: rgba(96, 165, 250, 0.08);
         }
-         #backup-restore-modal .generate-history-pdf-btn { /* Specificity needed */
-            /* Inherits .btn-liquid-glass and applies .btn-purple */
-         }
-
-
+        .btn-primary:hover {
+            background-color: rgba(37, 99, 235, 0.15); /* blue-600 @ 15% */
+        }
+        .btn-accent {
+            background-color: rgba(22, 163, 165, 0.1); /* cyan-600 @ 10% */
+            border-color: rgba(56, 189, 248, 0.08);
+        }
+        .btn-accent:hover {
+            background-color: rgba(8, 145, 178, 0.15); /* cyan-700 @ 15% */
+        }
+        /* --- END OF NEW STYLES --- */
+        
     </style>
 </head>
 <!-- Adjustments in body for mobile view: center content and add small padding -->
@@ -259,8 +260,8 @@
         <!-- Driver & Vehicle Info Section (Collapsible) -->
         <div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
              <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
-            </div>
+                 <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
+             </div>
             <!-- Info Display Area (No longer used, form shown directly for editing) -->
             <div id="vehicle-info-display" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-300">
@@ -275,51 +276,53 @@
             <!-- Info Edit Form -->
             <form id="vehicle-info-form" class="hidden"> 
                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
-                    <div>
-                        <label for="driverNameInfo" class="block text-sm font-medium text-gray-300 mb-1">Driver Name</label>
-                        <input type="text" id="driverNameInfo" placeholder="Your Name" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
-                    </div>
-                    <div>
-                        <label for="companyInfo" class="block text-sm font-medium text-gray-300 mb-1">Company</label>
-                        <input type="text" id="companyInfo" placeholder="Your Company Name" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
-                    </div>
-                    <div>
-                        <label for="truckNumberInfo" class="block text-sm font-medium text-gray-300 mb-1">Truck #</label>
-                        <input type="text" id="truckNumberInfo" placeholder="e.g., T-123" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
-                    </div>
                      <div>
-                        <label for="trailerNumberInfo" class="block text-sm font-medium text-gray-300 mb-1">Trailer #</label>
-                        <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
-                    </div>
-                </div>
-                <!-- Updated grid for Odometer and Rate -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                     <div>
-                        <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
-                        <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                         <label for="driverNameInfo" class="block text-sm font-medium text-gray-300 mb-1">Driver Name</label>
+                         <input type="text" id="driverNameInfo" placeholder="Your Name" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                      </div>
                      <div>
-                        <label for="ratePerMileInfo" class="block text-sm font-medium text-gray-300 mb-1">Rate per Mile</label>
-                        <input type="text" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" id="ratePerMileInfo" placeholder="e.g., 0.70" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                         <label for="companyInfo" class="block text-sm font-medium text-gray-300 mb-1">Company</label>
+                         <input type="text" id="companyInfo" placeholder="Your Company Name" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                      </div>
-                </div>
-                <div class="flex justify-end gap-4">
-                     <button type="button" id="cancel-info-edit-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg hidden">Cancel</button>
-                    <button type="submit" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300">Save Info</button>
-                </div>
+                     <div>
+                         <label for="truckNumberInfo" class="block text-sm font-medium text-gray-300 mb-1">Truck #</label>
+                         <input type="text" id="truckNumberInfo" placeholder="e.g., T-123" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                     </div>
+                      <div>
+                         <label for="trailerNumberInfo" class="block text-sm font-medium text-gray-300 mb-1">Trailer #</label>
+                         <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                     </div>
+                 </div>
+                 <!-- Updated grid for Odometer and Rate -->
+                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                      <div>
+                         <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
+                         <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                      </div>
+                      <div>
+                         <label for="ratePerMileInfo" class="block text-sm font-medium text-gray-300 mb-1">Rate per Mile</label>
+                         <input type="text" inputmode="decimal" pattern="[0-9]*\.?[0-9]*" id="ratePerMileInfo" placeholder="e.g., 0.70" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
+                      </div>
+                 </div>
+                 <div class="flex justify-end gap-4">
+                      <button type="button" id="cancel-info-edit-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg hidden">Cancel</button>
+                     <!-- MODIFIED: Removed solid bg-cyan-600, added btn-liquid-glass and btn-accent -->
+                     <button type="submit" class="btn-liquid-glass btn-accent font-bold py-2 px-4 rounded-lg">Save Info</button>
+                 </div>
             </form>
         </div>
 
         <!-- "Add New Trip" Button (Enlarged) -->
         <div class="mb-8 text-center">
-             <button id="show-add-trip-btn" class="w-full md:w-auto bg-cyan-700 hover:bg-cyan-800 text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
-                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-                Add New Trip
-            </button>
+             <!-- MODIFIED: Removed solid bg-cyan-700, added btn-liquid-glass and btn-accent -->
+             <button id="show-add-trip-btn" class="w-full md:w-auto btn-liquid-glass btn-accent text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                 </svg>
+                 Add New Trip
+             </button>
         </div>
-       
+        
 
         <!-- Add New Trip Section (Collapsible) -->
         <div id="add-trip-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
@@ -345,7 +348,8 @@
                     <button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
                         Cancel
                     </button>
-                    <button type="submit" class="w-full md:w-auto bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2.5 px-6 rounded-lg transition-colors duration-300">
+                    <!-- MODIFIED: Removed solid bg-cyan-600, added btn-liquid-glass and btn-accent -->
+                    <button type="submit" class="w-full md:w-auto btn-liquid-glass btn-accent font-bold py-2.5 px-6 rounded-lg">
                         Add Trip
                     </button>
                 </div>
@@ -364,10 +368,11 @@
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
-                 <button type="button" id="archive-reset-btn" class="w-full bg-red-700 hover:bg-red-800 text-white font-bold py-3 px-4 rounded-lg transition-colors duration-300 flex items-center justify-center gap-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
-                    Archive &amp; Reset
-                </button>
+                 <!-- MODIFIED: Removed solid bg-red-700, added btn-liquid-glass and btn-danger -->
+                 <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+                     <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
+                     Archive &amp; Reset
+                 </button>
             </div>
 
             <!-- Collapsible Table Section Header -->
@@ -417,7 +422,8 @@
             <!-- Backup & Restore Button -->
              <!-- Added transition class -->
             <div id="backup-btn-container" class="z-40 transition-transform duration-300 ease-in-out"> <!-- Removed fixed positioning -->
-                <button id="open-backup-modal-btn" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="Backup & Restore">
+                <!-- MODIFIED: Removed solid bg-green-600, added btn-liquid-glass and btn-success -->
+                <button id="open-backup-modal-btn" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="Backup & Restore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
@@ -426,7 +432,8 @@
             <!-- View Archive History Button -->
             <!-- Added transition class -->
             <div id="history-btn-container" class="z-40 transition-transform duration-300 ease-in-out"> <!-- Removed fixed positioning -->
-                <button id="view-history-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-4 rounded-full shadow-lg transition-colors duration-300 flex items-center justify-center gap-2" title="View Archive History">
+                <!-- MODIFIED: Removed solid bg-blue-600, added btn-liquid-glass and btn-primary -->
+                <button id="view-history-btn" class="btn-liquid-glass btn-primary font-bold py-3 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="View Archive History">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
@@ -552,9 +559,12 @@
                 <div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <button id="btn-manual-backup" class="btn-liquid-glass bg-blue-600 hover:bg-blue-700 font-bold py-3 px-4 rounded-lg">Create Manual Backup Now</button>
-                        <button id="btn-download-backup" class="btn-liquid-glass bg-green-600 hover:bg-green-700 font-bold py-3 px-4 rounded-lg">Download Backup File</button>
-                        <button id="btn-upload-backup" class="btn-liquid-glass bg-purple-600 hover:bg-purple-700 font-bold py-3 px-4 rounded-lg">Upload & Restore File</button>
+                        <!-- MODIFIED: Removed solid bg-blue-600, added btn-primary -->
+                        <button id="btn-manual-backup" class="btn-liquid-glass btn-primary font-bold py-3 px-4 rounded-lg">Create Manual Backup Now</button>
+                        <!-- MODIFIED: Removed solid bg-green-600, added btn-success -->
+                        <button id="btn-download-backup" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-lg">Download Backup File</button>
+                        <!-- MODIFIED: Removed solid bg-purple-600, added btn-purple -->
+                        <button id="btn-upload-backup" class="btn-liquid-glass btn-purple font-bold py-3 px-4 rounded-lg">Upload & Restore File</button>
                     </div>
                 </div>
 
@@ -786,35 +796,35 @@
 
              // --- Helper function to check if any modal or collapsible section is open ---
              const isUIElementOpen = () => {
-                return !editModal.classList.contains('hidden') ||
-                       !confirmModal.classList.contains('hidden') ||
-                       !historyModal.classList.contains('hidden') ||
-                       !confirmClearModal.classList.contains('hidden') ||
-                       !backupRestoreModal.classList.contains('hidden') ||
-                       !confirmRestoreModal.classList.contains('hidden') ||
-                       !confirmClearBackupsModal.classList.contains('hidden') ||
-                       !driverVehicleSection.classList.contains('hidden') || 
-                       !addTripSection.classList.contains('hidden') ||
-                       isHistoryVisible; // Check if the history table is visible
-            };
+                 return !editModal.classList.contains('hidden') ||
+                        !confirmModal.classList.contains('hidden') ||
+                        !historyModal.classList.contains('hidden') ||
+                        !confirmClearModal.classList.contains('hidden') ||
+                        !backupRestoreModal.classList.contains('hidden') ||
+                        !confirmRestoreModal.classList.contains('hidden') ||
+                        !confirmClearBackupsModal.classList.contains('hidden') ||
+                        !driverVehicleSection.classList.contains('hidden') || 
+                        !addTripSection.classList.contains('hidden') ||
+                        isHistoryVisible; // Check if the history table is visible
+             };
 
-            // --- Helper functions for moving floating buttons ---
-            const moveButtonsDown = () => {
-                if (backupBtnContainer && historyBtnContainer) {
-                    backupBtnContainer.classList.add('translate-y-20'); 
-                    historyBtnContainer.classList.add('translate-y-20'); 
-                }
-            };
+             // --- Helper functions for moving floating buttons ---
+             const moveButtonsDown = () => {
+                 if (backupBtnContainer && historyBtnContainer) {
+                     backupBtnContainer.classList.add('translate-y-20'); 
+                     historyBtnContainer.classList.add('translate-y-20'); 
+                 }
+             };
 
-            const moveButtonsUp = () => {
-                // Use setTimeout to allow closing animations to potentially finish
-                setTimeout(() => {
-                    if (!isUIElementOpen() && backupBtnContainer && historyBtnContainer) {
-                        backupBtnContainer.classList.remove('translate-y-20');
-                        historyBtnContainer.classList.remove('translate-y-20');
-                    }
-                }, 150); // Small delay, adjust if needed
-            };
+             const moveButtonsUp = () => {
+                 // Use setTimeout to allow closing animations to potentially finish
+                 setTimeout(() => {
+                     if (!isUIElementOpen() && backupBtnContainer && historyBtnContainer) {
+                         backupBtnContainer.classList.remove('translate-y-20');
+                         historyBtnContainer.classList.remove('translate-y-20');
+                     }
+                 }, 150); // Small delay, adjust if needed
+             };
 
 
             // --- Driver Info Logic ---
@@ -856,19 +866,19 @@
             });
 
              cancelInfoEditBtn.addEventListener('click', () => {
-                if (vehicleInfo) {
-                    driverVehicleSection.classList.add('hidden');
-                    showInfoSectionBtn.classList.remove('hidden');
-                    // Reset form fields
-                    driverNameInfoInput.value = vehicleInfo.driverName;
-                    companyInfoInput.value = vehicleInfo.company;
-                    truckNumberInfoInput.value = vehicleInfo.truckNumber;
-                    trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
-                    initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
-                    ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
-                    moveButtonsUp(); 
-                } 
-            });
+                 if (vehicleInfo) {
+                     driverVehicleSection.classList.add('hidden');
+                     showInfoSectionBtn.classList.remove('hidden');
+                     // Reset form fields
+                     driverNameInfoInput.value = vehicleInfo.driverName;
+                     companyInfoInput.value = vehicleInfo.company;
+                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
+                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
+                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
+                     ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
+                     moveButtonsUp(); 
+                 } 
+             });
 
             vehicleInfoForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -901,25 +911,25 @@
                     archiveResetBtn.disabled = false;
                     archiveResetBtn.classList.remove('opacity-50', 'cursor-not-allowed');
                      records.forEach(record => {
-                        const row = document.createElement('tr');
-                        row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
-                        row.innerHTML = `
-                            <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
-                            <td class="px-6 py-4">${record.driverName}</td>
-                            <td class="px-6 py-4">${record.departure}</td>
-                            <td class="px-6 py-4">${Number(record.initialOdometer).toLocaleString()}</td>
-                            <td class="px-6 py-4">${Number(record.odometer) === 0 ? '' : Number(record.odometer).toLocaleString()}</td>
-                            <td class="px-6 py-4">${record.company}</td>
-                            <td class="px-6 py-4">${record.truckNumber}</td>
-                            <td class="px-6 py-4">${record.trailerNumber}</td>
-                            <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString()}</td>
-                            <td class="px-6 py-4 text-center whitespace-nowrap">
-                                <button data-id="${record.id}" class="edit-btn btn-liquid-glass btn-edit font-medium mr-4 px-2 py-1 rounded-lg text-sm">Edit</button>
-                                <button data-id="${record.id}" class="delete-btn btn-liquid-glass btn-danger font-medium px-2 py-1 rounded-lg text-sm">Delete</button>
-                            </td>
-                        `;
-                        tableBody.appendChild(row);
-                    });
+                         const row = document.createElement('tr');
+                         row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
+                         row.innerHTML = `
+                             <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
+                             <td class="px-6 py-4">${record.driverName}</td>
+                             <td class="px-6 py-4">${record.departure}</td>
+                             <td class="px-6 py-4">${Number(record.initialOdometer).toLocaleString()}</td>
+                             <td class="px-6 py-4">${Number(record.odometer) === 0 ? '' : Number(record.odometer).toLocaleString()}</td>
+                             <td class="px-6 py-4">${record.company}</td>
+                             <td class="px-6 py-4">${record.truckNumber}</td>
+                             <td class="px-6 py-4">${record.trailerNumber}</td>
+                             <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString()}</td>
+                             <td class="px-6 py-4 text-center whitespace-nowrap">
+                                 <button data-id="${record.id}" class="edit-btn btn-liquid-glass btn-edit font-medium mr-4 px-2 py-1 rounded-lg text-sm">Edit</button>
+                                 <button data-id="${record.id}" class="delete-btn btn-liquid-glass btn-danger font-medium px-2 py-1 rounded-lg text-sm">Delete</button>
+                             </td>
+                         `;
+                         tableBody.appendChild(row);
+                     });
                 }
                 updateTotalMiles();
                 saveToLocalStorage();
@@ -1028,10 +1038,10 @@
                 for (const driver of uniqueDrivers) {
                     const driverRecords = recordsToExport.filter(r => r.driverName === driver);
                      const driverInfo = {
-                        driverName: driver,
-                        company: driverRecords[0]?.company || vehicleInfo?.company || 'N/A',
-                        truckNumber: driverRecords[0]?.truckNumber || vehicleInfo?.truckNumber || 'N/A',
-                        trailerNumber: driverRecords[0]?.trailerNumber || vehicleInfo?.trailerNumber || 'N/A',
+                         driverName: driver,
+                         company: driverRecords[0]?.company || vehicleInfo?.company || 'N/A',
+                         truckNumber: driverRecords[0]?.truckNumber || vehicleInfo?.truckNumber || 'N/A',
+                         trailerNumber: driverRecords[0]?.trailerNumber || vehicleInfo?.trailerNumber || 'N/A',
                     };
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
@@ -1145,8 +1155,8 @@
                 const initialOdometer = updatedTrip.initialOdometer;
                 if (endingOdometer > 0) {
                      if (endingOdometer < initialOdometer) {
-                        showNotification('Ending odometer cannot be less than the initial odometer for this trip.');
-                        return;
+                         showNotification('Ending odometer cannot be less than the initial odometer for this trip.');
+                         return;
                     }
                     updatedTrip.miles = endingOdometer - initialOdometer;
                 } else {
@@ -1568,4 +1578,3 @@
 
 </body>
 </html>
-
