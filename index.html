@@ -290,24 +290,7 @@
                 </div>
             </div>
 
-            <!-- Last Archive Summary (Restored) -->
-            <div id="last-archive-summary" class="hidden mt-8 md:w-2/5">
-                <h3 class="text-lg font-semibold mb-3 text-gray-300">Last Archive Summary</h3>
-                <div class="glass-effect rounded-lg p-4 flex flex-col gap-2">
-                    <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-300 text-sm">Period</span>
-                        <span id="last-archive-period" class="font-bold text-sm text-white"></span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-300 text-sm">Total Miles</span>
-                        <span id="last-archive-miles" class="font-bold text-lg text-cyan-400">0</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="font-medium text-gray-300 text-sm">Total Amount</span>
-                        <span id="last-archive-amount" class="font-bold text-lg text-green-400">$0.00</span>
-                    </div>
-                </div>
-            </div>
+            <!-- "Last Archive Summary" Section REMOVED -->
 
         </div>
 
@@ -383,7 +366,7 @@
                             <tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
-                                <th scope="col" classs="px-6 py-3">Total Miles</th>
+                                <th scope="col" class="px-6 py-3">Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
                                 <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
                             </tr>
@@ -524,11 +507,7 @@
             const historyToggleIcon = document.getElementById('history-toggle-icon');
             const historyTableContainer = document.getElementById('history-table-container');
 
-            // Last Archive Summary
-            const lastArchiveSummary = document.getElementById('last-archive-summary');
-            const lastArchivePeriod = document.getElementById('last-archive-period');
-            const lastArchiveMiles = document.getElementById('last-archive-miles');
-            const lastArchiveAmount = document.getElementById('last-archive-amount');
+            // "Last Archive Summary" variables REMOVED
 
             // Edit Modal
             const editModal = document.getElementById('edit-modal');
@@ -883,18 +862,7 @@
                 showNotification('Trip updated successfully.', false);
             });
             
-            // --- Last Archive Summary Logic ---
-            const loadLastArchiveSummary = () => {
-                const summary = JSON.parse(localStorage.getItem('lastArchiveSummary')) || null;
-                if (summary) {
-                    lastArchivePeriod.textContent = summary.period;
-                    lastArchiveMiles.textContent = summary.totalMiles.toLocaleString();
-                    lastArchiveAmount.textContent = summary.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
-                    lastArchiveSummary.classList.remove('hidden');
-                } else {
-                    lastArchiveSummary.classList.add('hidden');
-                }
-            };
+            // --- "Last Archive Summary" Logic REMOVED ---
 
             // --- Archive & Reset Logic ---
             const openConfirmModal = () => {
@@ -938,9 +906,7 @@
                 archiveHistory.unshift(newArchiveEntry); // Add to the beginning
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
 
-                // Save to last archive summary
-                localStorage.setItem('lastArchiveSummary', JSON.stringify(newArchiveEntry));
-                loadLastArchiveSummary(); // Update the UI
+                // "Last Archive Summary" logic REMOVED
                 // --- End Archive History Logic ---
 
                 const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
@@ -1032,8 +998,8 @@
             confirmClearYesBtn.addEventListener('click', () => {
                 archiveHistory = [];
                 localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
-                localStorage.removeItem('lastArchiveSummary'); // Also clear the summary box
-                loadLastArchiveSummary(); // Update UI
+                localStorage.removeItem('lastArchiveSummary'); // Also clear the summary box (though it's unused)
+                // loadLastArchiveSummary(); // REMOVED
                 renderArchiveHistoryTable(); // Update table inside the modal
                 closeConfirmClearModal();
                 showNotification('Archive history has been cleared.', false);
@@ -1057,7 +1023,7 @@
             // --- Initial Load ---
             loadVehicleInfo();
             renderTable();
-            loadLastArchiveSummary(); // Load the summary on startup
+            // loadLastArchiveSummary(); // REMOVED
         });
     </script>
 
