@@ -11,6 +11,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
 
+    
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 100'%3E%3Crect x='55' y='10' width='240' height='55' rx='5' fill='%232D3748'/%3E%3Cpath d='M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z' fill='%234A5568'/%3E%3Crect x='5' y='65' width='290' height='5' fill='%231A202C'/%3E%3Cg%3E%3Ccircle cx='50' cy='70' r='12' fill='%231A202C' stroke='%234A5568' stroke-width='2'/%3E%3Ccircle cx='50' cy='70' r='5' fill='%234A5568'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='230' cy='70' r='12' fill='%231A202C' stroke='%234A5568' stroke-width='2'/%3E%3Ccircle cx='230' cy='70' r='5' fill='%234A5568'/%3E%3C/g%3E%3Cg%3E%3Ccircle cx='260' cy='70' r='12' fill='%231A202C' stroke='%234A5568' stroke-width='2'/%3E%3Ccircle cx='260' cy='70' r='5' fill='%234A5568'/%3E%3C/g%3E%3C/svg%3E" type="image/svg+xml">
+    
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -727,6 +730,7 @@
             showInfoSectionBtn.addEventListener('click', () => {
                 driverVehicleSection.classList.remove('hidden');
                 showInfoSectionBtn.classList.add('hidden');
+                moveButtonsDown(); // Mover botones al abrir
             });
 
              cancelInfoEditBtn.addEventListener('click', () => {
@@ -739,6 +743,7 @@
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
                     ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
+                    moveButtonsUp(); // Mover botones al cerrar
                 } 
             });
 
@@ -759,6 +764,7 @@
                 loadVehicleInfo();
                 updateTotalMiles();
                 showNotification('Driver Info saved successfully.', false);
+                moveButtonsUp(); // Mover botones al guardar/cerrar
             });
             
             // --- Trip Table Logic ---
@@ -812,12 +818,14 @@
             showAddTripBtn.addEventListener('click', () => {
                 addTripSection.classList.remove('hidden');
                 showAddTripBtn.classList.add('hidden');
+                moveButtonsDown(); // Mover botones al abrir
             });
 
             cancelAddTripBtn.addEventListener('click', () => {
                 addTripSection.classList.add('hidden');
                 showAddTripBtn.classList.remove('hidden');
                 form.reset();
+                moveButtonsUp(); // Mover botones al cerrar
             });
 
             form.addEventListener('submit', (e) => {
@@ -862,6 +870,7 @@
                 loadVehicleInfo();
                 addTripSection.classList.add('hidden');
                 showAddTripBtn.classList.remove('hidden');
+                moveButtonsUp(); // Mover botones al guardar/cerrar
             });
             
             // --- History Table Toggle Logic ---
@@ -870,15 +879,11 @@
                 if (isHistoryVisible) {
                     historyTableContainer.classList.remove('hidden');
                     historyToggleIcon.classList.remove('rotate-180');
-                    // Move buttons down - Restored
-                    backupBtnContainer.classList.add('translate-y-20'); 
-                    historyBtnContainer.classList.add('translate-y-20'); 
+                    moveButtonsDown(); // Mover botones al expandir
                 } else {
                     historyTableContainer.classList.add('hidden');
                     historyToggleIcon.classList.add('rotate-180');
-                     // Move buttons back up - Restored
-                    backupBtnContainer.classList.remove('translate-y-20');
-                    historyBtnContainer.classList.remove('translate-y-20');
+                    moveButtonsUp(); // Mover botones al contraer
                 }
             });
 
@@ -986,12 +991,14 @@
                 document.getElementById('edit-odometer').value = trip.odometer;
                 editModal.classList.remove('hidden');
                 editModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal
             };
 
             const closeEditModal = () => {
                 editModal.classList.add('hidden');
                 editModal.classList.remove('flex');
                 editTripForm.reset();
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             editCloseBtn.addEventListener('click', closeEditModal);
@@ -1034,10 +1041,12 @@
             const openConfirmModal = () => {
                 confirmModal.classList.remove('hidden');
                 confirmModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal
             };
             const closeConfirmModal = () => {
                 confirmModal.classList.add('hidden');
                 confirmModal.classList.remove('flex');
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             archiveResetBtn.addEventListener('click', openConfirmModal);
@@ -1136,11 +1145,13 @@
                 renderArchiveHistoryTable();
                 historyModal.classList.remove('hidden');
                 historyModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal
             };
 
             const closeHistoryModal = () => {
                 historyModal.classList.add('hidden');
                 historyModal.classList.remove('flex');
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             viewHistoryBtn.addEventListener('click', openHistoryModal);
@@ -1151,11 +1162,13 @@
             const openConfirmClearModal = () => {
                 confirmClearModal.classList.remove('hidden');
                 confirmClearModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal (encima del de historial)
             };
 
             const closeConfirmClearModal = () => {
                 confirmClearModal.classList.add('hidden');
                 confirmClearModal.classList.remove('flex');
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             clearHistoryBtn.addEventListener('click', openConfirmClearModal);
@@ -1231,10 +1244,12 @@
                 renderBackupList();
                 backupRestoreModal.classList.remove('hidden');
                 backupRestoreModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal
             };
             const closeBackupModal = () => {
                 backupRestoreModal.classList.add('hidden');
                 backupRestoreModal.classList.remove('flex');
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             openBackupModalBtn.addEventListener('click', openBackupModal);
@@ -1306,11 +1321,13 @@
                 confirmRestoreMessage.textContent = message;
                 confirmRestoreModal.classList.remove('hidden');
                 confirmRestoreModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal (encima del de backup)
             };
             const closeConfirmRestoreModal = () => {
                 confirmRestoreModal.classList.add('hidden');
                 confirmRestoreModal.classList.remove('flex');
                 localStorage.removeItem('pendingRestoreData');
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             confirmRestoreNoBtn.addEventListener('click', closeConfirmRestoreModal);
@@ -1361,10 +1378,12 @@
             const openConfirmClearBackupsModal = () => {
                 confirmClearBackupsModal.classList.remove('hidden');
                 confirmClearBackupsModal.classList.add('flex');
+                moveButtonsDown(); // Mover botones al abrir modal (encima del de backup)
             };
             const closeConfirmClearBackupsModal = () => {
                 confirmClearBackupsModal.classList.add('hidden');
                 confirmClearBackupsModal.classList.remove('flex');
+                moveButtonsUp(); // Mover botones al cerrar modal
             };
 
             clearBackupsBtn.addEventListener('click', openConfirmClearBackupsModal);
@@ -1424,6 +1443,31 @@
                 }
             };
             
+            // --- Helper functions for moving buttons ---
+            const moveButtonsDown = () => {
+                backupBtnContainer.classList.add('translate-y-20'); 
+                historyBtnContainer.classList.add('translate-y-20'); 
+            };
+
+            const moveButtonsUp = () => {
+                // Only move up if no modals are open and history table is closed
+                if (!isModalOpen() && !isHistoryVisible) {
+                    backupBtnContainer.classList.remove('translate-y-20');
+                    historyBtnContainer.classList.remove('translate-y-20');
+                }
+            };
+            
+            // --- Helper function to check if any modal is open ---
+            const isModalOpen = () => {
+                return !editModal.classList.contains('hidden') ||
+                       !confirmModal.classList.contains('hidden') ||
+                       !historyModal.classList.contains('hidden') ||
+                       !confirmClearModal.classList.contains('hidden') ||
+                       !backupRestoreModal.classList.contains('hidden') ||
+                       !confirmRestoreModal.classList.contains('hidden') ||
+                       !confirmClearBackupsModal.classList.contains('hidden');
+            };
+
             // --- Initial Load ---
             loadVehicleInfo();
             renderTable();
