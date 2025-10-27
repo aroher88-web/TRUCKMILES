@@ -289,8 +289,9 @@
 
         <!-- NEW: Last Trip Info Display Section --><div id="add-trip-btn-original-location" class="mb-8"> <!-- Removed hidden class --><div class="glass-effect p-4 rounded-xl text-center">
                 <h3 class="text-lg font-semibold text-gray-300 mb-2">Last Recorded Trip</h3>
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-gray-200">
-                    <p><strong class="text-cyan-400">Date:</strong> <span id="last-trip-date">N/A</span></p>
+                <!-- Updated grid to sm:grid-cols-2 -->
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-200">
+                    <!-- REMOVED Date Paragraph -->
                     <p><strong class="text-cyan-400">Departure:</strong> <span id="last-trip-departure">N/A</span></p>
                     <p><strong class="text-cyan-400">Odometer:</strong> <span id="last-trip-odometer">N/A</span></p>
                 </div>
@@ -609,7 +610,7 @@
             const displayRatePerMile = document.getElementById('display-ratePerMile');
 
             // --- Last Trip Display ---
-            const lastTripDateEl = document.getElementById('last-trip-date');
+            const lastTripDateEl = document.getElementById('last-trip-date'); // Still exists in HTML, needed for JS logic below
             const lastTripDepartureEl = document.getElementById('last-trip-departure');
             const lastTripOdometerEl = document.getElementById('last-trip-odometer');
 
@@ -1000,13 +1001,13 @@
             const updateLastTripDisplay = () => {
                 if (records.length > 0) {
                     const lastTrip = records[records.length - 1];
-                    lastTripDateEl.textContent = lastTrip.date;
+                    // REMOVED: lastTripDateEl.textContent = lastTrip.date;
                     lastTripDepartureEl.textContent = lastTrip.departure;
                     // Only show odometer if it was entered (greater than 0)
                     lastTripOdometerEl.textContent = lastTrip.odometer > 0 ? Number(lastTrip.odometer).toLocaleString() : 'N/A';
                 } else {
-                    lastTripDateEl.textContent = 'No trips recorded';
-                    lastTripDepartureEl.textContent = '';
+                    // Adjusted text when no trips
+                    lastTripDepartureEl.textContent = 'No trips recorded'; 
                     lastTripOdometerEl.textContent = '';
                 }
             };
@@ -1104,12 +1105,14 @@
                         bodyStyles: {
                             textColor: [50, 50, 50] // Dark Gray for table body text
                         },
-                        footStyles: {
-                            fillColor: [200, 200, 200, 0.2], // Light Gray with 20% opacity for glassmorphism
-                            textColor: [50, 50, 50], // Dark Gray for "Total Miles" label
+                        footStyles: { // Add footer styles
+                            fillColor: [240, 240, 240], // Light gray background for footer
+                            textColor: [50, 50, 50], // Dark Gray for "Total Miles:" label
                             fontStyle: 'bold'
                         },
-                        foot: [['', '', '', 'Total Miles:', totalMilesForDriver.toLocaleString()]] // Place total miles in footer
+                        foot: [ // Add the footer row data
+                            ['', '', '', 'Total Miles:', totalMilesForDriver.toLocaleString()] 
+                        ]
                     });
                     
                     // Add Footer - Keep muted gray
