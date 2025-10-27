@@ -125,13 +125,8 @@
             z-index: 40; 
         }
 
-         /* Container for the floating buttons inside sticky footer */
-        .floating-buttons-container {
-            display: flex;
-            justify-content: space-between;
-            max-width: 300px; /* Adjust max-width as needed */
-            margin: 0 auto; /* Center the container */
-        }
+         /* Container for the floating buttons inside sticky footer - REMOVED */
+        /* .floating-buttons-container { ... } */
         
         /* Base styles for buttons to apply glass effect - MORE TRANSPARENT */
         .btn-liquid-glass {
@@ -151,28 +146,26 @@
 
         /* Specific colored buttons - VERY LIGHT COLOR TRACE */
         .btn-danger {
-            background-color: rgba(239, 68, 68, 0.1); /* red-500 with minimal opacity (was 0.35) */
+            background-color: rgba(239, 68, 68, 0.1); /* red-500 with minimal opacity */
             border-color: rgba(255, 100, 100, 0.08); /* Border extremely subtle */
         }
         .btn-danger:hover {
-            background-color: rgba(220, 38, 38, 0.15); /* red-600 hover with slight increase in color */
+            background-color: rgba(220, 38, 38, 0.15); /* red-600 hover */
         }
          .btn-edit {
-            background-color: rgba(234, 179, 8, 0.1); /* yellow-500 with minimal opacity (was 0.35) */
+            background-color: rgba(234, 179, 8, 0.1); /* yellow-500 with minimal opacity */
             border-color: rgba(255, 220, 100, 0.08); 
         }
         .btn-edit:hover {
-            background-color: rgba(217, 119, 6, 0.15); /* yellow-600 hover with slight increase in color */
+            background-color: rgba(217, 119, 6, 0.15); /* yellow-600 hover */
         }
         .btn-purple {
-             background-color: rgba(147, 51, 234, 0.1); /* purple-600 with minimal opacity (was 0.35) */
+             background-color: rgba(147, 51, 234, 0.1); /* purple-600 with minimal opacity */
             border-color: rgba(160, 90, 240, 0.08); 
         }
         .btn-purple:hover{
-            background-color: rgba(126, 34, 206, 0.15); /* purple-700 hover with slight increase in color */
+            background-color: rgba(126, 34, 206, 0.15); /* purple-700 hover */
         }
-        
-        /* --- NEWLY ADDED BUTTON STYLES --- */
         .btn-success {
             background-color: rgba(34, 197, 94, 0.1); /* green-500 @ 10% */
             border-color: rgba(74, 222, 128, 0.08);
@@ -194,23 +187,17 @@
         .btn-accent:hover {
             background-color: rgba(8, 145, 178, 0.15); /* cyan-700 @ 15% */
         }
-        /* --- END OF NEW STYLES --- */
         
     </style>
 </head>
-<!-- Adjustments in body for mobile view: center content and add small padding -->
-<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-2 md:p-4">
+<!-- Adjustments in body for mobile view: center content and add small padding --><body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-2 md:p-4">
 
-    <!-- Welcome Screen -->
-    <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
+    <!-- Welcome Screen --><div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
         <svg id="welcome-truck-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="w-64 h-auto mb-8">
-            <!-- Trailer -->
-            <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
-            <!-- Cab -->
-            <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
+            <!-- Trailer --><rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
+            <!-- Cab --><path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
             <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
-            <!-- Wheels (removed animation for favicon) -->
-            <g>
+            <!-- Wheels (removed animation for favicon) --><g>
                 <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="50" cy="70" r="5" fill="#4A5568"/>
             </g>
@@ -226,14 +213,9 @@
         <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
     </div>
 
-    <!-- Main Content Container -->
-    <!-- Added pb-20 to provide space for sticky buttons -->
-    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative pb-20"> <!-- Added pb-20 -->
-        
-        <header class="mb-6 text-center">
+    <!-- Main Content Container --><!-- Added pb-20 to provide space for sticky buttons --><div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative pb-20"> <!-- Added pb-20 --><header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
-                <!-- Static version of the truck for the header and PDF -->
-                <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
+                <!-- Static version of the truck for the header and PDF --><rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
                 <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
                 <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
                 <g>
@@ -251,19 +233,15 @@
             </svg>
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
             <p class="text-gray-300 mt-1">Log your trips and keep accurate track of your miles.</p>
-            <!-- Button to show/edit info -->
-            <button id="show-info-section-btn" class="hidden mt-4 btn-liquid-glass font-bold py-2 px-4 rounded-lg">
+            <!-- Button to show/edit info --><button id="show-info-section-btn" class="hidden mt-4 btn-liquid-glass font-bold py-2 px-4 rounded-lg">
                 View/Edit Driver Info
             </button>
         </header>
 
-        <!-- Driver & Vehicle Info Section (Collapsible) -->
-        <div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
-             <div class="flex justify-between items-center mb-4">
+        <!-- Driver & Vehicle Info Section (Collapsible) --><div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden --><div class="flex justify-between items-center mb-4">
                  <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
              </div>
-            <!-- Info Display Area (No longer used, form shown directly for editing) -->
-            <div id="vehicle-info-display" class="hidden">
+            <!-- Info Display Area (No longer used, form shown directly for editing) --><div id="vehicle-info-display" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-300">
                     <p><strong>Driver:</strong> <span id="display-driverName"></span></p>
                     <p><strong>Company:</strong> <span id="display-company"></span></p>
@@ -273,8 +251,7 @@
                     <p><strong>Rate per Mile:</strong> <span id="display-ratePerMile"></span></p>
                 </div>
             </div>
-            <!-- Info Edit Form -->
-            <form id="vehicle-info-form" class="hidden"> 
+            <!-- Info Edit Form --><form id="vehicle-info-form" class="hidden"> 
                  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                      <div>
                          <label for="driverNameInfo" class="block text-sm font-medium text-gray-300 mb-1">Driver Name</label>
@@ -293,8 +270,7 @@
                          <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                      </div>
                  </div>
-                 <!-- Updated grid for Odometer and Rate -->
-                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                 <!-- Updated grid for Odometer and Rate --><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                       <div>
                          <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
                          <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
@@ -306,30 +282,25 @@
                  </div>
                  <div class="flex justify-end gap-4">
                       <button type="button" id="cancel-info-edit-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg hidden">Cancel</button>
-                     <!-- MODIFIED: Removed solid bg-cyan-600, added btn-liquid-glass and btn-accent -->
                      <button type="submit" class="btn-liquid-glass btn-accent font-bold py-2 px-4 rounded-lg">Save Info</button>
                  </div>
             </form>
         </div>
 
-        <!-- "Add New Trip" Button (Enlarged) -->
-        <div class="mb-8 text-center">
-             <!-- MODIFIED: Removed solid bg-cyan-700, added btn-liquid-glass and btn-accent -->
-             <button id="show-add-trip-btn" class="w-full md:w-auto btn-liquid-glass btn-accent text-white font-bold py-4 px-8 rounded-lg text-xl transition-all duration-300 flex items-center justify-center gap-2 mx-auto">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                 </svg>
-                 Add New Trip
-             </button>
+        <!-- NEW: Last Trip Info Display Section --><div id="add-trip-btn-original-location" class="mb-8"> <!-- Removed hidden class --><div class="glass-effect p-4 rounded-xl text-center">
+                <h3 class="text-lg font-semibold text-gray-300 mb-2">Last Recorded Trip</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 text-sm text-gray-200">
+                    <p><strong class="text-cyan-400">Date:</strong> <span id="last-trip-date">N/A</span></p>
+                    <p><strong class="text-cyan-400">Departure:</strong> <span id="last-trip-departure">N/A</span></p>
+                    <p><strong class="text-cyan-400">Odometer:</strong> <span id="last-trip-odometer">N/A</span></p>
+                </div>
+             </div>
         </div>
         
 
-        <!-- Add New Trip Section (Collapsible) -->
-        <div id="add-trip-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
-            <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
+        <!-- Add New Trip Section (Collapsible) --><div id="add-trip-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden --><h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
-                <!-- Grid changed to 8 columns for finer control -->
-                <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
+                <!-- Grid changed to 8 columns for finer control --><div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
                     <div class="md:col-span-2">
                         <label for="date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
                         <input type="date" id="date" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
@@ -344,11 +315,9 @@
                     </div>
                 </div>
                 <div class="flex justify-end gap-4">
-                    <!-- Cancel Button -->
-                    <button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
+                    <!-- Cancel Button --><button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
                         Cancel
                     </button>
-                    <!-- MODIFIED: Removed solid bg-cyan-600, added btn-liquid-glass and btn-accent -->
                     <button type="submit" class="w-full md:w-auto btn-liquid-glass btn-accent font-bold py-2.5 px-6 rounded-lg">
                         Add Trip
                     </button>
@@ -356,10 +325,8 @@
             </form>
         </div>
 
-        <!-- Trip History Section -->
-        <div>
-            <!-- Control Buttons & Totals (Always Visible) - "Share PDF" removed -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+        <!-- Trip History Section --><div>
+            <!-- Control Buttons & Totals (Always Visible) --><div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
                 <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
                     <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                     <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
@@ -368,15 +335,13 @@
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
-                 <!-- MODIFIED: Removed solid bg-red-700, added btn-liquid-glass and btn-danger -->
                  <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
                      Archive &amp; Reset
                  </button>
             </div>
 
-            <!-- Collapsible Table Section Header -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+            <!-- Collapsible Table Section Header --><div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
                 <button id="toggle-history-table-btn" class="text-gray-300 hover:text-white p-2 rounded-full" title="Toggle History">
                     <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -385,54 +350,44 @@
                 </button>
             </div>
             
-            <!-- Collapsible Table Wrapper (Starts hidden) -->
-            <div id="history-table-container" class="hidden">
+            <!-- Collapsible Table Wrapper (Starts hidden) --><div id="history-table-container" class="hidden">
                 <div class="overflow-x-auto rounded-lg glass-effect border-none">
                     <table class="w-full text-sm text-left text-gray-200">
                         <thead class="text-xs text-cyan-300 uppercase bg-white/5">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Date</th>
-                                <th scope="col" class="px-6 py-3">Driver</th>
-                                <th scope="col" class="px-6 py-3">Departure</th>
+                                <!-- REMOVED: Driver --><th scope="col" class="px-6 py-3">Departure</th>
                                 <th scope="col" class="px-6 py-3">Initial Odometer</th>
                                 <th scope="col" class="px-6 py-3">Ending Odometer</th>
-                                <th scope="col" class="px-6 py-3">Company</th>
-                                <th scope="col" class="px-6 py-3">Truck #</th>
-                                <th scope="col" class="px-6 py-3">Trailer #</th>
-                                <th scope="col" class="px-6 py-3">Miles</th>
+                                <!-- REMOVED: Company, Truck #, Trailer # --><th scope="col" class="px-6 py-3">Miles</th>
                                 <th scope="col" class="px-6 py-3 text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody id="mileage-table-body">
-                            <!-- Filas de ejemplo con efecto glass -->
-                            <tr id="empty-row" class="bg-white/5 border-b border-white/10">
-                               <td colspan="10" class="text-center py-8 text-gray-400">No records yet.</td>
+                            <!-- Filas de ejemplo con efecto glass --><tr id="empty-row" class="bg-white/5 border-b border-white/10">
+                               <!-- Updated colspan to 6 --><td colspan="6" class="text-center py-8 text-gray-400">No records yet.</td>
                             </tr>
-                            <!-- Las filas se añadirán aquí, tendrán bg-white/5 y border-white/10 -->
-                        </tbody>
+                            <!-- Las filas se añadirán aquí --></tbody>
                     </table>
                 </div>
             </div>
 
         </div>
 
-        <!-- Floating Buttons Container -->
-        <!-- Placed inside the main container, uses sticky-footer class for positioning -->
-        <div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> <!-- Added margin-top -->
-            <!-- Backup & Restore Button -->
-             <!-- Added transition class -->
-            <div id="backup-btn-container" class="z-40 transition-transform duration-300 ease-in-out"> <!-- Removed fixed positioning -->
-                <!-- MODIFIED: Removed solid bg-green-600, added btn-liquid-glass and btn-success -->
+        <!-- Floating Buttons Container --><!-- Adjusted layout: justify-between, items-center --><div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> 
+            <!-- Backup Button Container --><div id="backup-btn-container" class="z-40"> 
                 <button id="open-backup-modal-btn" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="Backup & Restore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                 </button>
             </div>
-            <!-- View Archive History Button -->
-            <!-- Added transition class -->
-            <div id="history-btn-container" class="z-40 transition-transform duration-300 ease-in-out"> <!-- Removed fixed positioning -->
-                <!-- MODIFIED: Removed solid bg-blue-600, added btn-liquid-glass and btn-primary -->
+            <!-- Add New Trip Button (Moved Here, Large & Round) --><button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-6 rounded-full shadow-lg transition-transform duration-300 ease-in-out flex items-center justify-center z-40" title="Add New Trip">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                 </svg>
+                 <!-- Text Removed --></button>
+            <!-- History Button Container --><div id="history-btn-container" class="z-40"> 
                 <button id="view-history-btn" class="btn-liquid-glass btn-primary font-bold py-3 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="View Archive History">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -442,14 +397,10 @@
         </div>
 
 
-        <!-- Hidden input for file upload -->
-        <input type="file" id="upload-backup-input" class="hidden" accept=".json">
+        <!-- Hidden input for file upload --><input type="file" id="upload-backup-input" class="hidden" accept=".json">
 
 
-    </div> <!-- End Main Content Container -->
-    
-    <!-- Modal for Editing a Trip -->
-    <div id="edit-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    </div> <!-- End Main Content Container --><!-- Modal for Editing a Trip --><div id="edit-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="edit-modal-content">
             <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
@@ -479,8 +430,7 @@
         </div>
     </div>
     
-    <!-- Confirmation Modal (Archive & Reset) -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- Confirmation Modal (Archive & Reset) --><div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
@@ -495,31 +445,25 @@
         </div>
     </div>
 
-    <!-- Archive History Modal -->
-    <div id="history-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width -->
-            <div class="p-4 border-b border-white/10 flex justify-between items-center">
+    <!-- Archive History Modal --><div id="history-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width --><div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-blue-400">Archive History</h3>
                 <button id="history-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 flex-grow overflow-y-auto modal-scrollbar" id="history-modal-content">
                 <div class="overflow-x-auto rounded-lg border border-white/10">
                     <table class="w-full text-sm text-left text-gray-200">
-                        <thead class="text-xs text-blue-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky -->
-                            <tr>
+                        <thead class="text-xs text-blue-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky --><tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
                                 <th scope="col" class="px-6 py-3">Rate</th>
                                 <th scope="col" class="px-6 py-3">Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
-                                <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
-                            </tr>
+                                <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column --></tr>
                         </thead>
                         <tbody id="archive-history-table-body">
-                            <!-- History rows will be injected here -->
-                            <tr id="empty-history-row" class="bg-white/5 border-b border-white/10">
-                               <td colspan="6" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan -->
-                            </tr>
+                            <!-- History rows will be injected here --><tr id="empty-history-row" class="bg-white/5 border-b border-white/10">
+                               <td colspan="6" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan --></tr>
                         </tbody>
                     </table>
                 </div>
@@ -531,9 +475,7 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal (Clear History) -->
-    <div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index -->
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-modal-content">
+    <!-- Confirmation Modal (Clear History) --><div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index --><div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Clear Archive History?</h3>
             </div>
@@ -547,32 +489,25 @@
         </div>
     </div>
 
-    <!-- NEW Backup & Restore Modal -->
-    <div id="backup-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- NEW Backup & Restore Modal --><div id="backup-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-3xl flex flex-col" style="height: 80vh;">
             <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-green-400">Backup & Restore</h3>
                 <button id="backup-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 flex-grow overflow-y-auto space-y-6 modal-scrollbar" id="backup-restore-modal-content">
-                <!-- Manual Controls -->
-                <div>
+                <!-- Manual Controls --><div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <!-- MODIFIED: Removed solid bg-green-600, added btn-success -->
-                        <button id="btn-download-backup" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-lg">Download Backup File</button>
-                        <!-- MODIFIED: Removed solid bg-purple-600, added btn-purple -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <!-- Grid changed to 2 cols --><button id="btn-download-backup" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-lg">Download Backup File</button>
                         <button id="btn-upload-backup" class="btn-liquid-glass btn-purple font-bold py-3 px-4 rounded-lg">Upload & Restore File</button>
                     </div>
                 </div>
 
-                <!-- Automatic Backups List -->
-                <div>
+                <!-- Automatic Backups List --><div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Recent Backups (Auto/Manual)</h4>
                     <div class="overflow-x-auto rounded-lg border border-white/10" style="max-height: 40vh; overflow-y: auto;">
                         <table class="w-full text-sm text-left text-gray-200">
-                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky -->
-                                <tr>
+                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky --><tr>
                                     <th scope="col" class="px-6 py-3">Backup Date</th>
                                     <th scope="col" class="px-6 py-3">Type</th>
                                     <th scope="col" class="px-6 py-3 text-center">Actions</th>
@@ -594,8 +529,7 @@
         </div>
     </div>
 
-    <!-- NEW Confirmation Modal (Restore) -->
-    <div id="confirm-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
+    <!-- NEW Confirmation Modal (Restore) --><div id="confirm-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-restore-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-yellow-400">Confirm Restore</h3>
@@ -610,8 +544,7 @@
         </div>
     </div>
 
-    <!-- NEW Confirmation Modal (Clear Backups) -->
-    <div id="confirm-clear-backups-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
+    <!-- NEW Confirmation Modal (Clear Backups) --><div id="confirm-clear-backups-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-backups-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Clear All Backups?</h3>
@@ -627,92 +560,47 @@
     </div>
 
 
-    <!-- Notification Element -->
-    <div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
+    <!-- Notification Element --><div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
     </div>
 
 
     <script>
-        // --- Global Notification Function ---
-        const showNotification = (message, isError = true) => {
-            const notification = document.getElementById('notification');
-            const notificationMessage = document.getElementById('notification-message');
-            if (!notification || !notificationMessage) return;
-            
-            notificationMessage.textContent = message; 
-
-            notification.classList.remove('bg-red-600/70', 'bg-green-500/70');
-            notification.classList.add(isError ? 'bg-red-600/70' : 'bg-green-500/70');
-            notification.classList.add('backdrop-blur-md');
-            notification.classList.remove('opacity-0');
-            setTimeout(() => {
-                notification.classList.add('opacity-0');
-            }, 4000);
-        };
-
-        
-        const getSvgAsImageBase64 = (svgElement) => {
-            return new Promise((resolve, reject) => {
-                if (!svgElement) return reject("SVG element not provided");
-                const clone = svgElement.cloneNode(true);
-                const animations = clone.querySelectorAll('animateTransform');
-                animations.forEach(anim => anim.remove());
-                const svgString = new XMLSerializer().serializeToString(clone);
-                const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
-                const url = URL.createObjectURL(svgBlob);
-                const img = new Image();
-                img.onload = () => {
-                    const canvas = document.createElement('canvas');
-                    const viewBox = clone.getAttribute('viewBox').split(' ').map(Number);
-                    const width = viewBox[2];
-                    const height = viewBox[3];
-                    canvas.width = width;
-                    canvas.height = height;
-                    const ctx = canvas.getContext('2d');
-                    ctx.drawImage(img, 0, 0, width, height);
-                    URL.revokeObjectURL(url);
-                    resolve(canvas.toDataURL('image/png'));
-                };
-                img.onerror = (err) => {
-                    URL.revokeObjectURL(url);
-                    reject(err);
-                };
-                img.src = url;
-            });
-        };
-
         document.addEventListener('DOMContentLoaded', () => {
             
-            // --- Welcome Screen Logic ---
+            // =========================================================================
+            //  ELEMENT SELECTORS
+            // =========================================================================
+            
+            // --- General ---
             const welcomeScreen = document.getElementById('welcome-screen');
-            setTimeout(() => {
-                welcomeScreen.classList.add('opacity-0');
-                setTimeout(() => {
-                    welcomeScreen.style.display = 'none';
-                }, 500);
-            }, 3000);
-
-            // --- Element Selectors ---
+            
+            // --- Forms ---
             const form = document.getElementById('mileage-form');
+            const vehicleInfoForm = document.getElementById('vehicle-info-form');
+            const editTripForm = document.getElementById('edit-trip-form');
+            
+            // --- Tables ---
             const tableBody = document.getElementById('mileage-table-body');
+            const emptyRow = document.getElementById('empty-row');
+            
+            // --- Totals Display ---
             const totalMilesEl = document.getElementById('total-miles');
             const totalAmountEl = document.getElementById('total-amount');
-            const emptyRow = document.getElementById('empty-row');
-            const departureInput = document.getElementById('departure');
             
-            // Driver Info Section
-            const vehicleInfoForm = document.getElementById('vehicle-info-form');
-            const vehicleInfoDisplay = document.getElementById('vehicle-info-display');
+            // --- Driver Info Section ---
             const driverVehicleSection = document.getElementById('driver-vehicle-section');
             const showInfoSectionBtn = document.getElementById('show-info-section-btn');
             const cancelInfoEditBtn = document.getElementById('cancel-info-edit-btn'); 
+            const vehicleInfoDisplay = document.getElementById('vehicle-info-display');
             const driverNameInfoInput = document.getElementById('driverNameInfo');
             const companyInfoInput = document.getElementById('companyInfo');
             const truckNumberInfoInput = document.getElementById('truckNumberInfo');
             const trailerNumberInfoInput = document.getElementById('trailerNumberInfo');
             const initialOdometerInfoInput = document.getElementById('initialOdometerInfo');
             const ratePerMileInfoInput = document.getElementById('ratePerMileInfo');
+            
+            // --- Driver Info Display Spans (for PDF) ---
             const displayDriverName = document.getElementById('display-driverName');
             const displayCompany = document.getElementById('display-company');
             const displayTruckNumber = document.getElementById('display-truckNumber');
@@ -720,50 +608,55 @@
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
             const displayRatePerMile = document.getElementById('display-ratePerMile');
 
-            // Add Trip Section
-            const addTripSection = document.getElementById('add-trip-section');
-            const showAddTripBtn = document.getElementById('show-add-trip-btn');
-            const cancelAddTripBtn = document.getElementById('cancel-add-trip-btn');
+            // --- Last Trip Display ---
+            const lastTripDateEl = document.getElementById('last-trip-date');
+            const lastTripDepartureEl = document.getElementById('last-trip-departure');
+            const lastTripOdometerEl = document.getElementById('last-trip-odometer');
 
-            // Control Buttons
+            // --- Add Trip Section ---
+            const addTripSection = document.getElementById('add-trip-section');
+            const showAddTripBtn = document.getElementById('show-add-trip-btn'); // Now in the footer
+            const cancelAddTripBtn = document.getElementById('cancel-add-trip-btn');
+            const departureInput = document.getElementById('departure');
+            
+            // --- Main Control Buttons ---
             const archiveResetBtn = document.getElementById('archive-reset-btn');
 
-            // History Table Section
+            // --- History Table Section ---
             const toggleHistoryTableBtn = document.getElementById('toggle-history-table-btn');
             const historyToggleIcon = document.getElementById('history-toggle-icon');
             const historyTableContainer = document.getElementById('history-table-container');
 
-            // Floating Buttons Containers
-            const backupBtnContainer = document.getElementById('backup-btn-container');
-            const historyBtnContainer = document.getElementById('history-btn-container');
+            // --- Floating Buttons ---
+            const backupBtnContainer = document.getElementById('backup-btn-container'); // Side button container
+            const historyBtnContainer = document.getElementById('history-btn-container'); // Side button container
+            const openBackupModalBtn = document.getElementById('open-backup-modal-btn'); // Side button
+            const viewHistoryBtn = document.getElementById('view-history-btn'); // Side button
 
-            // Edit Modal
+            // --- Edit Modal ---
             const editModal = document.getElementById('edit-modal');
-            const editTripForm = document.getElementById('edit-trip-form');
             const editCloseBtn = document.getElementById('edit-close-btn');
             const cancelEditBtn = document.getElementById('cancel-edit-btn');
 
-            // Confirm Modal (Archive)
+            // --- Confirm Archive Modal ---
             const confirmModal = document.getElementById('confirm-modal');
             const confirmYesBtn = document.getElementById('confirm-yes-btn');
             const confirmNoBtn = document.getElementById('confirm-no-btn');
 
-            // Archive History Modal
+            // --- Archive History Modal ---
             const historyModal = document.getElementById('history-modal');
-            const viewHistoryBtn = document.getElementById('view-history-btn');
             const historyCloseBtn = document.getElementById('history-close-btn');
             const closeHistoryModalBtn = document.getElementById('close-history-modal-btn');
             const clearHistoryBtn = document.getElementById('clear-history-btn');
             const archiveHistoryTableBody = document.getElementById('archive-history-table-body');
             const emptyHistoryRow = document.getElementById('empty-history-row');
 
-            // Confirm Clear Modal
+            // --- Confirm Clear History Modal ---
             const confirmClearModal = document.getElementById('confirm-clear-modal');
             const confirmClearYesBtn = document.getElementById('confirm-clear-yes-btn');
             const confirmClearNoBtn = document.getElementById('confirm-clear-no-btn');
 
-            // --- Backup/Restore Elements ---
-            const openBackupModalBtn = document.getElementById('open-backup-modal-btn');
+            // --- Backup/Restore Modal ---
             const backupRestoreModal = document.getElementById('backup-restore-modal');
             const backupCloseBtn = document.getElementById('backup-close-btn');
             const closeBackupModalBtn = document.getElementById('close-backup-modal-btn');
@@ -774,24 +667,113 @@
             const emptyBackupRow = document.getElementById('empty-backup-row');
             const clearBackupsBtn = document.getElementById('clear-backups-btn');
             
+            // --- Confirm Restore Modal ---
             const confirmRestoreModal = document.getElementById('confirm-restore-modal');
             const confirmRestoreMessage = document.getElementById('confirm-restore-message');
             const confirmRestoreYesBtn = document.getElementById('confirm-restore-yes-btn');
             const confirmRestoreNoBtn = document.getElementById('confirm-restore-no-btn');
             
+            // --- Confirm Clear Backups Modal ---
             const confirmClearBackupsModal = document.getElementById('confirm-clear-backups-modal');
             const confirmClearBackupsYesBtn = document.getElementById('confirm-clear-backups-yes-btn');
             const confirmClearBackupsNoBtn = document.getElementById('confirm-clear-backups-no-btn');
 
 
-            // --- State Variables ---
+            // =========================================================================
+            //  STATE VARIABLES
+            // =========================================================================
+            
+            // Load all data from localStorage or initialize as empty arrays/null
             let records = JSON.parse(localStorage.getItem('mileageRecords')) || [];
             let vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
             let archiveHistory = JSON.parse(localStorage.getItem('archiveHistory')) || [];
             let mileageBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
-            let isHistoryVisible = false; // Table starts hidden
+            let isHistoryVisible = false; // UI state for table visibility
 
-             // --- Helper function to check if any modal or collapsible section is open ---
+            // =========================================================================
+            //  HELPER FUNCTIONS
+            // =========================================================================
+
+            /**
+             * Shows a toast notification at the top right.
+             * @param {string} message - The message to display.
+             * @param {boolean} [isError=true] - True for red (error), false for green (success).
+             */
+            const showNotification = (message, isError = true) => {
+                const notification = document.getElementById('notification');
+                const notificationMessage = document.getElementById('notification-message');
+                if (!notification || !notificationMessage) return;
+                
+                notificationMessage.textContent = message; 
+
+                notification.classList.remove('bg-red-600/70', 'bg-green-500/70');
+                notification.classList.add(isError ? 'bg-red-600/70' : 'bg-green-500/70');
+                notification.classList.add('backdrop-blur-md');
+                notification.classList.remove('opacity-0');
+                setTimeout(() => {
+                    notification.classList.add('opacity-0');
+                }, 4000);
+            };
+
+            /**
+             * Converts an SVG element to a Base64 encoded PNG.
+             * @param {SVGElement} svgElement - The <svg> element to convert.
+             * @returns {Promise<string>} A promise that resolves with the data URL.
+             */
+            const getSvgAsImageBase64 = (svgElement) => {
+                return new Promise((resolve, reject) => {
+                    if (!svgElement) return reject("SVG element not provided");
+                    // Clone the SVG to avoid modifying the original
+                    const clone = svgElement.cloneNode(true);
+                    // Remove any animations that might interfere
+                    const animations = clone.querySelectorAll('animateTransform');
+                    animations.forEach(anim => anim.remove());
+                    
+                    const svgString = new XMLSerializer().serializeToString(clone);
+                    const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+                    const url = URL.createObjectURL(svgBlob);
+                    
+                    const img = new Image();
+                    img.onload = () => {
+                        const canvas = document.createElement('canvas');
+                        const viewBox = clone.getAttribute('viewBox').split(' ').map(Number);
+                        const width = viewBox[2];
+                        const height = viewBox[3];
+                        canvas.width = width;
+                        canvas.height = height;
+                        const ctx = canvas.getContext('2d');
+                        ctx.drawImage(img, 0, 0, width, height);
+                        URL.revokeObjectURL(url);
+                        resolve(canvas.toDataURL('image/png'));
+                    };
+                    img.onerror = (err) => {
+                        URL.revokeObjectURL(url);
+                        reject(err);
+                    };
+                    img.src = url;
+                });
+            };
+            
+            /**
+             * Gathers all app data from localStorage into a single object.
+             * @returns {object} An object containing vehicleInfo, records, and archiveHistory.
+             */
+            const getAllDataAsObject = () => {
+                return {
+                    vehicleInfo: JSON.parse(localStorage.getItem('vehicleInfo')) || null,
+                    records: JSON.parse(localStorage.getItem('mileageRecords')) || [],
+                    archiveHistory: JSON.parse(localStorage.getItem('archiveHistory')) || []
+                };
+            };
+
+            // =========================================================================
+            //  UI & MODAL LOGIC
+            // =========================================================================
+
+            /**
+             * Checks if any modal or collapsible section is currently open.
+             * @returns {boolean} True if a UI element is open.
+             */
              const isUIElementOpen = () => {
                  return !editModal.classList.contains('hidden') ||
                         !confirmModal.classList.contains('hidden') ||
@@ -802,106 +784,181 @@
                         !confirmClearBackupsModal.classList.contains('hidden') ||
                         !driverVehicleSection.classList.contains('hidden') || 
                         !addTripSection.classList.contains('hidden') ||
-                        isHistoryVisible; // Check if the history table is visible
+                        isHistoryVisible;
              };
 
-             // --- Helper functions for moving floating buttons ---
+            /** Moves the large central Add Trip button down (out of view) */
              const moveButtonsDown = () => {
-                 if (backupBtnContainer && historyBtnContainer) {
-                     backupBtnContainer.classList.add('translate-y-20'); 
-                     historyBtnContainer.classList.add('translate-y-20'); 
+                 if (showAddTripBtn) {
+                     showAddTripBtn.classList.add('translate-y-32'); // Adjust value if needed
                  }
              };
 
+            /** Moves the large central Add Trip button up (into view) if no modals/sections are open */
              const moveButtonsUp = () => {
-                 // Use setTimeout to allow closing animations to potentially finish
                  setTimeout(() => {
-                     if (!isUIElementOpen() && backupBtnContainer && historyBtnContainer) {
-                         backupBtnContainer.classList.remove('translate-y-20');
-                         historyBtnContainer.classList.remove('translate-y-20');
+                     // Check specifically if the add trip SECTION is hidden
+                     const addTripFormHidden = addTripSection.classList.contains('hidden');
+                     if (!isUIElementOpen() && addTripFormHidden && showAddTripBtn) {
+                         showAddTripBtn.classList.remove('translate-y-32');
                      }
-                 }, 150); // Small delay, adjust if needed
+                     // Keep button visible if add trip form is closed, even if other modals open/close
+                     else if (addTripFormHidden && showAddTripBtn) {
+                         showAddTripBtn.classList.remove('translate-y-32');
+                     }
+                 }, 150); // Small delay for animations
              };
 
+            /** Opens the Edit Trip modal and populates it with trip data. */
+            const openEditModal = (trip) => {
+                document.getElementById('edit-trip-id').value = trip.id;
+                document.getElementById('edit-date').value = trip.date;
+                document.getElementById('edit-departure').value = trip.departure;
+                document.getElementById('edit-odometer').value = trip.odometer;
+                editModal.classList.remove('hidden');
+                editModal.classList.add('flex');
+                moveButtonsDown(); 
+            };
 
-            // --- Driver Info Logic ---
+            /** Closes the Edit Trip modal and resets the form. */
+            const closeEditModal = () => {
+                editModal.classList.add('hidden');
+                editModal.classList.remove('flex');
+                editTripForm.reset();
+                moveButtonsUp(); 
+            };
+            
+            /** Opens the Archive confirmation modal. */
+            const openConfirmModal = () => {
+                confirmModal.classList.remove('hidden');
+                confirmModal.classList.add('flex');
+                moveButtonsDown(); 
+            };
+
+            /** Closes the Archive confirmation modal. */
+            const closeConfirmModal = () => {
+                confirmModal.classList.add('hidden');
+                confirmModal.classList.remove('flex');
+                moveButtonsUp(); 
+            };
+            
+            /** Opens the Archive History modal. */
+            const openHistoryModal = () => {
+                renderArchiveHistoryTable(); // Render the history table when opening
+                historyModal.classList.remove('hidden');
+                historyModal.classList.add('flex');
+                moveButtonsDown(); 
+            };
+
+            /** Closes the Archive History modal. */
+            const closeHistoryModal = () => {
+                historyModal.classList.add('hidden');
+                historyModal.classList.remove('flex');
+                moveButtonsUp(); 
+            };
+            
+            /** Opens the Clear History confirmation modal. */
+            const openConfirmClearModal = () => {
+                confirmClearModal.classList.remove('hidden');
+                confirmClearModal.classList.add('flex');
+            };
+
+            /** Closes the Clear History confirmation modal. */
+            const closeConfirmClearModal = () => {
+                confirmClearModal.classList.add('hidden');
+                confirmClearModal.classList.remove('flex');
+            };
+            
+            /** Opens the Backup & Restore modal. */
+            const openBackupModal = () => {
+                renderBackupList();
+                backupRestoreModal.classList.remove('hidden');
+                backupRestoreModal.classList.add('flex');
+                moveButtonsDown(); 
+            };
+
+            /** Closes the Backup & Restore modal. */
+            const closeBackupModal = () => {
+                backupRestoreModal.classList.add('hidden');
+                backupRestoreModal.classList.remove('flex');
+                moveButtonsUp(); 
+            };
+            
+            /** Opens the Restore confirmation modal. */
+            const openConfirmRestoreModal = (message) => {
+                confirmRestoreMessage.textContent = message;
+                confirmRestoreModal.classList.remove('hidden');
+                confirmRestoreModal.classList.add('flex');
+            };
+
+            /** Closes the Restore confirmation modal. */
+            const closeConfirmRestoreModal = () => {
+                confirmRestoreModal.classList.add('hidden');
+                confirmRestoreModal.classList.remove('flex');
+                localStorage.removeItem('pendingRestoreData'); // Clear pending data
+            };
+            
+            /** Opens the Clear Backups confirmation modal. */
+            const openConfirmClearBackupsModal = () => {
+                confirmClearBackupsModal.classList.remove('hidden');
+                confirmClearBackupsModal.classList.add('flex');
+            };
+
+            /** Closes the Clear Backups confirmation modal. */
+            const closeConfirmClearBackupsModal = () => {
+                confirmClearBackupsModal.classList.add('hidden');
+                confirmClearBackupsModal.classList.remove('flex');
+            };
+
+            // =========================================================================
+            //  DATA & RENDER FUNCTIONS
+            // =========================================================================
+
+            /** Loads vehicle info from state and updates the UI. */
             const loadVehicleInfo = () => {
                 vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
                 if (vehicleInfo) {
+                    // Info exists, show "View/Edit" button
                     driverVehicleSection.classList.add('hidden');
                     showInfoSectionBtn.classList.remove('hidden');
+                    
+                    // Populate display spans (used for PDF)
                     displayDriverName.textContent = vehicleInfo.driverName;
                     displayCompany.textContent = vehicleInfo.company;
                     displayTruckNumber.textContent = vehicleInfo.truckNumber;
                     displayTrailerNumber.textContent = vehicleInfo.trailerNumber;
                     displayInitialOdometer.textContent = Number(vehicleInfo.initialOdometer).toLocaleString();
                     displayRatePerMile.textContent = (parseFloat(vehicleInfo.ratePerMile) || 0.70).toLocaleString('en-US', { style: 'currency', currency: 'USD' });
+                    
+                    // Populate form fields for editing
                     driverNameInfoInput.value = vehicleInfo.driverName;
                     companyInfoInput.value = vehicleInfo.company;
                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
                     ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
+                    
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.remove('hidden');
                 } else {
+                    // First time user, force info entry
                     driverVehicleSection.classList.remove('hidden');
                     showInfoSectionBtn.classList.add('hidden');
                     vehicleInfoDisplay.classList.add('hidden');
                     vehicleInfoForm.classList.remove('hidden'); 
                     cancelInfoEditBtn.classList.add('hidden');
                     ratePerMileInfoInput.value = '0.70';
-                    moveButtonsDown(); // Keep buttons down if driver info is first thing shown
+                    moveButtonsDown(); // Keep buttons down if info section is open
                 }
             };
             
-            showInfoSectionBtn.addEventListener('click', () => {
-                driverVehicleSection.classList.remove('hidden');
-                showInfoSectionBtn.classList.add('hidden');
-                moveButtonsDown(); 
-            });
-
-             cancelInfoEditBtn.addEventListener('click', () => {
-                 if (vehicleInfo) {
-                     driverVehicleSection.classList.add('hidden');
-                     showInfoSectionBtn.classList.remove('hidden');
-                     // Reset form fields
-                     driverNameInfoInput.value = vehicleInfo.driverName;
-                     companyInfoInput.value = vehicleInfo.company;
-                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
-                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
-                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
-                     ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
-                     moveButtonsUp(); 
-                 } 
-             });
-
-            vehicleInfoForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const newInfo = {
-                    driverName: driverNameInfoInput.value,
-                    company: companyInfoInput.value,
-                    truckNumber: truckNumberInfoInput.value,
-                    trailerNumber: trailerNumberInfoInput.value,
-                    initialOdometer: initialOdometerInfoInput.value,
-                    ratePerMile: ratePerMileInfoInput.value || '0.70',
-                };
-                localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
-                vehicleInfo = newInfo;
-                driverVehicleSection.classList.add('hidden');
-                showInfoSectionBtn.classList.remove('hidden');
-                loadVehicleInfo(); // Reload to update display spans if needed later
-                updateTotalMiles();
-                showNotification('Driver Info saved successfully.', false);
-                moveButtonsUp(); 
-            });
-            
-            // --- Trip Table Logic ---
+            /** Renders the main trip history table from the `records` state. */
             const renderTable = () => {
                 tableBody.innerHTML = '';
                 if (records.length === 0) {
                     tableBody.appendChild(emptyRow.cloneNode(true));
+                    // Disable archive button if no records
                     archiveResetBtn.disabled = true;
                     archiveResetBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
@@ -910,15 +967,12 @@
                      records.forEach(record => {
                          const row = document.createElement('tr');
                          row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
+                         // Updated row content to remove columns
                          row.innerHTML = `
                              <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
-                             <td class="px-6 py-4">${record.driverName}</td>
                              <td class="px-6 py-4">${record.departure}</td>
                              <td class="px-6 py-4">${Number(record.initialOdometer).toLocaleString()}</td>
                              <td class="px-6 py-4">${Number(record.odometer) === 0 ? '' : Number(record.odometer).toLocaleString()}</td>
-                             <td class="px-6 py-4">${record.company}</td>
-                             <td class="px-6 py-4">${record.truckNumber}</td>
-                             <td class="px-6 py-4">${record.trailerNumber}</td>
                              <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString()}</td>
                              <td class="px-6 py-4 text-center whitespace-nowrap">
                                  <button data-id="${record.id}" class="edit-btn btn-liquid-glass btn-edit font-medium mr-4 px-2 py-1 rounded-lg text-sm">Edit</button>
@@ -928,10 +982,12 @@
                          tableBody.appendChild(row);
                      });
                 }
-                updateTotalMiles();
-                saveToLocalStorage();
+                updateTotalMiles(); // Update totals whenever table renders
+                updateLastTripDisplay(); // NEW: Update the last trip display
+                saveToLocalStorage(); // Save changes to records
             };
 
+            /** Calculates and displays total miles and amount. */
             const updateTotalMiles = () => {
                 const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
@@ -940,84 +996,27 @@
                 totalAmountEl.textContent = amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
             };
 
+            /** Updates the display section showing the last recorded trip. */
+            const updateLastTripDisplay = () => {
+                if (records.length > 0) {
+                    const lastTrip = records[records.length - 1];
+                    lastTripDateEl.textContent = lastTrip.date;
+                    lastTripDepartureEl.textContent = lastTrip.departure;
+                    // Only show odometer if it was entered (greater than 0)
+                    lastTripOdometerEl.textContent = lastTrip.odometer > 0 ? Number(lastTrip.odometer).toLocaleString() : 'N/A';
+                } else {
+                    lastTripDateEl.textContent = 'No trips recorded';
+                    lastTripDepartureEl.textContent = '';
+                    lastTripOdometerEl.textContent = '';
+                }
+            };
+
+            /** Saves the current `records` state to localStorage. */
             const saveToLocalStorage = () => {
                 localStorage.setItem('mileageRecords', JSON.stringify(records));
             };
 
-            // --- Add Trip Section Logic ---
-            showAddTripBtn.addEventListener('click', () => {
-                addTripSection.classList.remove('hidden');
-                showAddTripBtn.classList.add('hidden');
-                moveButtonsDown(); 
-            });
-
-            cancelAddTripBtn.addEventListener('click', () => {
-                addTripSection.classList.add('hidden');
-                showAddTripBtn.classList.remove('hidden');
-                form.reset();
-                moveButtonsUp(); 
-            });
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                if (!vehicleInfo || vehicleInfo.initialOdometer === undefined) {
-                    showNotification('Please save driver & vehicle info, including an initial odometer, before adding a trip.');
-                    return;
-                }
-                const initialOdometer = Number(vehicleInfo.initialOdometer);
-                const endingOdometerInput = document.getElementById('odometer').value;
-                const endingOdometer = endingOdometerInput ? Number(endingOdometerInput) : 0;
-                let tripMiles = 0;
-                let shouldUpdateOdometer = false;
-                if (endingOdometer > 0) {
-                    if (endingOdometer < initialOdometer) {
-                        showNotification('Ending odometer cannot be less than the initial odometer.');
-                        return;
-                    }
-                    tripMiles = endingOdometer - initialOdometer;
-                    shouldUpdateOdometer = true;
-                }
-                const newRecord = {
-                    id: Date.now(),
-                    date: document.getElementById('date').value,
-                    departure: departureInput.value,
-                    driverName: vehicleInfo.driverName,
-                    company: vehicleInfo.company,
-                    truckNumber: vehicleInfo.truckNumber,
-                    trailerNumber: vehicleInfo.trailerNumber,
-                    initialOdometer: initialOdometer,
-                    odometer: endingOdometer,
-                    miles: tripMiles,
-                };
-                records.push(newRecord);
-                records.sort((a, b) => a.id - b.id);
-                if (shouldUpdateOdometer) {
-                    vehicleInfo.initialOdometer = endingOdometer;
-                    localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
-                }
-                form.reset();
-                renderTable();
-                loadVehicleInfo(); // Reload info in case odometer changed
-                addTripSection.classList.add('hidden');
-                showAddTripBtn.classList.remove('hidden');
-                moveButtonsUp(); 
-            });
-            
-            // --- History Table Toggle Logic ---
-            toggleHistoryTableBtn.addEventListener('click', () => {
-                isHistoryVisible = !isHistoryVisible;
-                if (isHistoryVisible) {
-                    historyTableContainer.classList.remove('hidden');
-                    historyToggleIcon.classList.remove('rotate-180');
-                    moveButtonsDown(); 
-                } else {
-                    historyTableContainer.classList.add('hidden');
-                    historyToggleIcon.classList.add('rotate-180');
-                    moveButtonsUp(); 
-                }
-            });
-
-            // --- PDF Generation Logic ---
+            /** Generates and shares/downloads a PDF report. */
             const generateAndHandlePdf = async (recordsToExport, forSharing = true) => {
                  if (!recordsToExport || recordsToExport.length === 0) {
                     showNotification('No data to generate a report.');
@@ -1027,8 +1026,9 @@
                 try {
                     logoBase64 = await getSvgAsImageBase64(document.getElementById('welcome-truck-svg')); 
                 } catch (error) {
-                    showNotification('Could not load company logo for the PDF report.');
+                    console.warn('Could not load company logo for the PDF report.', error);
                 }
+                // Group records by driver (Although driver column is removed, keep logic for potential future use or PDF differentiation)
                 const uniqueDrivers = [...new Set(recordsToExport.map(r => r.driverName))];
                 showNotification(`Generating ${uniqueDrivers.length} PDF report(s)...`, false);
 
@@ -1043,58 +1043,85 @@
                     const { jsPDF } = window.jspdf;
                     const doc = new jsPDF();
                     const totalMilesForDriver = driverRecords.reduce((sum, record) => sum + Number(record.miles), 0);
-                    let startY = 15;
+                    let startY = 15; // Top margin
+                    
+                    // Add logo if available
                     if(logoBase64) {
                         const imgWidth = 60;
                         const imgHeight = 20;
                         const pageWidth = doc.internal.pageSize.getWidth();
                         const x = (pageWidth - imgWidth) / 2;
                         doc.addImage(logoBase64, 'PNG', x, 15, imgWidth, imgHeight);
-                        startY = 45;
+                        startY = 45; // Move content down
                     }
+                    
+                    // Add Title - Use Dark Gray
                     doc.setFontSize(22);
                     doc.setFont('helvetica', 'bold');
+                    doc.setTextColor(50, 50, 50); // Dark Gray
                     doc.text(driverInfo.company, doc.internal.pageSize.getWidth() / 2, startY, { align: 'center' });
                     startY += 8;
+                    
+                    // Add Sub-header - Use Medium/Dark Grays
                     const headerParts = [
-                        { text: `Driver: `, style: 'normal' },
-                        { text: driverInfo.driverName, style: 'bold', size: 13 },
-                        { text: ` | Truck #: ${driverInfo.truckNumber} | Trailer #: ${driverInfo.trailerNumber}`, style: 'normal' }
+                        { text: `Driver: `, style: 'normal', color: [100, 100, 100] }, // Medium Gray Label
+                        { text: driverInfo.driverName, style: 'bold', size: 13, color: [50, 50, 50] }, // Dark Gray Value
+                        { text: ` | Truck #: ${driverInfo.truckNumber} | Trailer #: ${driverInfo.trailerNumber}`, style: 'normal', color: [100, 100, 100] } // Medium Gray Rest
                     ];
                     let currentX = doc.internal.pageSize.getWidth() / 2;
+                    // Calculate total width of sub-header to center it
                     const totalWidth = headerParts.reduce((sum, part) => {
                         doc.setFont('helvetica', part.style || 'normal');
                         doc.setFontSize(part.size || 11);
                         return sum + doc.getTextWidth(part.text);
                     }, 0);
                     currentX -= totalWidth / 2;
-                    doc.setTextColor(50);
+                    // doc.setTextColor(50); // Removed global setTextColor
                     headerParts.forEach(part => {
                         doc.setFont('helvetica', part.style || 'normal');
                         doc.setFontSize(part.size || 11);
+                        doc.setTextColor(...(part.color || [50, 50, 50])); // Apply color per part
                         doc.text(part.text, currentX, startY);
                         currentX += doc.getTextWidth(part.text);
                     });
                     startY += 15;
-                    const tableColumn = ["Date", "City", "Odometer", "Miles"];
+                    
+                    // Add Table - Use Cyan Header, Dark Gray Body
+                    const tableColumn = ["Date", "City", "Initial Odo", "Ending Odo", "Miles"];
                     const tableRows = driverRecords.map(r => [
                         r.date, 
                         r.departure, 
+                        Number(r.initialOdometer).toLocaleString(),
                         Number(r.odometer) === 0 ? '' : Number(r.odometer).toLocaleString(), 
                         Number(r.miles) === 0 ? '' : Number(r.miles).toLocaleString()
                     ]);
-                    doc.autoTable(tableColumn, tableRows, { startY: startY });
-                    const finalY = doc.lastAutoTable.finalY || startY;
-                    doc.setFontSize(12);
-                    doc.setFont('helvetica', 'bold');
-                    doc.text(`Total Miles: ${totalMilesForDriver.toLocaleString()}`, 14, finalY + 15);
+                    doc.autoTable(tableColumn, tableRows, { 
+                        startY: startY,
+                        headStyles: {
+                            fillColor: [22, 163, 165], // Main app cyan color (darker shade for fill)
+                            textColor: [255, 255, 255] // White text on cyan header
+                        },
+                        bodyStyles: {
+                            textColor: [50, 50, 50] // Dark Gray for table body text
+                        },
+                        footStyles: {
+                            fillColor: [200, 200, 200, 0.2], // Light Gray with 20% opacity for glassmorphism
+                            textColor: [50, 50, 50], // Dark Gray for "Total Miles" label
+                            fontStyle: 'bold'
+                        },
+                        foot: [['', '', '', 'Total Miles:', totalMilesForDriver.toLocaleString()]] // Place total miles in footer
+                    });
+                    
+                    // Add Footer - Keep muted gray
                     const today = new Date().toLocaleDateString();
                     const pageWidth = doc.internal.pageSize.getWidth();
                     doc.setFontSize(10);
                     doc.setFont('helvetica', 'normal');
-                    doc.setTextColor(150);
+                    doc.setTextColor(150, 150, 150); // Muted Gray
                     doc.text("Developed for AROHER88", pageWidth - 14, doc.internal.pageSize.getHeight() - 15, { align: 'right' });
                     doc.text(`Date: ${today}`, pageWidth - 14, doc.internal.pageSize.getHeight() - 10, { align: 'right' });
+                    
+                    // Share or Save
                     if(forSharing) {
                         const pdfBlob = doc.output('blob');
                         const pdfFile = new File([pdfBlob], `mileage_report_${driverInfo.driverName.replace(/\s+/g, '_')}.pdf`, { type: 'application/pdf' });
@@ -1112,136 +1139,8 @@
                     }
                 }
             };
-
-            // --- Edit Modal Logic ---
-            const openEditModal = (trip) => {
-                document.getElementById('edit-trip-id').value = trip.id;
-                document.getElementById('edit-date').value = trip.date;
-                document.getElementById('edit-departure').value = trip.departure;
-                document.getElementById('edit-odometer').value = trip.odometer;
-                editModal.classList.remove('hidden');
-                editModal.classList.add('flex');
-                moveButtonsDown(); 
-            };
-
-            const closeEditModal = () => {
-                editModal.classList.add('hidden');
-                editModal.classList.remove('flex');
-                editTripForm.reset();
-                moveButtonsUp(); 
-            };
-
-            editCloseBtn.addEventListener('click', closeEditModal);
-            cancelEditBtn.addEventListener('click', closeEditModal);
-
-            editTripForm.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const tripId = Number(document.getElementById('edit-trip-id').value);
-                const tripIndex = records.findIndex(r => r.id === tripId);
-                if (tripIndex === -1) {
-                    showNotification('Could not find trip to update.');
-                    return;
-                }
-                const updatedTrip = {
-                    ...records[tripIndex],
-                    date: document.getElementById('edit-date').value,
-                    departure: document.getElementById('edit-departure').value,
-                    odometer: Number(document.getElementById('edit-odometer').value)
-                };
-                const endingOdometer = updatedTrip.odometer;
-                const initialOdometer = updatedTrip.initialOdometer;
-                if (endingOdometer > 0) {
-                     if (endingOdometer < initialOdometer) {
-                         showNotification('Ending odometer cannot be less than the initial odometer for this trip.');
-                         return;
-                    }
-                    updatedTrip.miles = endingOdometer - initialOdometer;
-                } else {
-                    updatedTrip.miles = 0;
-                }
-                records[tripIndex] = updatedTrip;
-                records.sort((a, b) => a.id - b.id);
-                renderTable();
-                saveToLocalStorage();
-                closeEditModal();
-                showNotification('Trip updated successfully.', false);
-            });
-
-            // --- Archive & Reset Logic ---
-            const openConfirmModal = () => {
-                confirmModal.classList.remove('hidden');
-                confirmModal.classList.add('flex');
-                moveButtonsDown(); 
-            };
-            const closeConfirmModal = () => {
-                confirmModal.classList.add('hidden');
-                confirmModal.classList.remove('flex');
-                moveButtonsUp(); 
-            };
-
-            archiveResetBtn.addEventListener('click', openConfirmModal);
-            confirmNoBtn.addEventListener('click', closeConfirmModal);
             
-            confirmYesBtn.addEventListener('click', async () => {
-                if (records.length === 0) {
-                    showNotification('No trips to archive.');
-                    closeConfirmModal();
-                    return;
-                }
-                
-                await generateAndHandlePdf(records, false);
-
-                // --- Archive History Logic ---
-                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
-                const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
-                const totalAmount = totalMiles * rate;
-                const firstDate = records[0]?.date;
-                const lastDate = records[records.length - 1]?.date;
-                const period = firstDate === lastDate ? firstDate : `${firstDate} to ${lastDate}`;
-                
-                const newArchiveEntry = {
-                    id: Date.now(),
-                    archiveDate: new Date().toLocaleDateString(),
-                    period: period,
-                    totalMiles: totalMiles,
-                    totalAmount: totalAmount,
-                    detailedRecords: [...records],
-                    ratePerMile: rate
-                };
-
-                archiveHistory.unshift(newArchiveEntry);
-                localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
-                // --- End Archive History Logic ---
-
-                const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
-                if (lastValidRecord) {
-                    vehicleInfo.initialOdometer = lastValidRecord.odometer;
-                    localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
-                }
-                records = [];
-                localStorage.setItem('mileageRecords', JSON.stringify(records));
-                renderTable();
-                loadVehicleInfo();
-                closeConfirmModal();
-                showNotification('Trips have been archived and reset.', false);
-            });
-            
-            // --- Table Event Listeners (Edit/Delete) ---
-            tableBody.addEventListener('click', (e) => {
-                if (e.target.classList.contains('delete-btn')) {
-                    const idToDelete = Number(e.target.dataset.id);
-                    records = records.filter(record => record.id !== idToDelete);
-                    renderTable();
-                } else if (e.target.classList.contains('edit-btn')) {
-                    const idToEdit = Number(e.target.dataset.id);
-                    const tripToEdit = records.find(r => r.id === idToEdit);
-                    if (tripToEdit) {
-                        openEditModal(tripToEdit);
-                    }
-                }
-            });
-            
-            // --- Archive History Modal Logic ---
+            /** Renders the archive history table from `archiveHistory` state. */
             const renderArchiveHistoryTable = () => {
                 archiveHistoryTableBody.innerHTML = '';
                 if (archiveHistory.length === 0) {
@@ -1270,73 +1169,8 @@
                     });
                 }
             };
-
-            const openHistoryModal = () => {
-                renderArchiveHistoryTable();
-                historyModal.classList.remove('hidden');
-                historyModal.classList.add('flex');
-                moveButtonsDown(); 
-            };
-
-            const closeHistoryModal = () => {
-                historyModal.classList.add('hidden');
-                historyModal.classList.remove('flex');
-                moveButtonsUp(); 
-            };
-
-            viewHistoryBtn.addEventListener('click', openHistoryModal);
-            historyCloseBtn.addEventListener('click', closeHistoryModal);
-            closeHistoryModalBtn.addEventListener('click', closeHistoryModal);
-
-            // --- Clear History Confirmation Logic ---
-            const openConfirmClearModal = () => {
-                confirmClearModal.classList.remove('hidden');
-                confirmClearModal.classList.add('flex');
-                // No need to move buttons down again if history modal is already open
-            };
-
-            const closeConfirmClearModal = () => {
-                confirmClearModal.classList.add('hidden');
-                confirmClearModal.classList.remove('flex');
-                // Don't move buttons up yet, wait until parent modal (history) is closed
-            };
-
-            clearHistoryBtn.addEventListener('click', openConfirmClearModal);
-            confirmClearNoBtn.addEventListener('click', closeConfirmClearModal);
-
-            confirmClearYesBtn.addEventListener('click', () => {
-                archiveHistory = [];
-                localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
-                renderArchiveHistoryTable();
-                closeConfirmClearModal();
-                showNotification('Archive history has been cleared.', false);
-            });
-
-            archiveHistoryTableBody.addEventListener('click', async (e) => {
-                if (e.target.classList.contains('generate-history-pdf-btn')) {
-                    const id = Number(e.target.dataset.id);
-                    const entry = archiveHistory.find(item => item.id === id);
-                    if (entry && entry.detailedRecords) {
-                        showNotification('Generating PDF for archived period...', false);
-                        await generateAndHandlePdf(entry.detailedRecords, true);
-                    } else {
-                        showNotification('Could not find detailed records for this archive entry.');
-                    }
-                }
-            });
-
-            // --- NEW Backup & Restore Logic ---
-
-            // Helper function to get all app data
-            const getAllDataAsObject = () => {
-                return {
-                    vehicleInfo: JSON.parse(localStorage.getItem('vehicleInfo')) || null,
-                    records: JSON.parse(localStorage.getItem('mileageRecords')) || [],
-                    archiveHistory: JSON.parse(localStorage.getItem('archiveHistory')) || []
-                };
-            };
-
-            // Render the list of backups in the modal
+            
+            /** Renders the backup list from `mileageBackups` state. */
             const renderBackupList = () => {
                 mileageBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
                 backupListBody.innerHTML = '';
@@ -1368,28 +1202,342 @@
                     });
                 }
             };
+            
+            /** Runs hourly to create an automatic backup in localStorage. */
+            const checkAndRunAutoBackup = () => {
+                const lastBackupTime = parseInt(localStorage.getItem('lastAutoBackupTime') || '0', 10);
+                const now = Date.now();
+                const oneHour = 60 * 60 * 1000; 
 
-            // Open/Close Backup Modal
-            const openBackupModal = () => {
-                renderBackupList();
-                backupRestoreModal.classList.remove('hidden');
-                backupRestoreModal.classList.add('flex');
-                moveButtonsDown(); 
+                if (now - lastBackupTime > oneHour) {
+                    const backupData = getAllDataAsObject(); 
+                    
+                    // Don't back up if there's no data
+                    if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
+                        console.log('No data to back up automatically.');
+                        return; 
+                    }
+
+                    const newBackup = {
+                        timestamp: now,
+                        type: 'auto',
+                        data: backupData 
+                    };
+                    
+                    let currentBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
+                    currentBackups.unshift(newBackup); // Add new backup to the top
+
+                    // Keep only the last 7 automatic backups
+                    const autoBackups = currentBackups.filter(b => b.type === 'auto');
+                    if (autoBackups.length > 7) {
+                        const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); // Sort oldest first
+                        const oldestTimestamp = timestamps[0];
+                        // Find the index of the oldest auto backup in the main array
+                        const indexToRemove = currentBackups.findIndex(b => b.timestamp === oldestTimestamp && b.type === 'auto');
+                        if (indexToRemove > -1) {
+                            currentBackups.splice(indexToRemove, 1);
+                        }
+                    }
+
+                    localStorage.setItem('mileageBackups', JSON.stringify(currentBackups));
+                    localStorage.setItem('lastAutoBackupTime', now.toString());
+                    console.log('Automatic backup created (hourly).');
+                }
             };
-            const closeBackupModal = () => {
-                backupRestoreModal.classList.add('hidden');
-                backupRestoreModal.classList.remove('flex');
+
+            // =========================================================================
+            //  EVENT LISTENERS
+            // =========================================================================
+
+            // --- Welcome Screen ---
+            setTimeout(() => {
+                welcomeScreen.classList.add('opacity-0');
+                setTimeout(() => {
+                    welcomeScreen.style.display = 'none';
+                }, 500);
+            }, 3000); // Hide after 3 seconds
+
+            // --- Driver Info Form ---
+            vehicleInfoForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const newInfo = {
+                    driverName: driverNameInfoInput.value,
+                    company: companyInfoInput.value,
+                    truckNumber: truckNumberInfoInput.value,
+                    trailerNumber: trailerNumberInfoInput.value,
+                    initialOdometer: initialOdometerInfoInput.value,
+                    ratePerMile: ratePerMileInfoInput.value || '0.70',
+                };
+                localStorage.setItem('vehicleInfo', JSON.stringify(newInfo));
+                vehicleInfo = newInfo; // Update state
+                driverVehicleSection.classList.add('hidden');
+                showInfoSectionBtn.classList.remove('hidden');
+                loadVehicleInfo(); // Reload to update display spans
+                updateTotalMiles(); // Recalculate totals with new rate
+                showNotification('Driver Info saved successfully.', false);
                 moveButtonsUp(); 
-            };
+            });
 
+            showInfoSectionBtn.addEventListener('click', () => {
+                driverVehicleSection.classList.remove('hidden');
+                showInfoSectionBtn.classList.add('hidden');
+                moveButtonsDown(); 
+            });
+
+             cancelInfoEditBtn.addEventListener('click', () => {
+                 if (vehicleInfo) { // Only allow cancel if info was already saved
+                     driverVehicleSection.classList.add('hidden');
+                     showInfoSectionBtn.classList.remove('hidden');
+                     // Reset form fields to saved values
+                     driverNameInfoInput.value = vehicleInfo.driverName;
+                     companyInfoInput.value = vehicleInfo.company;
+                     truckNumberInfoInput.value = vehicleInfo.truckNumber;
+                     trailerNumberInfoInput.value = vehicleInfo.trailerNumber;
+                     initialOdometerInfoInput.value = vehicleInfo.initialOdometer;
+                     ratePerMileInfoInput.value = vehicleInfo.ratePerMile || '0.70';
+                     moveButtonsUp(); 
+                 } 
+             });
+
+            // --- Add Trip Form ---
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                if (!vehicleInfo || vehicleInfo.initialOdometer === undefined) {
+                    showNotification('Please save driver & vehicle info, including an initial odometer, before adding a trip.');
+                    return;
+                }
+                const initialOdometer = Number(vehicleInfo.initialOdometer);
+                const endingOdometerInput = document.getElementById('odometer').value;
+                const endingOdometer = endingOdometerInput ? Number(endingOdometerInput) : 0;
+                let tripMiles = 0;
+                let shouldUpdateOdometer = false;
+
+                if (endingOdometer > 0) {
+                    if (endingOdometer < initialOdometer) {
+                        showNotification('Ending odometer cannot be less than the initial odometer.');
+                        return;
+                    }
+                    tripMiles = endingOdometer - initialOdometer;
+                    shouldUpdateOdometer = true;
+                }
+
+                const newRecord = {
+                    id: Date.now(),
+                    date: document.getElementById('date').value,
+                    departure: departureInput.value,
+                    driverName: vehicleInfo.driverName, // Still store this data even if not shown
+                    company: vehicleInfo.company,       // Still store this data even if not shown
+                    truckNumber: vehicleInfo.truckNumber, // Still store this data even if not shown
+                    trailerNumber: vehicleInfo.trailerNumber, // Still store this data even if not shown
+                    initialOdometer: initialOdometer,
+                    odometer: endingOdometer,
+                    miles: tripMiles,
+                };
+
+                records.push(newRecord);
+                records.sort((a, b) => a.id - b.id); // Sort by ID (timestamp)
+                
+                if (shouldUpdateOdometer) {
+                    vehicleInfo.initialOdometer = endingOdometer;
+                    localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
+                }
+                
+                form.reset();
+                renderTable(); // Renders, calculates totals, and saves
+                loadVehicleInfo(); // Reload info in case odometer changed
+                addTripSection.classList.add('hidden');
+                showAddTripBtn.classList.remove('hidden'); // Show button in footer
+                moveButtonsUp(); 
+            });
+
+            // Listener for the BIG Add Trip button in the footer
+            showAddTripBtn.addEventListener('click', () => {
+                addTripSection.classList.remove('hidden'); // Show the form section
+                showAddTripBtn.classList.add('hidden'); // Hide the button itself
+                moveButtonsDown(); // Move button down (it hides itself anyway)
+            });
+
+            // Listener for the Cancel button within the Add Trip form
+            cancelAddTripBtn.addEventListener('click', () => {
+                addTripSection.classList.add('hidden'); // Hide the form section
+                showAddTripBtn.classList.remove('hidden'); // Show the button in the footer
+                form.reset();
+                moveButtonsUp(); // Move button back up
+            });
+            
+            // --- Edit Trip Form ---
+            editTripForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const tripId = Number(document.getElementById('edit-trip-id').value);
+                const tripIndex = records.findIndex(r => r.id === tripId);
+                if (tripIndex === -1) {
+                    showNotification('Could not find trip to update.');
+                    return;
+                }
+                
+                // Create updated trip object
+                const updatedTrip = {
+                    ...records[tripIndex], // Keep existing data like driverName etc.
+                    date: document.getElementById('edit-date').value,
+                    departure: document.getElementById('edit-departure').value,
+                    odometer: Number(document.getElementById('edit-odometer').value)
+                };
+
+                // Recalculate miles for this trip
+                const endingOdometer = updatedTrip.odometer;
+                const initialOdometer = updatedTrip.initialOdometer;
+                if (endingOdometer > 0) {
+                     if (endingOdometer < initialOdometer) {
+                         showNotification('Ending odometer cannot be less than the initial odometer for this trip.');
+                         return;
+                    }
+                    updatedTrip.miles = endingOdometer - initialOdometer;
+                } else {
+                    updatedTrip.miles = 0; // If odometer is cleared, miles are 0
+                }
+                
+                // Update the records array
+                records[tripIndex] = updatedTrip;
+                records.sort((a, b) => a.id - b.id); // Re-sort by ID after edit
+                
+                // --- ODOMETER FIX ---
+                // Check if this was the LAST record in the list
+                if (tripIndex === records.length - 1 && updatedTrip.odometer > 0) {
+                    // It is the last record, update the main vehicle info
+                    vehicleInfo.initialOdometer = updatedTrip.odometer;
+                    localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
+                    loadVehicleInfo(); // Refresh driver info display
+                }
+                // --- END ODOMETER FIX ---
+                
+                renderTable(); // Renders, calculates totals, and saves
+                closeEditModal();
+                showNotification('Trip updated successfully.', false);
+            });
+
+            editCloseBtn.addEventListener('click', closeEditModal);
+            cancelEditBtn.addEventListener('click', closeEditModal);
+
+            // --- Trip History Table (Toggling & Actions) ---
+            toggleHistoryTableBtn.addEventListener('click', () => {
+                isHistoryVisible = !isHistoryVisible;
+                if (isHistoryVisible) {
+                    historyTableContainer.classList.remove('hidden');
+                    historyToggleIcon.classList.remove('rotate-180');
+                    moveButtonsDown(); 
+                } else {
+                    historyTableContainer.classList.add('hidden');
+                    historyToggleIcon.classList.add('rotate-180');
+                    moveButtonsUp(); 
+                }
+            });
+
+            tableBody.addEventListener('click', (e) => {
+                // Handle Delete
+                if (e.target.classList.contains('delete-btn')) {
+                    const idToDelete = Number(e.target.dataset.id);
+                    records = records.filter(record => record.id !== idToDelete);
+                    renderTable(); // Re-render table after deleting
+                } 
+                // Handle Edit
+                else if (e.target.classList.contains('edit-btn')) {
+                    const idToEdit = Number(e.target.dataset.id);
+                    const tripToEdit = records.find(r => r.id === idToEdit);
+                    if (tripToEdit) {
+                        openEditModal(tripToEdit);
+                    }
+                }
+            });
+            
+            // --- Archive & Reset Workflow ---
+            archiveResetBtn.addEventListener('click', openConfirmModal);
+            confirmNoBtn.addEventListener('click', closeConfirmModal);
+            confirmYesBtn.addEventListener('click', async () => {
+                if (records.length === 0) {
+                    showNotification('No trips to archive.');
+                    closeConfirmModal();
+                    return;
+                }
+                
+                // 1. Generate PDF for download (forSharing=false)
+                await generateAndHandlePdf(records, false); 
+
+                // 2. Create archive summary
+                const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
+                const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
+                const totalAmount = totalMiles * rate;
+                const firstDate = records[0]?.date;
+                const lastDate = records[records.length - 1]?.date;
+                const period = firstDate === lastDate ? firstDate : `${firstDate} to ${lastDate}`;
+                
+                const newArchiveEntry = {
+                    id: Date.now(),
+                    archiveDate: new Date().toLocaleDateString(),
+                    period: period,
+                    totalMiles: totalMiles,
+                    totalAmount: totalAmount,
+                    detailedRecords: [...records], // Store a snapshot of the records
+                    ratePerMile: rate
+                };
+
+                archiveHistory.unshift(newArchiveEntry); // Add to beginning of history
+                localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
+
+                // 3. Update initial odometer
+                const lastValidRecord = [...records].reverse().find(r => r.odometer > 0);
+                if (lastValidRecord && vehicleInfo) {
+                    vehicleInfo.initialOdometer = lastValidRecord.odometer;
+                    localStorage.setItem('vehicleInfo', JSON.stringify(vehicleInfo));
+                }
+
+                // 4. Clear current records
+                records = []; 
+                localStorage.setItem('mileageRecords', JSON.stringify(records));
+                
+                // 5. Refresh UI
+                renderTable(); 
+                loadVehicleInfo(); 
+                closeConfirmModal();
+                showNotification('Trips have been archived and reset.', false);
+            });
+            
+            // --- Archive History Modal Workflow ---
+            viewHistoryBtn.addEventListener('click', openHistoryModal);
+            historyCloseBtn.addEventListener('click', closeHistoryModal);
+            closeHistoryModalBtn.addEventListener('click', closeHistoryModal);
+            clearHistoryBtn.addEventListener('click', openConfirmClearModal);
+            confirmClearNoBtn.addEventListener('click', closeConfirmClearModal);
+            
+            confirmClearYesBtn.addEventListener('click', () => {
+                archiveHistory = [];
+                localStorage.setItem('archiveHistory', JSON.stringify(archiveHistory));
+                renderArchiveHistoryTable(); // Update the table in the modal
+                closeConfirmClearModal();
+                showNotification('Archive history has been cleared.', false);
+            });
+
+            archiveHistoryTableBody.addEventListener('click', async (e) => {
+                // Generate PDF from archived data
+                if (e.target.classList.contains('generate-history-pdf-btn')) {
+                    const id = Number(e.target.dataset.id);
+                    const entry = archiveHistory.find(item => item.id === id);
+                    if (entry && entry.detailedRecords) {
+                        showNotification('Generating PDF for archived period...', false);
+                        await generateAndHandlePdf(entry.detailedRecords, true); // forSharing=true
+                    } else {
+                        showNotification('Could not find detailed records for this archive entry.');
+                    }
+                }
+            });
+            
+            // --- Backup & Restore Modal Workflow ---
             openBackupModalBtn.addEventListener('click', openBackupModal);
             backupCloseBtn.addEventListener('click', closeBackupModal);
             closeBackupModalBtn.addEventListener('click', closeBackupModal);
 
-            // Download Backup
             btnDownloadBackup.addEventListener('click', () => {
                 const backupData = getAllDataAsObject();
-                 // Check if there is actually data to backup
+                // Check if there is actually data to backup
                 if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
                     showNotification('No data to back up.');
                     return; 
@@ -1406,12 +1554,10 @@
                 URL.revokeObjectURL(url);
             });
 
-            // Upload Backup (trigger input)
             btnUploadBackup.addEventListener('click', () => {
-                uploadBackupInput.click();
+                uploadBackupInput.click(); // Trigger hidden file input
             });
 
-            // Handle File Upload
             uploadBackupInput.addEventListener('change', (e) => {
                 const file = e.target.files[0];
                 if (!file) return;
@@ -1419,6 +1565,7 @@
                 reader.onload = (event) => {
                     try {
                         const data = JSON.parse(event.target.result);
+                        // Validate file structure
                         if (data.hasOwnProperty('vehicleInfo') && data.hasOwnProperty('records') && data.hasOwnProperty('archiveHistory')) {
                             localStorage.setItem('pendingRestoreData', JSON.stringify(data));
                             openConfirmRestoreModal('Are you sure you want to restore from this file? All current data will be overwritten.');
@@ -1428,53 +1575,42 @@
                     } catch (err) {
                         showNotification('Could not read backup file.');
                     }
-                    e.target.value = null; // Reset input
+                    e.target.value = null; // Reset input to allow same file upload again
                 };
                 reader.readAsText(file);
             });
 
-            // Open/Close Restore Confirmation Modal
-            const openConfirmRestoreModal = (message) => {
-                confirmRestoreMessage.textContent = message;
-                confirmRestoreModal.classList.remove('hidden');
-                confirmRestoreModal.classList.add('flex');
-                // No need to move buttons again if backup modal is already open
-            };
-            const closeConfirmRestoreModal = () => {
-                confirmRestoreModal.classList.add('hidden');
-                confirmRestoreModal.classList.remove('flex');
-                localStorage.removeItem('pendingRestoreData');
-                // Don't move buttons up yet, wait until parent modal (backup) is closed
-            };
-
+            // --- Restore Confirmation Workflow ---
             confirmRestoreNoBtn.addEventListener('click', closeConfirmRestoreModal);
-
-            // Restore Logic
             confirmRestoreYesBtn.addEventListener('click', () => {
                 const dataToRestoreJSON = localStorage.getItem('pendingRestoreData');
                 if (!dataToRestoreJSON) return;
                 
                 const dataToRestore = JSON.parse(dataToRestoreJSON);
                 
+                // Overwrite all data in localStorage
                 localStorage.setItem('vehicleInfo', JSON.stringify(dataToRestore.vehicleInfo));
                 localStorage.setItem('mileageRecords', JSON.stringify(dataToRestore.records));
                 localStorage.setItem('archiveHistory', JSON.stringify(dataToRestore.archiveHistory));
                 
                 localStorage.removeItem('pendingRestoreData');
                 closeConfirmRestoreModal();
-                closeBackupModal(); // Close backup modal as well
+                closeBackupModal(); // Close the main backup modal too
+                
                 showNotification('Data restored successfully. Reloading...', false);
                 
+                // Reload the page to apply all changes
                 setTimeout(() => {
                     location.reload();
-                }, 1500); // Reload page to reflect all changes
+                }, 1500); 
             });
-
-            // Delete/Restore from Backup List
+            
+            // --- Backup List Actions (Delete/Restore) ---
             backupListBody.addEventListener('click', (e) => {
                 const timestamp = e.target.dataset.timestamp;
                 if (!timestamp) return;
 
+                // Restore from a backup in the list
                 if (e.target.classList.contains('restore-backup-btn')) {
                     const backup = mileageBackups.find(b => b.timestamp == timestamp);
                     if (backup) {
@@ -1483,80 +1619,45 @@
                     }
                 }
 
+                // Delete a backup from the list
                 if (e.target.classList.contains('delete-backup-btn')) {
                     mileageBackups = mileageBackups.filter(b => b.timestamp != timestamp);
                     localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
-                    renderBackupList();
+                    renderBackupList(); // Refresh the list
                     showNotification('Backup deleted.', false);
                 }
             });
 
-            // Clear All Backups
-            const openConfirmClearBackupsModal = () => {
-                confirmClearBackupsModal.classList.remove('hidden');
-                confirmClearBackupsModal.classList.add('flex');
-                 // No need to move buttons again if backup modal is already open
-            };
-            const closeConfirmClearBackupsModal = () => {
-                confirmClearBackupsModal.classList.add('hidden');
-                confirmClearBackupsModal.classList.remove('flex');
-                 // Don't move buttons up yet, wait until parent modal (backup) is closed
-            };
-
+            // --- Clear Backups Workflow ---
             clearBackupsBtn.addEventListener('click', openConfirmClearBackupsModal);
             confirmClearBackupsNoBtn.addEventListener('click', closeConfirmClearBackupsModal);
             confirmClearBackupsYesBtn.addEventListener('click', () => {
                 mileageBackups = [];
                 localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
-                localStorage.removeItem('lastAutoBackupTime');
+                localStorage.removeItem('lastAutoBackupTime'); // Reset auto-backup timer
                  renderBackupList(); 
                 closeConfirmClearBackupsModal();
                 showNotification('All backups cleared.', false);
             });
             
-            // Automatic Backup Check (on load)
-            const checkAndRunAutoBackup = () => {
-                const lastBackupTime = parseInt(localStorage.getItem('lastAutoBackupTime') || '0', 10);
-                const now = Date.now();
-                const oneHour = 60 * 60 * 1000; 
-
-                if (now - lastBackupTime > oneHour) {
-                    const backupData = getAllDataAsObject(); 
-                    
-                    if (!backupData.vehicleInfo && backupData.records.length === 0 && backupData.archiveHistory.length === 0) {
-                        console.log('No data to back up automatically.');
-                        return; 
-                    }
-
-                    const newBackup = {
-                        timestamp: now,
-                        type: 'auto',
-                        data: backupData 
-                    };
-                    
-                    let currentBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
-                    currentBackups.unshift(newBackup); 
-
-                    const autoBackups = currentBackups.filter(b => b.type === 'auto');
-                    if (autoBackups.length > 7) {
-                        const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); 
-                        const oldestTimestamp = timestamps[0];
-                        const indexToRemove = currentBackups.findIndex(b => b.timestamp === oldestTimestamp && b.type === 'auto');
-                        if (indexToRemove > -1) {
-                            currentBackups.splice(indexToRemove, 1);
-                        }
-                    }
-
-                    localStorage.setItem('mileageBackups', JSON.stringify(currentBackups));
-                    localStorage.setItem('lastAutoBackupTime', now.toString());
-                    console.log('Automatic backup created (hourly).');
-                }
-            };
+            // =========================================================================
+            //  INITIALIZATION
+            // =========================================================================
             
-            // --- Initial Load ---
             loadVehicleInfo();
-            renderTable();
-            checkAndRunAutoBackup(); // Run the auto-backup check on load
+            renderTable(); // This will also call updateLastTripDisplay
+            checkAndRunAutoBackup(); // Run the auto-backup check on page load
+
+            // Initially hide the large Add button if the Add Trip section is hidden (default state)
+            if (addTripSection.classList.contains('hidden')) {
+                 showAddTripBtn.classList.remove('hidden'); // Ensure button is visible initially
+            } else {
+                 showAddTripBtn.classList.add('hidden'); // Ensure button is hidden if section starts open (unlikely)
+                 moveButtonsDown(); // Keep button down if section starts open
+            }
+             moveButtonsUp(); // Make sure buttons are up initially if nothing is open
+
+
         });
     </script>
 
