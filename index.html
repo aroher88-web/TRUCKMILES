@@ -20,29 +20,11 @@
             /* Background gradient for glassmorphism effect */
             background: linear-gradient(120deg, #0f172a 0%, #1e293b 100%);
             /* Prevent body scroll when modals are open */
-            overflow: hidden; 
+            /* overflow: hidden; */ /* <-- REMOVED */
             min-height: 100vh; /* Ensure body takes at least full height */
         }
-        /* Allow scrolling within the main container */
-        .main-container {
-            overflow-y: auto;
-            /* Custom scrollbar for main container */
-            scrollbar-width: thin; /* Firefox */
-            scrollbar-color: rgba(74, 85, 104, 0.7) rgba(45, 55, 72, 0.5); /* Firefox */
-        }
-        .main-container::-webkit-scrollbar {
-             width: 8px;
-        }
-        .main-container::-webkit-scrollbar-track {
-            background: rgba(45, 55, 72, 0.5); /* gray-800 semi-transparent */
-        }
-        .main-container::-webkit-scrollbar-thumb {
-             background: rgba(74, 85, 104, 0.7); /* gray-600 semi-transparent */
-             border-radius: 4px;
-        }
-        .main-container::-webkit-scrollbar-thumb:hover {
-             background: rgba(113, 128, 150, 0.8); /* gray-500 semi-transparent */
-        }
+        /* REMOVED .main-container scrollbar styles, as the whole page will scroll now */
+        
 
 
         /* Welcome screen animation */
@@ -191,7 +173,7 @@
     </style>
 </head>
 <!-- Adjustments in body for mobile view: center content and add small padding -->
-<body class="bg-gray-900 text-white min-h-screen flex items-center justify-center p-2 md:p-4">
+<body class="bg-gray-900 text-white min-h-screen flex justify-center p-2 md:p-4">
 
     <!-- Welcome Screen -->
     <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
@@ -220,7 +202,8 @@
 
     <!-- Main Content Container -->
     <!-- Removed pb-20 as footer is no longer sticky -->
-    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> <!-- Removed pb-20 -->
+    <!-- REMOVED h-[95vh] to allow the container to grow with content -->
+    <div class="main-container w-[95%] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> 
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
                 <!-- Static version of the truck for the header and PDF -->
@@ -1771,6 +1754,7 @@
 
 </body>
 </html>
+
 
 
 
