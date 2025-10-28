@@ -172,19 +172,14 @@
         
     </style>
 </head>
-<!-- Adjustments in body for mobile view: center content and add small padding -->
-<body class="bg-gray-900 text-white min-h-screen flex justify-center p-2 md:p-4">
+<!-- Adjustments in body for mobile view: center content and add small padding --><body class="bg-gray-900 text-white min-h-screen flex justify-center p-2 md:p-4">
 
-    <!-- Welcome Screen -->
-    <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
+    <!-- Welcome Screen --><div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
         <svg id="welcome-truck-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="w-64 h-auto mb-8">
-            <!-- Trailer -->
-            <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
-            <!-- Cab -->
-            <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
+            <!-- Trailer --><rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
+            <!-- Cab --><path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
             <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
-            <!-- Wheels (removed animation for favicon) -->
-            <g>
+            <!-- Wheels (removed animation for favicon) --><g>
                 <circle cx="50" cy="70" r="12" fill="#1A202C" stroke="#4A5568" stroke-width="2"/>
                 <circle cx="50" cy="70" r="5" fill="#4A5568"/>
             </g>
@@ -200,14 +195,10 @@
         <h1 class="text-4xl font-bold text-cyan-400 welcome-animation">Hello Drivers, Stay safe.</h1>
     </div>
 
-    <!-- Main Content Container -->
-    <!-- Removed pb-20 as footer is no longer sticky -->
-    <!-- REMOVED h-[95vh] to allow the container to grow with content -->
-    <div class="main-container w-[95%] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> 
+    <!-- Main Content Container --><!-- Removed pb-20 as footer is no longer sticky --><!-- REMOVED h-[95vh] to allow the container to grow with content --><div class="main-container w-[95%] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> 
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
-                <!-- Static version of the truck for the header and PDF -->
-                <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
+                <!-- Static version of the truck for the header and PDF --><rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
                 <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
                 <rect x="5" y="65" width="290" height="5" fill="#1A202C"/>
                 <g>
@@ -225,19 +216,15 @@
             </svg>
             <h1 class="text-3xl font-bold text-cyan-400 mt-2">Truck Mileage Tracker</h1>
             <p class="text-gray-300 mt-1">Log your trips and keep accurate track of your miles.</p>
-            <!-- Button to show/edit info -->
-            <button id="show-info-section-btn" class="hidden mt-4 btn-liquid-glass font-bold py-2 px-4 rounded-lg">
+            <!-- Button to show/edit info --><button id="show-info-section-btn" class="hidden mt-4 btn-liquid-glass font-bold py-2 px-4 rounded-lg">
                 View/Edit Driver Info
             </button>
         </header>
 
-        <!-- Driver & Vehicle Info Section (Collapsible) -->
-        <div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
-            <div class="flex justify-between items-center mb-4">
+        <!-- Driver & Vehicle Info Section (Collapsible) --><div id="driver-vehicle-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden --><div class="flex justify-between items-center mb-4">
                  <h2 class="text-xl font-semibold">Driver & Vehicle Info</h2>
             </div>
-            <!-- Info Display Area (No longer used, form shown directly for editing) -->
-            <div id="vehicle-info-display" class="hidden">
+            <!-- Info Display Area (No longer used, form shown directly for editing) --><div id="vehicle-info-display" class="hidden">
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-gray-300">
                     <p><strong>Driver:</strong> <span id="display-driverName"></span></p>
                     <p><strong>Company:</strong> <span id="display-company"></span></p>
@@ -247,8 +234,7 @@
                     <p><strong>Rate per Mile:</strong> <span id="display-ratePerMile"></span></p>
                 </div>
             </div>
-            <!-- Info Edit Form -->
-            <form id="vehicle-info-form" class="hidden"> 
+            <!-- Info Edit Form --><form id="vehicle-info-form" class="hidden"> 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                      <div>
                          <label for="driverNameInfo" class="block text-sm font-medium text-gray-300 mb-1">Driver Name</label>
@@ -267,8 +253,7 @@
                          <input type="text" id="trailerNumberInfo" placeholder="e.g., P-456" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                      </div>
                 </div>
-                <!-- Updated grid for Odometer and Rate -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <!-- Updated grid for Odometer and Rate --><div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
                      <div>
                          <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
                          <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
@@ -285,26 +270,19 @@
             </form>
         </div>
 
-        <!-- NEW: Last Trip Info Display Section -->
-        <div id="add-trip-btn-original-location" class="mb-8"> <!-- Removed hidden class -->
-            <div class="glass-effect p-4 rounded-xl text-center">
+        <!-- NEW: Last Trip Info Display Section --><div id="add-trip-btn-original-location" class="mb-8"> <!-- Removed hidden class --><div class="glass-effect p-4 rounded-xl text-center">
                 <h3 class="text-lg font-semibold text-gray-300 mb-2">Last Recorded Trip</h3>
-                <!-- Updated grid to sm:grid-cols-2 -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-200">
-                    <!-- REMOVED Date Paragraph -->
-                    <p><strong class="text-cyan-400">City:</strong> <span id="last-trip-departure">N/A</span></p>
+                <!-- Updated grid to sm:grid-cols-2 --><div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-gray-200">
+                    <!-- REMOVED Date Paragraph --><p><strong class="text-cyan-400">City:</strong> <span id="last-trip-departure">N/A</span></p>
                     <p><strong class="text-cyan-400">Odometer:</strong> <span id="last-trip-odometer">N/A</span></p>
                 </div>
              </div>
         </div>
         
 
-        <!-- Add New Trip Section (Collapsible) -->
-        <div id="add-trip-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden -->
-            <h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
+        <!-- Add New Trip Section (Collapsible) --><div id="add-trip-section" class="glass-effect p-6 rounded-xl mb-8 hidden"> <!-- Starts hidden --><h2 class="text-xl font-semibold mb-4">Add New Trip</h2>
             <form id="mileage-form">
-                <!-- Grid changed to 8 columns for finer control -->
-                <div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
+                <!-- Grid changed to 8 columns for finer control --><div class="grid grid-cols-1 md:grid-cols-8 gap-4 mb-4">
                     <div class="md:col-span-2">
                         <label for="date" class="block text-sm font-medium text-gray-300 mb-1">Date</label>
                         <input type="date" id="date" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
@@ -319,8 +297,7 @@
                     </div>
                 </div>
                 <div class="flex justify-end gap-4">
-                    <!-- Cancel Button -->
-                    <button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
+                    <!-- Cancel Button --><button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
                         Cancel
                     </button>
                     <button type="submit" class="w-full md:w-auto btn-liquid-glass btn-accent font-bold py-2.5 px-6 rounded-lg">
@@ -330,11 +307,8 @@
             </form>
         </div>
 
-        <!-- Trip History Section -->
-        <div>
-            <!-- Control Buttons & Totals (Always Visible) -->
-            <!-- Cambiado a grid-cols-2 en móvil, y col-span-2 para el botón -->
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+        <!-- Trip History Section --><div>
+            <!-- Control Buttons & Totals (Always Visible) --><!-- Cambiado a grid-cols-2 en móvil, y col-span-2 para el botón --><div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
                 <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center">
                     <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                     <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
@@ -343,15 +317,13 @@
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
-                 <!-- Añadido col-span-2 (para móvil) y md:col-span-1 (para tablet/desktop) -->
-                 <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 col-span-2 md:col-span-1">
+                 <!-- Añadido col-span-2 (para móvil) y md:col-span-1 (para tablet/desktop) --><button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 col-span-2 md:col-span-1">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
                      Archive &amp; Reset
                  </button>
             </div>
 
-            <!-- Collapsible Table Section Header -->
-            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
+            <!-- Collapsible Table Section Header --><div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
                 <button id="toggle-history-table-btn" class="text-gray-300 hover:text-white p-2 rounded-full" title="Toggle History">
                     <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -360,56 +332,44 @@
                 </button>
             </div>
             
-            <!-- Collapsible Table Wrapper (Starts hidden) -->
-            <div id="history-table-container" class="hidden">
+            <!-- Collapsible Table Wrapper (Starts hidden) --><div id="history-table-container" class="hidden">
                 <div class="overflow-x-auto rounded-lg glass-effect border-none">
                     <table class="w-full text-sm text-left text-gray-200">
                         <thead class="text-xs text-cyan-300 uppercase bg-white/5">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Date</th>
-                                <!-- REMOVED: Driver -->
-                                <th scope="col" class="px-6 py-3">City</th>
+                                <!-- REMOVED: Driver --><th scope="col" class="px-6 py-3">City</th>
                                 <th scope="col" class="px-6 py-3">Initial Odometer</th>
                                 <th scope="col" class="px-6 py-3">Ending Odometer</th>
-                                <!-- REMOVED: Company, Truck #, Trailer # -->
-                                <th scope="col" class="px-6 py-3">Miles</th>
+                                <!-- REMOVED: Company, Truck #, Trailer # --><th scope="col" class="px-6 py-3">Miles</th>
                                 <th scope="col" class="px-6 py-3 text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody id="mileage-table-body">
-                            <!-- Filas de ejemplo con efecto glass -->
-                            <tr id="empty-row" class="bg-white/5 border-b border-white/10">
-                                <!-- Updated colspan to 6 -->
-                                <td colspan="6" class="text-center py-8 text-gray-400">No records yet.</td>
+                            <!-- Filas de ejemplo con efecto glass --><tr id="empty-row" class="bg-white/5 border-b border-white/10">
+                                <!-- Updated colspan to 6 --><td colspan="6" class="text-center py-8 text-gray-400">No records yet.</td>
                             </tr>
-                            <!-- Las filas se añadirán aquí -->
-                        </tbody>
+                            <!-- Las filas se añadirán aquí --></tbody>
                     </table>
                 </div>
             </div>
 
         </div>
 
-        <!-- Floating Buttons Container -->
-        <!-- Adjusted layout: justify-between, items-center -->
-        <div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> 
-            <!-- Backup Button Container -->
-            <div id="backup-btn-container" class="z-40"> 
+        <!-- Floating Buttons Container --><!-- Adjusted layout: justify-between, items-center --><div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> 
+            <!-- Backup Button Container --><div id="backup-btn-container" class="z-40"> 
                 <button id="open-backup-modal-btn" class="btn-liquid-glass btn-success font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="Backup & Restore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                 </button>
             </div>
-            <!-- Add New Trip Button (Moved Here, Large & Round) -->
-            <button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-5 rounded-full shadow-lg transition-transform duration-300 ease-in-out flex items-center justify-center z-40" title="Add New Trip">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <!-- Add New Trip Button (Moved Here, Large & Round) --><!-- AUMENTO DE TAMAÑO: p-5 a p-6 y h-10 w-10 a h-12 w-12 (aprox 20-25% más grande) --><button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-6 rounded-full shadow-lg transition-transform duration-300 ease-in-out flex items-center justify-center z-40" title="Add New Trip">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                  </svg>
-                 <!-- Text Removed -->
-            </button>
-            <!-- History Button Container -->
-            <div id="history-btn-container" class="z-40"> 
+                 <!-- Text Removed --></button>
+            <!-- History Button Container --><div id="history-btn-container" class="z-40"> 
                 <button id="view-history-btn" class="btn-liquid-glass btn-primary font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="View Archive History">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -419,14 +379,10 @@
         </div>
 
 
-        <!-- Hidden input for file upload -->
-        <input type="file" id="upload-backup-input" class="hidden" accept=".json">
+        <!-- Hidden input for file upload --><input type="file" id="upload-backup-input" class="hidden" accept=".json">
 
 
-    </div> <!-- End Main Content Container -->
-
-    <!-- Modal for Editing a Trip -->
-    <div id="edit-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    </div> <!-- End Main Content Container --><!-- Modal for Editing a Trip --><div id="edit-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="edit-modal-content">
             <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-yellow-400">Edit Trip</h3>
@@ -456,8 +412,7 @@
         </div>
     </div>
     
-    <!-- Confirmation Modal (Archive & Reset) -->
-    <div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- Confirmation Modal (Archive & Reset) --><div id="confirm-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Confirm Action</h3>
@@ -472,31 +427,25 @@
         </div>
     </div>
 
-    <!-- Archive History Modal -->
-    <div id="history-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width -->
-            <div class="p-4 border-b border-white/10 flex justify-between items-center">
+    <!-- Archive History Modal --><div id="history-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-4xl flex flex-col" style="height: 80vh;"> <!-- Increased width --><div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-blue-400">Archive History</h3>
                 <button id="history-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 flex-grow overflow-y-auto modal-scrollbar" id="history-modal-content">
                 <div class="overflow-x-auto rounded-lg border border-white/10">
                     <table class="w-full text-sm text-left text-gray-200">
-                        <thead class="text-xs text-blue-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky -->
-                            <tr>
+                        <thead class="text-xs text-blue-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky --><tr>
                                 <th scope="col" class="px-6 py-3">Archive Date</th>
                                 <th scope="col" class="px-6 py-3">Period</th>
                                 <th scope="col" class="px-6 py-3">Rate</th>
                                 <th scope="col" class="px-6 py-3">Total Miles</th>
                                 <th scope="col" class="px-6 py-3">Total Amount</th>
-                                <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column -->
-                            </tr>
+                                <th scope="col" class="px-6 py-3 text-center">Actions</th> <!-- New Column --></tr>
                         </thead>
                         <tbody id="archive-history-table-body">
-                            <!-- History rows will be injected here -->
-                            <tr id="empty-history-row" class="bg-white/5 border-b border-white/10">
-                                <td colspan="6" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan -->
-                            </tr>
+                            <!-- History rows will be injected here --><tr id="empty-history-row" class="bg-white/5 border-b border-white/10">
+                                <td colspan="6" class="text-center py-8 text-gray-400">No archive history yet.</td> <!-- Updated colspan --></tr>
                         </tbody>
                     </table>
                 </div>
@@ -508,9 +457,7 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal (Clear History) -->
-    <div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index -->
-        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-modal-content">
+    <!-- Confirmation Modal (Clear History) --><div id="confirm-clear-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300"> <!-- Higher z-index --><div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Clear Archive History?</h3>
             </div>
@@ -524,30 +471,25 @@
         </div>
     </div>
 
-    <!-- NEW Backup & Restore Modal -->
-    <div id="backup-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
+    <!-- NEW Backup & Restore Modal --><div id="backup-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-50 transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-3xl flex flex-col" style="height: 80vh;">
             <div class="p-4 border-b border-white/10 flex justify-between items-center">
                 <h3 class="text-lg font-semibold text-green-400">Backup & Restore</h3>
                 <button id="backup-close-btn" class="text-gray-300 hover:text-white text-3xl leading-none">&times;</button>
             </div>
             <div class="p-6 flex-grow overflow-y-auto space-y-6 modal-scrollbar" id="backup-restore-modal-content">
-                <!-- Manual Controls -->
-                <div>
+                <!-- Manual Controls --><div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Manual Actions</h4>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <!-- Grid changed to 2 cols -->
-                        <button id="btn-download-backup" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-lg">Download Backup File</button>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4"> <!-- Grid changed to 2 cols --><button id="btn-download-backup" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-lg">Download Backup File</button>
                         <button id="btn-upload-backup" class="btn-liquid-glass btn-purple font-bold py-3 px-4 rounded-lg">Upload & Restore File</button>
                     </div>
                 </div>
 
-                <!-- Automatic Backups List -->
-                <div>
+                <!-- Automatic Backups List --><div>
                     <h4 class="text-md font-semibold text-gray-200 mb-3">Recent Backups (Auto/Manual)</h4>
                     <div class="overflow-x-auto rounded-lg border border-white/10" style="max-height: 40vh; overflow-y: auto;">
                         <table class="w-full text-sm text-left text-gray-200">
-                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky -->
-                                <tr>
+                            <thead class="text-xs text-green-300 uppercase bg-white/5 sticky top-0"> <!-- Added sticky --><tr>
                                     <th scope="col" class="px-6 py-3">Backup Date</th>
                                     <th scope="col" class="px-6 py-3">Type</th>
                                     <th scope="col" class="px-6 py-3 text-center">Actions</th>
@@ -569,8 +511,7 @@
         </div>
     </div>
 
-    <!-- NEW Confirmation Modal (Restore) -->
-    <div id="confirm-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
+    <!-- NEW Confirmation Modal (Restore) --><div id="confirm-restore-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-restore-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-yellow-400">Confirm Restore</h3>
@@ -585,8 +526,7 @@
         </div>
     </div>
 
-    <!-- NEW Confirmation Modal (Clear Backups) -->
-    <div id="confirm-clear-backups-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
+    <!-- NEW Confirmation Modal (Clear Backups) --><div id="confirm-clear-backups-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[60] transition-opacity duration-300">
         <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-clear-backups-modal-content">
             <div class="p-4 border-b border-white/10">
                 <h3 class="text-lg font-semibold text-red-400">Clear All Backups?</h3>
@@ -602,8 +542,7 @@
     </div>
 
 
-    <!-- Notification Element -->
-    <div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
+    <!-- Notification Element --><div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
     </div>
 
@@ -1756,10 +1695,4 @@
 
 </body>
 </html>
-
-
-
-
-
-
 
