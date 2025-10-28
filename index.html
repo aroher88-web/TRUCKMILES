@@ -333,7 +333,8 @@
         <!-- Trip History Section -->
         <div>
             <!-- Control Buttons & Totals (Always Visible) -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+            <!-- Cambiado a grid-cols-2 en móvil, y col-span-2 para el botón -->
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
                 <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center">
                     <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                     <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
@@ -342,7 +343,8 @@
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
-                 <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2">
+                 <!-- Añadido col-span-2 (para móvil) y md:col-span-1 (para tablet/desktop) -->
+                 <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 col-span-2 md:col-span-1">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
                      Archive &amp; Reset
                  </button>
@@ -1754,6 +1756,7 @@
 
 </body>
 </html>
+
 
 
 
