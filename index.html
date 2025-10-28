@@ -286,7 +286,7 @@
                 </div>
                 <!-- Updated grid for Odometer and Rate -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                      <div>
+                     <div>
                          <label for="initialOdometerInfo" class="block text-sm font-medium text-gray-300 mb-1">Initial Odometer</label>
                          <input type="text" inputmode="numeric" pattern="[0-9]*" id="initialOdometerInfo" placeholder="e.g., 150000" required class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                      </div>
@@ -753,6 +753,47 @@
             // =========================================================================
 
             /**
+             * NEW: Formats a date string (YYYY-MM-DD or ISO), object, or timestamp to MM/DD/YY.
+             * @param {string|Date|number} dateStringOrObject - The date to format.
+             * @returns {string} The formatted date string (MM/DD/YY) or 'N/A'.
+             */
+            const formatDateToMMDDYY = (dateStringOrObject) => {
+                if (!dateStringOrObject) return 'N/A';
+                try {
+                    let date;
+                    if (dateStringOrObject instanceof Date) {
+                        date = dateStringOrObject;
+                    } else if (typeof dateStringOrObject === 'number') {
+                        date = new Date(dateStringOrObject);
+                    } else {
+                        // Handle YYYY-MM-DD strings safely (for Safari)
+                        const parts = String(dateStringOrObject).split('-');
+                        if (parts.length === 3 && parts[0].length === 4) {
+                            // new Date(YYYY, MM-1, DD)
+                            date = new Date(parts[0], parts[1] - 1, parts[2]);
+                        } else {
+                            // Fallback for other strings like "MM/DD/YYYY" (from toLocaleDateString)
+                            date = new Date(dateStringOrObject);
+                        }
+                    }
+
+                    if (isNaN(date.getTime())) {
+                        // If parsing failed, return original string
+                        return String(dateStringOrObject); 
+                    }
+                    
+                    const month = String(date.getMonth() + 1).padStart(2, '0');
+                    const day = String(date.getDate()).padStart(2, '0');
+                    const year = String(date.getFullYear()).slice(-2);
+                    return `${month}/${day}/${year}`;
+
+                } catch (error) {
+                    console.warn(`Could not format date: ${dateStringOrObject}`, error);
+                    return String(dateStringOrObject); // Return original string if formatting fails
+                }
+            };
+
+            /**
              * Shows a toast notification at the top right.
              * @param {string} message - The message to display.
              * @param {boolean} [isError=true] - True for red (error), false for green (success).
@@ -870,7 +911,7 @@
             /** Opens the Edit Trip modal and populates it with trip data. */
             const openEditModal = (trip) => {
                 document.getElementById('edit-trip-id').value = trip.id;
-                document.getElementById('edit-date').value = trip.date;
+                document.getElementById('edit-date').value = trip.date; // Value MUST be YYYY-MM-DD
                 document.getElementById('edit-departure').value = trip.departure;
                 document.getElementById('edit-odometer').value = trip.odometer;
                 editModal.classList.remove('hidden');
@@ -1027,7 +1068,7 @@
                         row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
                         // Updated row content to remove columns
                         row.innerHTML = `
-                            <td class="px-6 py-4 font-medium whitespace-nowrap">${record.date}</td>
+                            <td class="px-6 py-4 font-medium whitespace-nowrap">${formatDateToMMDDYY(record.date)}</td>
                             <td class="px-6 py-4">${record.departure}</td>
                             <td class="px-6 py-4">${Number(record.initialOdometer).toLocaleString()}</td>
                             <td class="px-6 py-4">${Number(record.odometer) === 0 ? '' : Number(record.odometer).toLocaleString()}</td>
@@ -1147,7 +1188,7 @@
                      // Add Table - Use Cyan Header, Dark Gray Body
                      const tableColumn = ["Date", "City", "Initial Odo", "Ending Odo", "Miles"];
                      const tableRows = driverRecords.map(r => [
-                         r.date, 
+                         formatDateToMMDDYY(r.date), // <-- DATE FORMAT CHANGE
                          r.departure, 
                          Number(r.initialOdometer).toLocaleString(),
                          Number(r.odometer) === 0 ? '' : Number(r.odometer).toLocaleString(), 
@@ -1173,7 +1214,7 @@
                      });
                      
                      // Add Footer - Keep muted gray
-                     const today = new Date().toLocaleDateString();
+                     const today = formatDateToMMDDYY(new Date()); // <-- DATE FORMAT CHANGE
                      const pageWidth = doc.internal.pageSize.getWidth();
                      doc.setFontSize(10);
                      doc.setFont('helvetica', 'normal');
@@ -1213,9 +1254,16 @@
                     archiveHistory.forEach(entry => {
                         const row = document.createElement('tr');
                         row.className = 'bg-white/5 border-b border-white/10';
+
+                        // Format the period string
+                        const periodParts = entry.period.split(' to ');
+                        const formattedPeriod = periodParts.length === 2
+                            ? `${formatDateToMMDDYY(periodParts[0])} to ${formatDateToMMDDYY(periodParts[1])}`
+                            : formatDateToMMDDYY(entry.period);
+
                         row.innerHTML = `
-                            <td class="px-6 py-4 font-medium whitespace-nowrap">${entry.archiveDate}</td>
-                            <td class="px-6 py-4">${entry.period}</td>
+                            <td class="px-6 py-4 font-medium whitespace-nowrap">${formatDateToMMDDYY(entry.archiveDate)}</td>
+                            <td class="px-6 py-4">${formattedPeriod}</td>
                             <td class="px-6 py-4">${(parseFloat(entry.ratePerMile || 0.70)).toLocaleString('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2 })}</td>
                             <td class="px-6 py-4">${entry.totalMiles.toLocaleString()}</td>
                             <td class="px-6 py-4 font-medium text-green-400">${entry.totalAmount.toLocaleString('en-US', { style: 'currency', currency: 'USD' })}</td>
@@ -1244,7 +1292,7 @@
                     mileageBackups.forEach(backup => {
                         const row = document.createElement('tr');
                         row.className = 'bg-white/5 border-b border-white/10';
-                        const backupDate = new Date(backup.timestamp).toLocaleString();
+                        const backupDate = formatDateToMMDDYY(backup.timestamp); // <-- DATE FORMAT CHANGE
                         const type = backup.type === 'auto' ? 'Automatic' : 'Manual';
                         row.innerHTML = `
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${backupDate}</td>
@@ -1383,7 +1431,7 @@
 
                 const newRecord = {
                     id: Date.now(),
-                    date: document.getElementById('date').value,
+                    date: document.getElementById('date').value, // Stored as YYYY-MM-DD
                     departure: departureInput.value,
                     driverName: vehicleInfo.driverName, // Still store this data even if not shown
                     company: vehicleInfo.company,       // Still store this data even if not shown
@@ -1438,7 +1486,7 @@
                 // Create updated trip object
                 const updatedTrip = {
                     ...records[tripIndex], // Keep existing data like driverName etc.
-                    date: document.getElementById('edit-date').value,
+                    date: document.getElementById('edit-date').value, // Stored as YYYY-MM-DD
                     departure: document.getElementById('edit-departure').value,
                     odometer: Number(document.getElementById('edit-odometer').value)
                 };
@@ -1526,14 +1574,14 @@
                 const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
                 const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
                 const totalAmount = totalMiles * rate;
-                const firstDate = records[0]?.date;
-                const lastDate = records[records.length - 1]?.date;
+                const firstDate = records[0]?.date; // YYYY-MM-DD
+                const lastDate = records[records.length - 1]?.date; // YYYY-MM-DD
                 const period = firstDate === lastDate ? firstDate : `${firstDate} to ${lastDate}`;
                 
                 const newArchiveEntry = {
                     id: Date.now(),
-                    archiveDate: new Date().toLocaleDateString(),
-                    period: period,
+                    archiveDate: new Date().toLocaleDateString(), // Stored in local format (e.g., MM/DD/YYYY)
+                    period: period, // Stored as "YYYY-MM-DD to YYYY-MM-DD"
                     totalMiles: totalMiles,
                     totalAmount: totalAmount,
                     detailedRecords: [...records], // Store a snapshot of the records
@@ -1675,7 +1723,7 @@
                     const backup = mileageBackups.find(b => b.timestamp == timestamp);
                     if (backup) {
                         localStorage.setItem('pendingRestoreData', JSON.stringify(backup.data));
-                        openConfirmRestoreModal(`Are you sure you want to restore the backup from ${new Date(Number(backup.timestamp)).toLocaleString()}? All current data will be overwritten.`);
+                        openConfirmRestoreModal(`Are you sure you want to restore the backup from ${formatDateToMMDDYY(Number(backup.timestamp))}? All current data will be overwritten.`);
                     }
                 }
 
