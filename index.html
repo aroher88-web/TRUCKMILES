@@ -170,6 +170,23 @@
             background-color: rgba(8, 145, 178, 0.25); /* cyan-700 @ 25% */
         }
         
+        /* NUEVO: Animación de aro de luz para el botón de agregar */
+        @keyframes pulse-glow {
+            0%, 100% {
+                /* Usando el color de acento (cyan-400) para el brillo */
+                box-shadow: 0 0 15px 0px rgba(34, 211, 238, 0.4); 
+            }
+            50% {
+                box-shadow: 0 0 25px 8px rgba(34, 211, 238, 0.7);
+            }
+        }
+
+        .pulse-glow-button {
+            animation: pulse-glow 2.5s ease-in-out infinite;
+            /* Asegura que la sombra base esté presente */
+            box-shadow: 0 0 15px 0px rgba(34, 211, 238, 0.4);
+        }
+        
     </style>
 </head>
 <!-- Adjustments in body for mobile view: center content and add small padding --><body class="bg-gray-900 text-white min-h-screen flex justify-center p-2 md:p-4">
@@ -323,7 +340,9 @@
                  </button>
             </div>
 
-            <!-- Collapsible Table Section Header --><div class="flex flex-col md:flex-row justify-between items-center mb-4">
+            <!-- ****** FIX: RE-INSERTED MISSING HTML ****** -->
+            <!-- Collapsible Table Section Header -->
+            <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
                 <button id="toggle-history-table-btn" class="text-gray-300 hover:text-white p-2 rounded-full" title="Toggle History">
                     <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -332,44 +351,53 @@
                 </button>
             </div>
             
-            <!-- Collapsible Table Wrapper (Starts hidden) --><div id="history-table-container" class="hidden">
+            <!-- Collapsible Table Wrapper (Starts hidden) -->
+            <div id="history-table-container" class="hidden">
                 <div class="overflow-x-auto rounded-lg glass-effect border-none">
                     <table class="w-full text-sm text-left text-gray-200">
                         <thead class="text-xs text-cyan-300 uppercase bg-white/5">
                             <tr>
                                 <th scope="col" class="px-6 py-3">Date</th>
-                                <!-- REMOVED: Driver --><th scope="col" class="px-6 py-3">City</th>
+                                <th scope="col" class="px-6 py-3">City</th>
                                 <th scope="col" class="px-6 py-3">Initial Odometer</th>
                                 <th scope="col" class="px-6 py-3">Ending Odometer</th>
-                                <!-- REMOVED: Company, Truck #, Trailer # --><th scope="col" class="px-6 py-3">Miles</th>
+                                <th scope="col" class="px-6 py-3">Miles</th>
                                 <th scope="col" class="px-6 py-3 text-center">Action</th>
                             </tr>
                         </thead>
                         <tbody id="mileage-table-body">
-                            <!-- Filas de ejemplo con efecto glass --><tr id="empty-row" class="bg-white/5 border-b border-white/10">
-                                <!-- Updated colspan to 6 --><td colspan="6" class="text-center py-8 text-gray-400">No records yet.</td>
+                            <tr id="empty-row" class="bg-white/5 border-b border-white/10">
+                                <td colspan="6" class="text-center py-8 text-gray-400">No records yet.</td>
                             </tr>
-                            <!-- Las filas se añadirán aquí --></tbody>
+                        </tbody>
                     </table>
                 </div>
             </div>
+            <!-- ****** END OF FIX ****** -->
 
-        </div>
+        </div> <!-- This div closes the "Trip History Section" -->
 
-        <!-- Floating Buttons Container --><!-- Adjusted layout: justify-between, items-center --><div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> 
-            <!-- Backup Button Container --><div id="backup-btn-container" class="z-40"> 
+        <!-- ****** FIX: RE-INSERTED BUTTON CONTAINER ****** -->
+        <!-- Container for the bottom buttons -->
+        <div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> 
+            <!-- Backup Button Container -->
+            <div id="backup-btn-container" class="z-40"> 
                 <button id="open-backup-modal-btn" class="btn-liquid-glass btn-success font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="Backup & Restore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                 </button>
             </div>
-            <!-- Add New Trip Button (Moved Here, Large & Round) --><!-- AUMENTO DE TAMAÑO: p-5 a p-6 y h-10 w-10 a h-12 w-12 (aprox 20-25% más grande) --><button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-6 rounded-full shadow-lg transition-transform duration-300 ease-in-out flex items-center justify-center z-40" title="Add New Trip">
+            
+            <!-- Add New Trip Button (Moved Here, Large & Round) -->
+            <button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-6 rounded-full transition-transform duration-300 ease-in-out flex items-center justify-center z-40 pulse-glow-button" title="Add New Trip">
                  <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                  </svg>
-                 <!-- Text Removed --></button>
-            <!-- History Button Container --><div id="history-btn-container" class="z-40"> 
+            </button>
+
+            <!-- History Button Container -->
+            <div id="history-btn-container" class="z-40"> 
                 <button id="view-history-btn" class="btn-liquid-glass btn-primary font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="View Archive History">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
@@ -377,6 +405,7 @@
                 </button>
             </div>
         </div>
+        <!-- ****** END OF FIX ****** -->
 
 
         <!-- Hidden input for file upload --><input type="file" id="upload-backup-input" class="hidden" accept=".json">
@@ -980,7 +1009,9 @@
             const renderTable = () => {
                 tableBody.innerHTML = '';
                 if (records.length === 0) {
-                    tableBody.appendChild(emptyRow.cloneNode(true));
+                    if (emptyRow) { // Check if emptyRow exists before appending
+                        tableBody.appendChild(emptyRow.cloneNode(true));
+                    }
                     // Disable archive button if no records
                     archiveResetBtn.disabled = true;
                     archiveResetBtn.classList.add('opacity-50', 'cursor-not-allowed');
@@ -1169,7 +1200,9 @@
             const renderArchiveHistoryTable = () => {
                 archiveHistoryTableBody.innerHTML = '';
                 if (archiveHistory.length === 0) {
-                    archiveHistoryTableBody.appendChild(emptyHistoryRow.cloneNode(true));
+                    if (emptyHistoryRow) { // Check if emptyHistoryRow exists
+                        archiveHistoryTableBody.appendChild(emptyHistoryRow.cloneNode(true));
+                    }
                     clearHistoryBtn.disabled = true;
                     clearHistoryBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
@@ -1207,7 +1240,9 @@
                 mileageBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
                 backupListBody.innerHTML = '';
                 if (mileageBackups.length === 0) {
-                    backupListBody.appendChild(emptyBackupRow.cloneNode(true));
+                    if (emptyBackupRow) { // Check if emptyBackupRow exists
+                        backupListBody.appendChild(emptyBackupRow.cloneNode(true));
+                    }
                     clearBackupsBtn.disabled = true;
                     clearBackupsBtn.classList.add('opacity-50', 'cursor-not-allowed');
                 } else {
@@ -1451,35 +1486,45 @@
             cancelEditBtn.addEventListener('click', closeEditModal);
 
             // --- Trip History Table (Toggling & Actions) ---
-            toggleHistoryTableBtn.addEventListener('click', () => {
-                isHistoryVisible = !isHistoryVisible;
-                if (isHistoryVisible) {
-                    historyTableContainer.classList.remove('hidden');
-                    historyToggleIcon.classList.remove('rotate-180');
-                    moveButtonsDown(); 
-                } else {
-                    historyTableContainer.classList.add('hidden');
-                    historyToggleIcon.classList.add('rotate-180');
-                    moveButtonsUp(); 
-                }
-            });
-
-            tableBody.addEventListener('click', (e) => {
-                // Handle Delete
-                if (e.target.classList.contains('delete-btn')) {
-                    const idToDelete = Number(e.target.dataset.id);
-                    records = records.filter(record => record.id !== idToDelete);
-                    renderTable(); // Re-render table after deleting
-                } 
-                // Handle Edit
-                else if (e.target.classList.contains('edit-btn')) {
-                    const idToEdit = Number(e.target.dataset.id);
-                    const tripToEdit = records.find(r => r.id === idToEdit);
-                    if (tripToEdit) {
-                        openEditModal(tripToEdit);
+            // ****** FIX: Check if button exists before adding listener ******
+            if (toggleHistoryTableBtn) {
+                toggleHistoryTableBtn.addEventListener('click', () => {
+                    isHistoryVisible = !isHistoryVisible;
+                    if (isHistoryVisible) {
+                        historyTableContainer.classList.remove('hidden');
+                        historyToggleIcon.classList.remove('rotate-180');
+                        moveButtonsDown(); 
+                    } else {
+                        historyTableContainer.classList.add('hidden');
+                        historyToggleIcon.classList.add('rotate-180');
+                        moveButtonsUp(); 
                     }
-                }
-            });
+                });
+            } else {
+                console.error("Could not find 'toggle-history-table-btn'.");
+            }
+
+            // ****** FIX: Check if tableBody exists ******
+            if (tableBody) {
+                tableBody.addEventListener('click', (e) => {
+                    // Handle Delete
+                    if (e.target.classList.contains('delete-btn')) {
+                        const idToDelete = Number(e.target.dataset.id);
+                        records = records.filter(record => record.id !== idToDelete);
+                        renderTable(); // Re-render table after deleting
+                    } 
+                    // Handle Edit
+                    else if (e.target.classList.contains('edit-btn')) {
+                        const idToEdit = Number(e.target.dataset.id);
+                        const tripToEdit = records.find(r => r.id === idToEdit);
+                        if (tripToEdit) {
+                            openEditModal(tripToEdit);
+                        }
+                    }
+                });
+            } else {
+                console.error("Could not find 'mileage-table-body'.");
+            }
             
             // --- Archive & Reset Workflow ---
             archiveResetBtn.addEventListener('click', openConfirmModal);
@@ -1548,19 +1593,24 @@
                 showNotification('Archive history has been cleared.', false);
             });
 
-            archiveHistoryTableBody.addEventListener('click', async (e) => {
-                // Generate PDF from archived data
-                if (e.target.classList.contains('generate-history-pdf-btn')) {
-                    const id = Number(e.target.dataset.id);
-                    const entry = archiveHistory.find(item => item.id === id);
-                    if (entry && entry.detailedRecords) {
-                        showNotification('Generating PDF for archived period...', false);
-                        await generateAndHandlePdf(entry.detailedRecords, true); // forSharing=true
-                    } else {
-                        showNotification('Could not find detailed records for this archive entry.');
+            // ****** FIX: Check if archiveHistoryTableBody exists ******
+            if (archiveHistoryTableBody) {
+                archiveHistoryTableBody.addEventListener('click', async (e) => {
+                    // Generate PDF from archived data
+                    if (e.target.classList.contains('generate-history-pdf-btn')) {
+                        const id = Number(e.target.dataset.id);
+                        const entry = archiveHistory.find(item => item.id === id);
+                        if (entry && entry.detailedRecords) {
+                            showNotification('Generating PDF for archived period...', false);
+                            await generateAndHandlePdf(entry.detailedRecords, true); // forSharing=true
+                        } else {
+                            showNotification('Could not find detailed records for this archive entry.');
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                console.error("Could not find 'archive-history-table-body'.");
+            }
             
             // --- Backup & Restore Modal Workflow ---
             openBackupModalBtn.addEventListener('click', openBackupModal);
@@ -1638,27 +1688,32 @@
             });
             
             // --- Backup List Actions (Delete/Restore) ---
-            backupListBody.addEventListener('click', (e) => {
-                const timestamp = e.target.dataset.timestamp;
-                if (!timestamp) return;
+            // ****** FIX: Check if backupListBody exists ******
+            if (backupListBody) {
+                backupListBody.addEventListener('click', (e) => {
+                    const timestamp = e.target.dataset.timestamp;
+                    if (!timestamp) return;
 
-                // Restore from a backup in the list
-                if (e.target.classList.contains('restore-backup-btn')) {
-                    const backup = mileageBackups.find(b => b.timestamp == timestamp);
-                    if (backup) {
-                        localStorage.setItem('pendingRestoreData', JSON.stringify(backup.data));
-                        openConfirmRestoreModal(`Are you sure you want to restore the backup from ${formatDateToMMDDYY(Number(backup.timestamp))}? All current data will be overwritten.`);
+                    // Restore from a backup in the list
+                    if (e.target.classList.contains('restore-backup-btn')) {
+                        const backup = mileageBackups.find(b => b.timestamp == timestamp);
+                        if (backup) {
+                            localStorage.setItem('pendingRestoreData', JSON.stringify(backup.data));
+                            openConfirmRestoreModal(`Are you sure you want to restore the backup from ${formatDateToMMDDYY(Number(backup.timestamp))}? All current data will be overwritten.`);
+                        }
                     }
-                }
 
-                // Delete a backup from the list
-                if (e.target.classList.contains('delete-backup-btn')) {
-                    mileageBackups = mileageBackups.filter(b => b.timestamp != timestamp);
-                    localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
-                    renderBackupList(); // Refresh the list
-                    showNotification('Backup deleted.', false);
-                }
-            });
+                    // Delete a backup from the list
+                    if (e.target.classList.contains('delete-backup-btn')) {
+                        mileageBackups = mileageBackups.filter(b => b.timestamp != timestamp);
+                        localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
+                        renderBackupList(); // Refresh the list
+                        showNotification('Backup deleted.', false);
+                    }
+                });
+            } else {
+                console.error("Could not find 'backup-list-body'.");
+            }
 
             // --- Clear Backups Workflow ---
             clearBackupsBtn.addEventListener('click', openConfirmClearBackupsModal);
