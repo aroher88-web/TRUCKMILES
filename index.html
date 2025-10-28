@@ -112,17 +112,17 @@
 
         /* Sticky Footer for Buttons */
         .sticky-footer {
-            position: sticky;
-            bottom: -1rem; /* Adjust slightly to account for padding */
-            left: 0; 
+            position: relative; /* Changed from sticky */
+            /* bottom: -1rem; */ /* Removed */
+            /* left: 0; */ /* Removed */
             width: 100%; 
             padding: 1rem; /* Consistent padding */
-            margin-top: auto; /* Push to bottom */
-            /* Add a subtle background gradient to fade out content behind */
-            background: linear-gradient(to top, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0)); 
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            z-index: 40; 
+            margin-top: 2rem; /* Changed from auto to add space */
+            /* Remove background/blur as it's no longer floating */
+            /* background: linear-gradient(to top, rgba(30, 41, 59, 0.9), rgba(30, 41, 59, 0)); */ 
+            /* backdrop-filter: blur(4px); */
+            /* -webkit-backdrop-filter: blur(4px); */
+            /* z-index: 40; */ /* Removed */
         }
 
          /* Container for the floating buttons inside sticky footer - REMOVED */
@@ -219,8 +219,8 @@
     </div>
 
     <!-- Main Content Container -->
-    <!-- Added pb-20 to provide space for sticky buttons -->
-    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative pb-20"> <!-- Added pb-20 -->
+    <!-- Removed pb-20 as footer is no longer sticky -->
+    <div class="main-container w-[95%] h-[95vh] max-w-7xl glass-effect rounded-2xl shadow-lg p-6 md:p-8 md:m-4 md:w-full md:h-auto md:max-w-7xl md:min-h-0 relative"> <!-- Removed pb-20 -->
         <header class="mb-6 text-center">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
                 <!-- Static version of the truck for the header and PDF -->
@@ -351,15 +351,15 @@
         <div>
             <!-- Control Buttons & Totals (Always Visible) -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center">
                     <span class="font-medium text-gray-300 text-sm">Total Miles</span>
                     <span id="total-miles" class="font-bold text-2xl text-cyan-400">0</span>
                 </div>
-                <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center h-full">
+                <div class="glass-effect rounded-lg p-3 flex flex-col items-center justify-center text-center">
                     <span class="font-medium text-gray-300 text-sm">Amount to Charge</span>
                     <span id="total-amount" class="font-bold text-2xl text-green-400">$0.00</span>
                 </div>
-                 <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-3 px-4 rounded-lg flex items-center justify-center gap-2">
+                 <button type="button" id="archive-reset-btn" class="w-full btn-liquid-glass btn-danger font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2">
                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M5 4a3 3 0 00-3 3v6a3 3 0 003 3h10a3 3 0 003-3V7a3 3 0 00-3-3H5zm-1 9v-1h12v1a1 1 0 01-1 1H6a1 1 0 01-1-1zm1-4a1 1 0 000 2h10a1 1 0 100-2H5z" clip-rule="evenodd"></path></svg>
                      Archive &amp; Reset
                  </button>
@@ -410,22 +410,22 @@
         <div class="sticky-footer flex justify-between items-center px-4 md:px-0 mt-8"> 
             <!-- Backup Button Container -->
             <div id="backup-btn-container" class="z-40"> 
-                <button id="open-backup-modal-btn" class="btn-liquid-glass btn-success font-bold py-3 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="Backup & Restore">
+                <button id="open-backup-modal-btn" class="btn-liquid-glass btn-success font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="Backup & Restore">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
                     </svg>
                 </button>
             </div>
             <!-- Add New Trip Button (Moved Here, Large & Round) -->
-            <button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-6 rounded-full shadow-lg transition-transform duration-300 ease-in-out flex items-center justify-center z-40" title="Add New Trip">
-                 <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <button id="show-add-trip-btn" class="btn-liquid-glass btn-accent text-white font-bold p-5 rounded-full shadow-lg transition-transform duration-300 ease-in-out flex items-center justify-center z-40" title="Add New Trip">
+                 <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
                  </svg>
                  <!-- Text Removed -->
             </button>
             <!-- History Button Container -->
             <div id="history-btn-container" class="z-40"> 
-                <button id="view-history-btn" class="btn-liquid-glass btn-primary font-bold py-3 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="View Archive History">
+                <button id="view-history-btn" class="btn-liquid-glass btn-primary font-bold py-2.5 px-4 rounded-full shadow-lg flex items-center justify-center gap-2" title="View Archive History">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                     </svg>
@@ -1363,7 +1363,7 @@
                 setTimeout(() => {
                     welcomeScreen.style.display = 'none';
                 }, 500);
-            }, 3000); // Hide after 3 seconds
+            }, 2000); // Hide after 2 seconds
 
             // --- Driver Info Form ---
             vehicleInfoForm.addEventListener('submit', (e) => {
@@ -1771,4 +1771,8 @@
 
 </body>
 </html>
+
+
+
+
 
