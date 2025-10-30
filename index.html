@@ -170,7 +170,7 @@
             background-color: rgba(8, 145, 178, 0.25); /* cyan-700 @ 25% */
         }
         
-        /* NUEVO: Animación de aro de luz para el botón de agregar */
+        /* Animación de aro de luz para el botón de agregar */
         @keyframes pulse-glow {
             0%, 100% {
                 /* Usando el color de acento (cyan-400) para el brillo */
@@ -313,6 +313,11 @@
                         <input type="text" inputmode="numeric" pattern="[0-9]*" id="odometer" placeholder="e.g., 150200" class="w-full glass-input rounded-lg p-2.5 focus:ring-cyan-500 focus:border-cyan-500">
                     </div>
                 </div>
+                <!-- NUEVO: Checkbox de Viaje Personal -->
+                <div class="flex items-center justify-start mb-4">
+                    <input id="personal-trip" type="checkbox" class="h-5 w-5 rounded glass-input text-cyan-600 focus:ring-cyan-500 border-white/10">
+                    <label for="personal-trip" class="ml-2 block text-sm font-medium text-gray-300">Personal Trip (unpaid)</label>
+                </div>
                 <div class="flex justify-end gap-4">
                     <!-- Cancel Button --><button type="button" id="cancel-add-trip-btn" class="btn-liquid-glass font-bold py-2.5 px-6 rounded-lg">
                         Cancel
@@ -344,11 +349,20 @@
             <!-- Collapsible Table Section Header -->
             <div class="flex flex-col md:flex-row justify-between items-center mb-4">
                 <h2 class="text-xl font-semibold">Trip History</h2>
-                <button id="toggle-history-table-btn" class="text-gray-300 hover:text-white p-2 rounded-full" title="Toggle History">
-                    <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-                    </svg>
-                </button>
+                <!-- NEW BUTTON AND CONTAINER DIV -->
+                <div class="flex items-center gap-2">
+                    <button id="view-current-report-btn" class="btn-liquid-glass btn-primary font-medium text-sm py-1 px-2 rounded-lg flex items-center gap-1" title="View Current Report">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6zm4 1a1 1 0 100 2h8a1 1 0 100-2H6zM6 11a1 1 0 100 2h8a1 1 0 100-2H6zM6 15a1 1 0 100 2h5a1 1 0 100-2H6z" clip-rule="evenodd" />
+                        </svg>
+                        View Report
+                    </button>
+                    <button id="toggle-history-table-btn" class="text-gray-300 hover:text-white p-2 rounded-full" title="Toggle History">
+                        <svg id="history-toggle-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 transition-transform duration-300 transform rotate-180" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
             
             <!-- Collapsible Table Wrapper (Starts hidden) -->
@@ -431,6 +445,11 @@
                     <div>
                         <label for="edit-odometer" class="block text-sm font-medium text-gray-300 mb-1">Ending Odometer</label>
                         <input type="text" inputmode="numeric" pattern="[0-9]*" id="edit-odometer" placeholder="e.g., 150200" class="w-full glass-input rounded-lg p-2.5 focus:ring-yellow-500 focus:border-yellow-500">
+                    </div>
+                    <!-- NUEVO: Checkbox de Viaje Personal en Edición -->
+                    <div class="flex items-center pt-2">
+                        <input id="edit-personal-trip" type="checkbox" class="h-5 w-5 rounded glass-input text-cyan-600 focus:ring-cyan-500 border-white/10">
+                        <label for="edit-personal-trip" class="ml-2 block text-sm font-medium text-gray-300">Personal Trip (unpaid)</label>
                     </div>
                 </div>
                 <div class="p-4 border-t border-white/10 flex justify-end gap-4">
@@ -570,6 +589,22 @@
         </div>
     </div>
 
+    <!-- NEW Confirmation Modal (Generic Delete) -->
+    <div id="confirm-delete-modal" class="fixed inset-0 bg-black/50 hidden items-center justify-center p-4 z-[70] transition-opacity duration-300"> <!-- Higher z-index -->
+        <div class="glass-effect rounded-2xl shadow-xl w-full max-w-lg modal-scrollbar" id="confirm-delete-modal-content">
+            <div class="p-4 border-b border-white/10">
+                <h3 id="confirm-delete-title" class="text-lg font-semibold text-red-400">Confirm Delete</h3>
+            </div>
+            <div class="p-6 text-gray-200">
+                <p id="confirm-delete-message">Are you sure you want to delete this item? This action cannot be undone.</p>
+            </div>
+            <div class="p-4 border-t border-white/10 flex justify-end gap-4">
+                <button id="confirm-delete-no-btn" class="btn-liquid-glass font-bold py-2 px-4 rounded-lg">Cancel</button>
+                <button id="confirm-delete-yes-btn" class="btn-liquid-glass btn-danger font-bold py-2 px-4 rounded-lg">Yes, Delete</button>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Notification Element --><div id="notification" class="fixed top-5 right-5 glass-effect text-white py-3 px-5 rounded-lg shadow-lg opacity-0 transition-opacity duration-300 z-[1100]">
         <p id="notification-message"></p>
@@ -637,6 +672,7 @@
             const toggleHistoryTableBtn = document.getElementById('toggle-history-table-btn');
             const historyToggleIcon = document.getElementById('history-toggle-icon');
             const historyTableContainer = document.getElementById('history-table-container');
+            const viewCurrentReportBtn = document.getElementById('view-current-report-btn'); // <-- NUEVA LÍNEA
 
             // --- Floating Buttons ---
             const backupBtnContainer = document.getElementById('backup-btn-container'); // Side button container
@@ -688,6 +724,13 @@
             const confirmClearBackupsModal = document.getElementById('confirm-clear-backups-modal');
             const confirmClearBackupsYesBtn = document.getElementById('confirm-clear-backups-yes-btn');
             const confirmClearBackupsNoBtn = document.getElementById('confirm-clear-backups-no-btn');
+
+            // --- NEW: Generic Delete Modal ---
+            const confirmDeleteModal = document.getElementById('confirm-delete-modal');
+            const confirmDeleteTitle = document.getElementById('confirm-delete-title');
+            const confirmDeleteMessage = document.getElementById('confirm-delete-message');
+            const confirmDeleteYesBtn = document.getElementById('confirm-delete-yes-btn');
+            const confirmDeleteNoBtn = document.getElementById('confirm-delete-no-btn');
 
 
             // =========================================================================
@@ -834,6 +877,7 @@
                         !backupRestoreModal.classList.contains('hidden') ||
                         !confirmRestoreModal.classList.contains('hidden') ||
                         !confirmClearBackupsModal.classList.contains('hidden') ||
+                        !confirmDeleteModal.classList.contains('hidden') || // <-- NUEVA LÍNEA
                         !driverVehicleSection.classList.contains('hidden') || 
                         !addTripSection.classList.contains('hidden') ||
                         isHistoryVisible;
@@ -867,6 +911,7 @@
                 document.getElementById('edit-date').value = trip.date; // Value MUST be YYYY-MM-DD
                 document.getElementById('edit-departure').value = trip.departure;
                 document.getElementById('edit-odometer').value = trip.odometer;
+                document.getElementById('edit-personal-trip').checked = trip.isPersonal || false; // <--- NUEVA LÍNEA
                 editModal.classList.remove('hidden');
                 editModal.classList.add('flex');
                 moveButtonsDown(); 
@@ -962,6 +1007,23 @@
                 confirmClearBackupsModal.classList.remove('flex');
             };
 
+            /** NEW: Opens the Generic Delete confirmation modal. */
+            const openConfirmDeleteModal = (title, message, deleteInfo) => {
+                confirmDeleteTitle.textContent = title;
+                confirmDeleteMessage.textContent = message;
+                localStorage.setItem('pendingDelete', JSON.stringify(deleteInfo)); // Store what to delete
+                confirmDeleteModal.classList.remove('hidden');
+                confirmDeleteModal.classList.add('flex');
+            };
+
+            /** NEW: Closes the Generic Delete confirmation modal. */
+            const closeConfirmDeleteModal = () => {
+                confirmDeleteModal.classList.add('hidden');
+                confirmDeleteModal.classList.remove('flex');
+                localStorage.removeItem('pendingDelete'); // Clear pending delete info
+            };
+
+
             // =========================================================================
             //  DATA & RENDER FUNCTIONS
             // =========================================================================
@@ -1022,12 +1084,16 @@
                         const row = document.createElement('tr');
                         row.className = 'bg-white/5 border-b border-white/10 hover:bg-white/10';
                         // Updated row content to remove columns
+                        // CAMBIO: Se añade lógica para viajes personales
+                        const milesText = Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString();
+                        const milesClass = record.isPersonal ? 'text-gray-500 line-through' : 'text-cyan-400';
+                        
                         row.innerHTML = `
                             <td class="px-6 py-4 font-medium whitespace-nowrap">${formatDateToMMDDYY(record.date)}</td>
                             <td class="px-6 py-4">${record.departure}</td>
                             <td class="px-6 py-4">${Number(record.initialOdometer).toLocaleString()}</td>
                             <td class="px-6 py-4">${Number(record.odometer) === 0 ? '' : Number(record.odometer).toLocaleString()}</td>
-                            <td class="px-6 py-4 font-bold text-cyan-400">${Number(record.miles) === 0 ? '' : Number(record.miles).toLocaleString()}</td>
+                            <td class="px-6 py-4 font-bold ${milesClass}">${milesText}</td>
                             <td class="px-6 py-4 text-center whitespace-nowrap">
                                 <button data-id="${record.id}" class="edit-btn btn-liquid-glass btn-edit font-medium mr-4 px-2 py-1 rounded-lg text-sm">Edit</button>
                                 <button data-id="${record.id}" class="delete-btn btn-liquid-glass btn-danger font-medium px-2 py-1 rounded-lg text-sm">Delete</button>
@@ -1043,7 +1109,9 @@
 
             /** Calculates and displays total miles and amount. */
             const updateTotalMiles = () => {
-                const total = records.reduce((sum, record) => sum + Number(record.miles), 0);
+                // CAMBIO: Filtrar viajes personales antes de sumar
+                const payableRecords = records.filter(record => !record.isPersonal);
+                const total = payableRecords.reduce((sum, record) => sum + Number(record.miles), 0);
                 totalMilesEl.textContent = total.toLocaleString();
                 const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
                 const amount = total * rate;
@@ -1096,7 +1164,9 @@
                      };
                      const { jsPDF } = window.jspdf;
                      const doc = new jsPDF();
-                     const totalMilesForDriver = driverRecords.reduce((sum, record) => sum + Number(record.miles), 0);
+                     // CAMBIO: Calcular total solo de viajes pagables
+                     const payableDriverRecords = driverRecords.filter(r => !r.isPersonal);
+                     const totalMilesForDriver = payableDriverRecords.reduce((sum, record) => sum + Number(record.miles), 0);
                      let startY = 15; // Top margin
                      
                      // Add logo if available
@@ -1141,13 +1211,15 @@
                      startY += 15;
                      
                      // Add Table - Use Cyan Header, Dark Gray Body
-                     const tableColumn = ["Date", "City", "Initial Odo", "Ending Odo", "Miles"];
+                     // CAMBIO: Se añade columna "Notes"
+                     const tableColumn = ["Date", "City", "Initial Odo", "Ending Odo", "Miles", "Notes"];
                      const tableRows = driverRecords.map(r => [
                          formatDateToMMDDYY(r.date), // <-- DATE FORMAT CHANGE
                          r.departure, 
                          Number(r.initialOdometer).toLocaleString(),
                          Number(r.odometer) === 0 ? '' : Number(r.odometer).toLocaleString(), 
-                         Number(r.miles) === 0 ? '' : Number(r.miles).toLocaleString()
+                         Number(r.miles) === 0 ? '' : Number(r.miles).toLocaleString(),
+                         r.isPersonal ? 'Personal' : '' // <-- NUEVA LÍNEA
                      ]);
                      doc.autoTable(tableColumn, tableRows, { 
                          startY: startY,
@@ -1164,7 +1236,8 @@
                              fontStyle: 'bold'
                          },
                          foot: [ // Add the footer row data
-                             ['', '', '', 'Total Miles:', totalMilesForDriver.toLocaleString()] 
+                             // CAMBIO: Se ajusta el pie de página para la nueva columna y el texto
+                             ['', '', '', '', 'Total Payable:', totalMilesForDriver.toLocaleString(), ''] 
                          ]
                      });
                      
@@ -1294,9 +1367,9 @@
                     let currentBackups = JSON.parse(localStorage.getItem('mileageBackups')) || [];
                     currentBackups.unshift(newBackup); // Add new backup to the top
 
-                    // Keep only the last 7 automatic backups
+                    // Keep only the last 3 automatic backups
                     const autoBackups = currentBackups.filter(b => b.type === 'auto');
-                    if (autoBackups.length > 7) {
+                    if (autoBackups.length > 3) { // <-- CAMBIO A 3
                         const timestamps = autoBackups.map(b => b.timestamp).sort((a,b) => a - b); // Sort oldest first
                         const oldestTimestamp = timestamps[0];
                         // Find the index of the oldest auto backup in the main array
@@ -1388,6 +1461,9 @@
                     shouldUpdateOdometer = true;
                 }
 
+                // CAMBIO: Leer el valor del checkbox
+                const isPersonal = document.getElementById('personal-trip').checked;
+
                 const newRecord = {
                     id: Date.now(),
                     date: document.getElementById('date').value, // Stored as YYYY-MM-DD
@@ -1399,6 +1475,7 @@
                     initialOdometer: initialOdometer,
                     odometer: endingOdometer,
                     miles: tripMiles,
+                    isPersonal: isPersonal // <-- NUEVA PROPIEDAD
                 };
 
                 records.push(newRecord);
@@ -1443,11 +1520,14 @@
                 }
                 
                 // Create updated trip object
+                // CAMBIO: Leer el checkbox de edición
+                const updatedIsPersonal = document.getElementById('edit-personal-trip').checked;
                 const updatedTrip = {
                     ...records[tripIndex], // Keep existing data like driverName etc.
                     date: document.getElementById('edit-date').value, // Stored as YYYY-MM-DD
                     departure: document.getElementById('edit-departure').value,
-                    odometer: Number(document.getElementById('edit-odometer').value)
+                    odometer: Number(document.getElementById('edit-odometer').value),
+                    isPersonal: updatedIsPersonal // <-- NUEVA PROPIEDAD
                 };
 
                 // Recalculate miles for this trip
@@ -1504,14 +1584,31 @@
                 console.error("Could not find 'toggle-history-table-btn'.");
             }
 
+            // --- NEW: View Current Report Button ---
+            if (viewCurrentReportBtn) {
+                viewCurrentReportBtn.addEventListener('click', async () => {
+                    if (records.length === 0) {
+                        showNotification('No trips to show in a report yet.');
+                        return;
+                    }
+                    await generateAndHandlePdf(records, true); // true = forSharing
+                });
+            } else {
+                console.error("Could not find 'view-current-report-btn'.");
+            }
+
             // ****** FIX: Check if tableBody exists ******
             if (tableBody) {
                 tableBody.addEventListener('click', (e) => {
                     // Handle Delete
                     if (e.target.classList.contains('delete-btn')) {
                         const idToDelete = Number(e.target.dataset.id);
-                        records = records.filter(record => record.id !== idToDelete);
-                        renderTable(); // Re-render table after deleting
+                        // NUEVO: Abrir modal de confirmación en lugar de borrar directamente
+                        openConfirmDeleteModal(
+                            'Delete Trip', 
+                            'Are you sure you want to delete this trip? This cannot be undone.', 
+                            { type: 'trip', id: idToDelete }
+                        );
                     } 
                     // Handle Edit
                     else if (e.target.classList.contains('edit-btn')) {
@@ -1540,8 +1637,10 @@
                 await generateAndHandlePdf(records, false); 
 
                 // 2. Create archive summary
+                // CAMBIO: Calcular totales solo de viajes pagables
                 const rate = parseFloat(vehicleInfo?.ratePerMile || '0.70');
-                const totalMiles = records.reduce((sum, record) => sum + Number(record.miles), 0);
+                const payableRecords = records.filter(record => !record.isPersonal);
+                const totalMiles = payableRecords.reduce((sum, record) => sum + Number(record.miles), 0);
                 const totalAmount = totalMiles * rate;
                 const firstDate = records[0]?.date; // YYYY-MM-DD
                 const lastDate = records[records.length - 1]?.date; // YYYY-MM-DD
@@ -1602,7 +1701,7 @@
                         const entry = archiveHistory.find(item => item.id === id);
                         if (entry && entry.detailedRecords) {
                             showNotification('Generating PDF for archived period...', false);
-                            await generateAndHandlePdf(entry.detailedRecords, true); // forSharing=true
+                            await generateAndHandlePdf(entry.detailedRecords, false); // CAMBIO: 'true' cambiado a 'false'
                         } else {
                             showNotification('Could not find detailed records for this archive entry.');
                         }
@@ -1705,10 +1804,13 @@
 
                     // Delete a backup from the list
                     if (e.target.classList.contains('delete-backup-btn')) {
-                        mileageBackups = mileageBackups.filter(b => b.timestamp != timestamp);
-                        localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
-                        renderBackupList(); // Refresh the list
-                        showNotification('Backup deleted.', false);
+                        const timestamp = e.target.dataset.timestamp; // Get timestamp (ID)
+                        // NUEVO: Abrir modal de confirmación en lugar de borrar directamente
+                        openConfirmDeleteModal(
+                            'Delete Backup', 
+                            'Are you sure you want to delete this backup? This cannot be undone.', 
+                            { type: 'backup', id: timestamp }
+                        );
                     }
                 });
             } else {
@@ -1726,6 +1828,32 @@
                 closeConfirmClearBackupsModal();
                 showNotification('All backups cleared.', false);
             });
+
+            // --- NEW: Generic Delete Confirmation Workflow ---
+            confirmDeleteNoBtn.addEventListener('click', closeConfirmDeleteModal);
+            confirmDeleteYesBtn.addEventListener('click', () => {
+                const pendingDeleteJSON = localStorage.getItem('pendingDelete');
+                if (!pendingDeleteJSON) return;
+
+                const pendingDelete = JSON.parse(pendingDeleteJSON);
+
+                if (pendingDelete.type === 'trip') {
+                    // Logic to delete a trip
+                    records = records.filter(record => record.id !== pendingDelete.id);
+                    renderTable(); // Re-render table after deleting
+                    showNotification('Trip deleted.', false);
+                } else if (pendingDelete.type === 'backup') {
+                    // Logic to delete a backup
+                    const timestamp = pendingDelete.id;
+                    mileageBackups = mileageBackups.filter(b => b.timestamp != timestamp);
+                    localStorage.setItem('mileageBackups', JSON.stringify(mileageBackups));
+                    renderBackupList(); // Refresh the list
+                    showNotification('Backup deleted.', false);
+                }
+
+                closeConfirmDeleteModal(); // Cierra el modal y limpia 'pendingDelete'
+            });
+            
             
             // =========================================================================
             //  INITIALIZATION
