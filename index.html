@@ -164,7 +164,7 @@
 <body class="bg-gray-900 text-white min-h-screen flex justify-center p-2 md:p-4">
 
     <!-- Welcome Screen -->
-    <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500">
+    <div id="welcome-screen" class="fixed inset-0 bg-gray-900 flex flex-col items-center justify-center z-50 transition-opacity duration-500 p-4">
         <svg id="welcome-truck-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 100" class="w-64 h-auto mb-8">
             <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
             <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
@@ -182,8 +182,8 @@
                 <circle cx="260" cy="70" r="5" fill="#4A5568"/>
             </g>
         </svg>
-        <h1 id="welcome-title" class="text-4xl font-bold text-cyan-400 welcome-animation">Truck Mileage Tracker</h1>
-        <p id="welcome-slogan" class="text-lg text-gray-300 mt-2">Log your trips and keep accurate track of your miles.</p>
+        <h1 id="welcome-title" class="text-4xl font-bold text-cyan-400 welcome-animation text-center">Truck Mileage Tracker</h1>
+        <p id="welcome-slogan" class="text-lg text-gray-300 mt-2 text-center">Log your trips and keep accurate track of your miles.</p>
     </div>
 
     <!-- Main Content Container -->
@@ -192,7 +192,7 @@
         <!-- ***** BOTÓN DE IDIOMA ***** -->
         <button id="lang-toggle" class="absolute top-4 right-4 z-50 btn-liquid-glass text-xs font-bold py-1 px-3 rounded-full">EN / ES</button>
         
-        <header class="mb-6 text-center">
+        <header class="mb-6 text-center mt-8">
             <svg id="company-logo-svg" viewBox="0 0 300 100" class="h-20 w-auto mx-auto" xmlns="http://www.w3.org/2000/svg">
                 <rect x="55" y="10" width="240" height="55" rx="5" fill="#2D3748"/>
                 <path d="M55 25 L55 65 L20 65 L20 40 Q20 25 35 25 Z" fill="#4A5568"/>
@@ -1096,7 +1096,8 @@
                     localStorage.setItem('appLanguage', currentLanguage);
                     updateUI(currentLanguage);
                     // Forzar recarga de elementos dinámicos
-                    loadVehicleInfo(); // Para el saludo
+                    // CAMBIO: Se llama a la nueva función específica en lugar de a todo loadVehicleInfo()
+                    updateWelcomeMessage(); 
                     renderTable(); // Para botones Edit/Delete
                     renderArchiveHistoryTable(); // Para botones PDF/Delete
                     renderBackupList(); // Para botones Restore/Delete y tipo
@@ -1266,6 +1267,21 @@
                 } catch (error) {
                     console.warn(`Could not format date: ${dateStringOrObject}`, error);
                     return String(dateStringOrObject); 
+                }
+            };
+
+            /**
+             * NUEVA FUNCIÓN: Actualiza el mensaje de bienvenida basado en el idioma y vehicleInfo.
+             */
+            const updateWelcomeMessage = () => {
+                const t = translations[currentLanguage];
+                if (driverWelcomeMessage) { 
+                    if (vehicleInfo && vehicleInfo.driverName && vehicleInfo.driverName.trim() !== "") {
+                        const firstName = vehicleInfo.driverName.split(' ')[0];
+                        driverWelcomeMessage.textContent = t.welcome_driver_name.replace('{name}', firstName);
+                    } else {
+                        driverWelcomeMessage.textContent = t.welcome_driver;
+                    }
                 }
             };
 
@@ -1489,16 +1505,10 @@
 
             const loadVehicleInfo = () => {
                 vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
-                const t = translations[currentLanguage];
-
-                if (driverWelcomeMessage) { 
-                    if (vehicleInfo && vehicleInfo.driverName && vehicleInfo.driverName.trim() !== "") {
-                        const firstName = vehicleInfo.driverName.split(' ')[0];
-                        driverWelcomeMessage.textContent = t.welcome_driver_name.replace('{name}', firstName);
-                    } else {
-                        driverWelcomeMessage.textContent = t.welcome_driver;
-                    }
-                }
+                
+                // *** CAMBIO: Llamar a la nueva función ***
+                updateWelcomeMessage(); 
+                // *** FIN DEL CAMBIO ***
 
                 if (vehicleInfo) {
                     driverVehicleSection.classList.add('hidden');
@@ -2343,4 +2353,8 @@
 
 </body>
 </html>
+
+
+
+
 
