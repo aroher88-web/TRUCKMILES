@@ -232,6 +232,10 @@
                     <circle cx="260" cy="70" r="5" fill="#4A5568"/>
                 </g>
             </svg>
+            
+            <!-- CAMBIO: Nuevo H1 para el mensaje de bienvenida -->
+            <h1 id="driver-welcome-message" class="text-3xl font-bold text-cyan-400 mt-2">Welcome</h1>
+            
             <!-- CAMBIO: Título y eslogan eliminados de aquí --><!-- Button to show/edit info --><button id="show-info-section-btn" class="hidden mt-4 btn-liquid-glass font-bold py-2 px-4 rounded-lg">
                 View/Edit Driver Info
             </button>
@@ -633,6 +637,9 @@
             const displayInitialOdometer = document.getElementById('display-initialOdometer');
             const displayRatePerMile = document.getElementById('display-ratePerMile');
 
+            // --- CAMBIO: Nuevo selector para el mensaje de bienvenida ---
+            const driverWelcomeMessage = document.getElementById('driver-welcome-message');
+
             // --- Last Trip Display ---
             const lastTripDateEl = document.getElementById('last-trip-date'); // Still exists in HTML, needed for JS logic below
             const lastTripDepartureEl = document.getElementById('last-trip-departure');
@@ -1010,6 +1017,19 @@
             /** Loads vehicle info from state and updates the UI. */
             const loadVehicleInfo = () => {
                 vehicleInfo = JSON.parse(localStorage.getItem('vehicleInfo')) || null;
+
+                // --- CAMBIO: Lógica para el mensaje de bienvenida ---
+                if (driverWelcomeMessage) { 
+                    if (vehicleInfo && vehicleInfo.driverName && vehicleInfo.driverName.trim() !== "") {
+                        // Obtener solo el primer nombre
+                        const firstName = vehicleInfo.driverName.split(' ')[0];
+                        driverWelcomeMessage.textContent = `Welcome ${firstName}`;
+                    } else {
+                        driverWelcomeMessage.textContent = 'Welcome';
+                    }
+                }
+                // --- FIN DEL CAMBIO ---
+
                 if (vehicleInfo) {
                     // Info exists, show "View/Edit" button
                     driverVehicleSection.classList.add('hidden');
